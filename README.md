@@ -11,7 +11,7 @@ This encompasses:
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "1.0.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "1.0.1"),
 	  ]
 
 <h2><b>Basics</b></h2>
@@ -337,8 +337,8 @@ SwiftECC requires Swift 5.0.
 The SwiftECC package depends on the ASN1 and BigInt packages
 
     dependencies: [
-        .package(url: "https://github.com/leif-ibsen/ASN1", from: "1.2.0"),
-        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.1.0"),
+        .package(url: "https://github.com/leif-ibsen/ASN1", from: "1.2.1"),
+        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.1.2"),
     ],
 
 <h2><b>References</b></h2>

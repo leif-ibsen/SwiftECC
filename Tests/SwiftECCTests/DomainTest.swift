@@ -39,6 +39,25 @@ class DomainTest: XCTestCase {
         XCTAssertEqual(domain.multiplyG(domain.order), Point.INFINITY)
     }
 
+    func reduceModPTest(_ domain: Domain) {
+        guard let d = domain.domainP else {
+            return
+        }
+        XCTAssertEqual(d.reduceModP(BInt.ZERO), BInt.ZERO)
+        XCTAssertEqual(d.reduceModP(BInt.ONE), BInt.ONE)
+        XCTAssertEqual(d.reduceModP(-BInt.ONE), (-BInt.ONE).mod(domain.p))
+        XCTAssertEqual(d.reduceModP(domain.order), domain.order.mod(domain.p))
+        XCTAssertEqual(d.reduceModP(-domain.order), (-domain.order).mod(domain.p))
+        XCTAssertEqual(d.reduceModP(domain.order ** 2), (domain.order ** 2).mod(domain.p))
+        XCTAssertEqual(d.reduceModP(-(domain.order ** 2)), (-(domain.order ** 2)).mod(domain.p))
+        XCTAssertEqual(d.reduceModP((domain.p - 1) ** 2), ((domain.p - 1) ** 2).mod(domain.p))
+        XCTAssertEqual(d.reduceModP(-((domain.p - 1) ** 2)), (-((domain.p - 1) ** 2)).mod(domain.p))
+        XCTAssertEqual(d.reduceModP(domain.p), BInt.ZERO)
+        XCTAssertEqual(d.reduceModP(-domain.p), BInt.ZERO)
+        XCTAssertEqual(d.reduceModP(domain.p + 1), BInt.ONE)
+        XCTAssertEqual(d.reduceModP(-domain.p + 1), BInt.ONE)
+    }
+
     func doTest(_ c: ECCurve) {
         let domain = Domain.instance(curve: c)
         domainTest(domain, domain.multiply(domain.g, BInt(0)))
@@ -49,6 +68,7 @@ class DomainTest: XCTestCase {
         multiplyGTest(domain, BInt(1))
         multiplyGTest(domain, BInt(2))
         multiplyGTest(domain, BInt(bitWidth: domain.g.x.bitWidth / 2))
+        reduceModPTest(domain)
     }
 
     func test() {

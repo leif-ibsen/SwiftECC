@@ -25,29 +25,4 @@ class EC521r1: DomainP {
         super.init(EC521r1.name, EC521r1.p, EC521r1.a, EC521r1.b, EC521r1.gx, EC521r1.gy, EC521r1.order, EC521r1.cofactor, EC521r1.oid)
     }
     
-    // Guide to Elliptic Curve Cryptography - algorithm 2.31
-    // Efficient modP implementation
-    override func reduceModP(_ x: BInt) -> BInt {
-        precondition(x.abs() < EC521r1.p ** 2)
-        var l = Limbs(repeating: 0, count: 9)
-        let n = Swift.min(x.magnitude.count, l.count)
-        for i in 0 ..< n {
-            l[i] = x.magnitude[i]
-        }
-        l[8] &= 0x1ff
-        if x.isNegative {
-            var s = BInt(l) - (x >> 521)
-            while s > EC521r1.p {
-                s -= EC521r1.p
-            }
-            return EC521r1.p - s
-        } else {
-            var s = BInt(l) + (x >> 521)
-            while s >= EC521r1.p {
-                s -= EC521r1.p
-            }
-            return s
-        }
-    }
-
 }

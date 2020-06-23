@@ -24,6 +24,11 @@ class DomainP {
     let order: BInt
     let cofactor: Int
 
+    // Stuff related to Barrett reduction modulo p
+
+    let u: BInt
+    let shifts: Int
+
     // Stuff related to Montgomery inversion
     
     let Rsize: Int
@@ -44,6 +49,8 @@ class DomainP {
         self.g = Point(gx, gy)
         self.order = order
         self.cofactor = cofactor
+        self.shifts = self.p.magnitude.count * 128
+        self.u = (BInt.ONE << self.shifts) / self.p
         self.modulus = Vector(self.p)
         self.Rsize = self.modulus.count
         self.Rsize64 = self.Rsize * 64
@@ -132,7 +139,7 @@ class DomainP {
         }
         var q = pt
         let npt = negate(pt)
-        let m = n << 1 + n
+        let m = n * 3
         for i in (1 ... m.bitWidth - 2).reversed() {
             q = double(q)
             let mi = m.testBit(i)
@@ -208,8 +215,14 @@ class DomainP {
         return self.oid!
     }
     
+    // Barrett reduction
     func reduceModP(_ x: BInt) -> BInt {
-        return x.mod(self.p)
+        let x1 = x.isNegative ? -x : x
+        var t = x1 - ((x1 * self.u) >> self.shifts) * self.p
+        if t >= self.p {
+            t -= self.p
+        }
+        return t.isZero ? BInt.ZERO : (x.isNegative ? self.p - t : t)
     }
 
     func addModP(_ x: BInt, _ y: BInt) -> BInt {
@@ -227,12 +240,12 @@ class DomainP {
     }
 
     func mul2ModP(_ x: BInt) -> BInt {
-        let z = x << 1
+        let z = x * 2
         return z >= self.p ? z - self.p : z
     }
     
     func mul3ModP(_ x: BInt) -> BInt {
-        var z = (x << 1) + x
+        var z = x * 3
         while z >= self.p {
             z -= self.p
         }
@@ -473,7 +486,7 @@ struct Vector {
             self.v.append(1)
         }
     }
-    
+
     mutating func subtract(_ x: inout Vector) {
         var borrow = false
         for i in 0 ..< x.count {

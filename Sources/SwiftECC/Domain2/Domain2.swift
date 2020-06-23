@@ -109,7 +109,7 @@ class Domain2 {
         }
         var q = pt
         let npt = negate(pt)
-        let m = n << 1 + n
+        let m = n * 3
         for i in (1 ... m.bitWidth - 2).reversed() {
             q = double(q)
             let mi = m.testBit(i)
