@@ -101,15 +101,21 @@ public class ECPublicKey: CustomStringConvertible {
 
     
     // MARK: Instance Methods
-    
+
     /// Verifies a signature with ECDSA
     ///
     /// - Parameters:
     ///   - signature: The signature to verify
     ///   - msg: The message to verify *signature* for
-    /// - Returns: *true* iff the signature is verified
-    public func verify(signature: ECSignature, msg: Bytes) -> Bool {
-        let md = MessageDigest.instance(self.domain)
+    ///   - sig_bw: Specifies optional Signature BitWidth. By default Public Key Width is used.
+    /// - Returns: *true* if the signature is verified
+    public func verify(signature: ECSignature, msg: Bytes, sig_bw: UInt? = nil) -> Bool {
+        var md: MessageDigest
+        if (sig_bw == nil) {
+            md = MessageDigest.instance(self.domain)
+        } else {
+            md = MessageDigest.instance(bw: sig_bw!)
+        }
         md.update(msg)
         let digest = md.digest()
         let order = self.domain.order
@@ -132,15 +138,16 @@ public class ECPublicKey: CustomStringConvertible {
         let R = self.domain.add(self.domain.multiplyG(u1), wu2)
         return R.x.mod(order) == r.mod(order)
     }
-    
+
     /// Verifies a signature with ECDSA
     ///
     /// - Parameters:
     ///   - signature: The signature to verify
     ///   - msg: The message to verify *signature* for
+    ///   - sig_bw: Specifies optional Signature BitWidth. By default Public Key Width is used.
     /// - Returns: *true* iff the signature is verified
-    public func verify(signature: ECSignature, msg: Data) -> Bool {
-        return self.verify(signature: signature, msg: Bytes(msg))
+    public func verify(signature: ECSignature, msg: Data, sig_bw: UInt? = nil) -> Bool {
+        return self.verify(signature: signature, msg: Bytes(msg), sig_bw: sig_bw)
     }
 
     /// Encrypts a byte array with ECIES

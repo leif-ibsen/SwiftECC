@@ -76,6 +76,18 @@ class MessageDigest {
         }
     }
 
+    static func instance(bw: UInt) -> MessageDigest {
+        if bw > 384 {
+            return MessageDigest(.SHA2_512)
+        } else if bw > 256 {
+            return MessageDigest(.SHA2_384)
+        } else if bw > 224 {
+            return MessageDigest(.SHA2_256)
+        } else {
+            return MessageDigest(.SHA2_224)
+        }
+    }
+
     func reset() {
         for i in 0 ..< self.buffer.count {
             self.buffer[i] = 0
