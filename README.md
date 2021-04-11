@@ -11,7 +11,7 @@ This encompasses:
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "1.0.1"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "1.0.2"),
 	  ]
 
 <h2><b>Basics</b></h2>
@@ -347,9 +347,11 @@ Algorithms from the following books and papers have been used in the implementat
 There are references in the source code where appropriate.
 
 <ul>
-<li>[CRANDALL] - Crandall and Pomerance: Prime Numbers - A Computational Perspective. Second Edition, Springer 2005</li>
+<li>[FIPS 180-4] - FIPS PUB 180-4 - Secure Hash Standard (SHS), August 2015</li>
+<li>[GCM] - The Galois/Counter Mode of Operation (GCM)</li>
 <li>[GUIDE] - Hankerson, Menezes, Vanstone: Guide to Elliptic Curve Cryptography. Springer 2004</li>
 <li>[KNUTH] - Donald E. Knuth: Seminumerical Algorithms. Addison-Wesley 1971</li>
+<li>[NIST] - NIST Special Publication 800-38D, November 2007</li>
 <li>[RFC-6979] - Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA), August 2013</li>
 <li>[SAVACS] - E. Savacs, C.K. Koc: The Montgomery Modular Inverse - Revisited, July 2000</li>
 <li>[SEC 1] - Standards for Efficient Cryptography 1 (SEC 1), Certicom Corp. 2009</li>

@@ -107,9 +107,10 @@ public class ECPublicKey: CustomStringConvertible {
     /// - Parameters:
     ///   - signature: The signature to verify
     ///   - msg: The message to verify *signature* for
+    ///   - bw: Optional bitwidth used to select the proper message digest. By default the domain field size is used
     /// - Returns: *true* iff the signature is verified
-    public func verify(signature: ECSignature, msg: Bytes) -> Bool {
-        let md = MessageDigest.instance(self.domain)
+    public func verify(signature: ECSignature, msg: Bytes, bw: Int? = nil) -> Bool {
+        let md = bw == nil ? MessageDigest.instance(self.domain) : MessageDigest.instance(bw!)
         md.update(msg)
         let digest = md.digest()
         let order = self.domain.order
@@ -138,9 +139,10 @@ public class ECPublicKey: CustomStringConvertible {
     /// - Parameters:
     ///   - signature: The signature to verify
     ///   - msg: The message to verify *signature* for
+    ///   - bw: Optional bitwidth used to select the proper message digest. By default the domain field size is used
     /// - Returns: *true* iff the signature is verified
-    public func verify(signature: ECSignature, msg: Data) -> Bool {
-        return self.verify(signature: signature, msg: Bytes(msg))
+    public func verify(signature: ECSignature, msg: Data, bw: Int? = nil) -> Bool {
+        return self.verify(signature: signature, msg: Bytes(msg), bw: bw)
     }
 
     /// Encrypts a byte array with ECIES

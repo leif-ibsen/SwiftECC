@@ -8,6 +8,9 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Class/ECPrivateKey" class="dashAnchor"></a>
@@ -15,6 +18,11 @@
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (100% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -94,6 +102,7 @@
             <h1>ECPrivateKey</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ECPrivateKey</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
@@ -106,9 +115,11 @@
               <div class="task-name-container">
                 <a name="/Initializers"></a>
                 <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
-                <a href="#/Initializers">
-                  <h3 class="section-name">Initializers</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initializers"></a>
+                  <h3 class="section-name"><p>Initializers</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -116,7 +127,7 @@
                     <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC6domain1sAcA6DomainC_6BigInt4BIntVtKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(domain:s:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC6domain1sAcA6DomainC_6BigInt4BIntVtKcfc">init(domain:s:)</a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC6domain1sAcA6DomainC_6BigInt4BIntVtKcfc">init(domain:<wbr>s:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -179,7 +190,7 @@
                     <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC3derACSays5UInt8VG_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(der:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC3derACSays5UInt8VG_tKcfc">init(der:)</a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC3derACSays5UInt8VG_tKcfc">init(der:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -230,7 +241,7 @@
                     <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC3pemACSS_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(pem:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC3pemACSS_tKcfc">init(pem:)</a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC3pemACSS_tKcfc">init(pem:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -282,9 +293,11 @@
               <div class="task-name-container">
                 <a name="/Stored%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Stored Properties" class="dashAnchor"></a>
-                <a href="#/Stored%20Properties">
-                  <h3 class="section-name">Stored Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Stored%20Properties"></a>
+                  <h3 class="section-name"><p>Stored Properties</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -347,9 +360,11 @@
               <div class="task-name-container">
                 <a name="/Computed%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Computed Properties" class="dashAnchor"></a>
-                <a href="#/Computed%20Properties">
-                  <h3 class="section-name">Computed Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Computed%20Properties"></a>
+                  <h3 class="section-name"><p>Computed Properties</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -439,9 +454,11 @@
               <div class="task-name-container">
                 <a name="/Instance%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
-                <a href="#/Instance%20Methods">
-                  <h3 class="section-name">Instance Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods"></a>
+                  <h3 class="section-name"><p>Instance Methods</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -449,7 +466,7 @@
                     <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC4sign3msg13deterministicAA11ECSignatureCSays5UInt8VG_SbtF"></a>
                     <a name="//apple_ref/swift/Method/sign(msg:deterministic:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC4sign3msg13deterministicAA11ECSignatureCSays5UInt8VG_SbtF">sign(msg:deterministic:)</a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC4sign3msg13deterministicAA11ECSignatureCSays5UInt8VG_SbtF">sign(msg:<wbr>deterministic:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -511,7 +528,7 @@
                     <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC4sign3msg13deterministicAA11ECSignatureC10Foundation4DataV_SbtF"></a>
                     <a name="//apple_ref/swift/Method/sign(msg:deterministic:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC4sign3msg13deterministicAA11ECSignatureC10Foundation4DataV_SbtF">sign(msg:deterministic:)</a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC4sign3msg13deterministicAA11ECSignatureC10Foundation4DataV_SbtF">sign(msg:<wbr>deterministic:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -573,7 +590,7 @@
                     <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC7decrypt3msg6cipher4modeSays5UInt8VGAJ_AA9AESCipherOAA9BlockModeOtKF"></a>
                     <a name="//apple_ref/swift/Method/decrypt(msg:cipher:mode:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC7decrypt3msg6cipher4modeSays5UInt8VGAJ_AA9AESCipherOAA9BlockModeOtKF">decrypt(msg:cipher:mode:)</a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC7decrypt3msg6cipher4modeSays5UInt8VGAJ_AA9AESCipherOAA9BlockModeOtKF">decrypt(msg:<wbr>cipher:<wbr>mode:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -652,7 +669,7 @@
                     <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC7decrypt3msg6cipher4mode10Foundation4DataVAJ_AA9AESCipherOAA9BlockModeOtKF"></a>
                     <a name="//apple_ref/swift/Method/decrypt(msg:cipher:mode:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC7decrypt3msg6cipher4mode10Foundation4DataVAJ_AA9AESCipherOAA9BlockModeOtKF">decrypt(msg:cipher:mode:)</a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC7decrypt3msg6cipher4mode10Foundation4DataVAJ_AA9AESCipherOAA9BlockModeOtKF">decrypt(msg:<wbr>cipher:<wbr>mode:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -731,8 +748,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-02-24)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-11)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

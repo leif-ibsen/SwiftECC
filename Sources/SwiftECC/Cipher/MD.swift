@@ -64,7 +64,10 @@ class MessageDigest {
     }
 
     static func instance(_ domain: Domain) -> MessageDigest {
-        let bw = domain.p.bitWidth
+        return instance(domain.p.bitWidth)
+    }
+    
+    static func instance(_ bw: Int) -> MessageDigest {
         if bw > 384 {
             return MessageDigest(.SHA2_512)
         } else if bw > 256 {
