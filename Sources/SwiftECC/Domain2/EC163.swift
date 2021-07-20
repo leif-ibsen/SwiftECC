@@ -57,7 +57,7 @@ class EC163r2: Domain2 {
 
 }
 
-// Guide to Elliptic Curve Cryptography - algorithm 2.41
+// [GUIDE] - algorithm 2.41
 func EC163reduceModP(_ x: BitVector) -> BitVector {
     var C = Limbs(repeating: 0, count: 6)
     for i in 0 ..< C.count {

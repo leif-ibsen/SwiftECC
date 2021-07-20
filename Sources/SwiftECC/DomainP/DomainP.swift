@@ -215,45 +215,58 @@ class DomainP {
         return self.oid!
     }
     
-    // Barrett reduction
+    // Barrett reduction algorithm from Project Nayuki - www.nayuki.io
+    // Requires 0 <= x and x < self.p ** 2, which is the case for all invocations
     func reduceModP(_ x: BInt) -> BInt {
-        let x1 = x.isNegative ? -x : x
-        var t = x1 - ((x1 * self.u) >> self.shifts) * self.p
-        if t >= self.p {
-            t -= self.p
-        }
-        return t.isZero ? BInt.ZERO : (x.isNegative ? self.p - t : t)
+        assert(0 <= x && x < self.p ** 2)
+        // precondition(0 <= x && x < self.p ** 2)
+        let t = x - ((x * self.u) >> self.shifts) * self.p
+        return t < self.p ? t : t - self.p
     }
 
     func addModP(_ x: BInt, _ y: BInt) -> BInt {
-        let z = x + y
-        return z >= self.p ? z - self.p : z
+        assert(0 <= x && x < self.p)
+        assert(0 <= y && y < self.p)
+        // precondition(0 <= x && x < self.p)
+        // precondition(0 <= y && y < self.p)
+        let t = x + y
+        return t < self.p ? t : t - self.p
     }
     
     func subModP(_ x: BInt, _ y: BInt) -> BInt {
-        let z = x - y
-        return z.isNegative ? z + self.p : z
+        assert(0 <= x && x < self.p)
+        assert(0 <= y && y < self.p)
+        // precondition(0 <= x && x < self.p)
+        // precondition(0 <= y && y < self.p)
+        let t = x - y
+        return t.isNegative ? t + self.p : t
     }
     
     func mulModP(_ x: BInt, _ y: BInt) -> BInt {
+        assert(0 <= x && x < self.p)
+        assert(0 <= y && y < self.p)
+        // precondition(0 <= x && x < self.p)
+        // precondition(0 <= y && y < self.p)
         return self.reduceModP(x * y)
     }
 
     func mul2ModP(_ x: BInt) -> BInt {
-        let z = x * 2
-        return z >= self.p ? z - self.p : z
+        assert(0 <= x && x < self.p)
+        // precondition(0 <= x && x < self.p)
+        let t = x << 1
+        return t < self.p ? t : t - self.p
     }
     
     func mul3ModP(_ x: BInt) -> BInt {
-        var z = x * 3
-        while z >= self.p {
-            z -= self.p
-        }
-        return z
+        assert(0 <= x && x < self.p)
+        // precondition(0 <= x && x < self.p)
+        return self.reduceModP(x << 1 + x)
     }
 
     func squareModP(_ x: BInt) -> BInt {
-        return self.reduceModP(x ** 2)
+        assert(0 <= x && x < self.p)
+        // precondition(0 <= x && x < self.p)
+        return self.reduceModP(x * x)
     }
 
     // [SEC 1] section 2.3.3

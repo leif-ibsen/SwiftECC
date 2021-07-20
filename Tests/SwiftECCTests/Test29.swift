@@ -74,14 +74,14 @@ class Test29: XCTestCase {
             let p1 = EC29.points[i]
             var x = Point.INFINITY
             for j in 0 ..< EC29.order.asInt()! {
-                let pj = curve.multiply(p1, BInt(j))
+                let pj = try curve.multiplyPoint(p1, BInt(j))
                 XCTAssertEqual(x, pj)
                 XCTAssert(curve.contains(pj))
-                x = curve.add(x, p1)
+                x = try curve.addPoints(x, p1)
             }
             for j in 0 ..< EC29.points.count {
                 let p2 = EC29.points[j]
-                XCTAssert(curve.contains(curve.add(p1, p2)))
+                XCTAssert(curve.contains(try curve.addPoints(p1, p2)))
             }
         }
     }

@@ -6,7 +6,7 @@
 //
 
 //
-// Implementation of the Secure Hash Standard (SHA2) - please refer FIPS PUB 180-4, August, 2015
+// Implementation of the Secure Hash Standard (SHA2) - please refer [FIPS 180-4]
 //
 class SHA2_256: MessageDigestImpl {
     

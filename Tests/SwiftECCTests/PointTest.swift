@@ -14,7 +14,7 @@ class PointTest: XCTestCase {
 
     func doTest(_ c: ECCurve) throws {
         let domain = Domain.instance(curve: c)
-        let inf = domain.multiply(domain.g, domain.order)
+        let inf = try domain.multiplyPoint(domain.g, domain.order)
         var b1 = try domain.encodePoint(inf, false)
         var b2 = try domain.encodePoint(inf, true)
         XCTAssert(b1.count == 1)
@@ -23,7 +23,7 @@ class PointTest: XCTestCase {
         let inf2 = try domain.decodePoint(b2)
         XCTAssert(inf1.infinity)
         XCTAssert(inf2.infinity)
-        let p = domain.multiply(domain.g, domain.order - BInt.ONE)
+        let p = try domain.multiplyPoint(domain.g, domain.order - BInt.ONE)
         b1 = try domain.encodePoint(p, false)
         b2 = try domain.encodePoint(p, true)
         let p1 = try domain.decodePoint(b1)
@@ -34,18 +34,23 @@ class PointTest: XCTestCase {
         XCTAssertEqual(p2, p)
         for _ in 0 ..< 10 {
             let n = domain.order.randomLessThan()
-            let p = domain.multiply(domain.g, n)
+            let p = try domain.multiplyPoint(domain.g, n)
             b1 = try domain.encodePoint(p, false)
             b2 = try domain.encodePoint(p, true)
             XCTAssertEqual(b1.count, 2 * ((domain.p.bitWidth + 7) / 8) + 1)
             XCTAssertEqual(b2.count, (domain.p.bitWidth + 7) / 8 + 1)
-            let p1 = try domain.decodePoint(b1)
-            let p2 = try domain.decodePoint(b2)
-            XCTAssertEqual(p1, p)
-            XCTAssertEqual(p2, p)
+            let pp1 = try domain.decodePoint(b1)
+            let pp2 = try domain.decodePoint(b2)
+            XCTAssertEqual(pp1, p)
+            XCTAssertEqual(pp2, p)
+            let p1 = try domain.multiplyPoint(domain.g, -n)
+            let p2 = try domain.multiplyPoint(domain.g, domain.order - n)
+            let p3 = try domain.multiplyPoint(domain.negatePoint(domain.g), n)
+            XCTAssertEqual(p1, p2)
+            XCTAssertEqual(p1, p3)
         }
-        let x1 = domain.negate(domain.multiply(domain.g, BInt(2)))
-        let x2 = domain.multiply(domain.negate(domain.g), BInt(2))
+        let x1 = try domain.negatePoint(try domain.multiplyPoint(domain.g, BInt(2)))
+        let x2 = try domain.multiplyPoint(try domain.negatePoint(domain.g), BInt(2))
         XCTAssertEqual(x1, x2)
     }
 

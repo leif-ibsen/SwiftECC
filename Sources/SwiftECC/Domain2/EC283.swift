@@ -57,7 +57,7 @@ class EC283r1: Domain2 {
 
 }
 
-// Guide to Elliptic Curve Cryptography - algorithm 2.43
+// [GUIDE] - algorithm 2.43
 func EC283reduceModP(_ x: BitVector) -> BitVector {
     var C = Limbs(repeating: 0, count: 9)
     for i in 0 ..< C.count {

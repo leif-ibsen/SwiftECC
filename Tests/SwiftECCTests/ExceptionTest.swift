@@ -168,5 +168,51 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
             XCTFail("Expected ECException.unknownOid")
         }
     }
+    
+    func testNotOnCurve() {
+        let domain = Domain.instance(curve: .BP160r1)
+        let p1 = Point(BInt.ONE, BInt.ONE)
+        let p2 = Point(BInt.TWO, BInt.TWO)
+        do {
+            let _ = try domain.doublePoint(Point.INFINITY)
+        } catch {
+            XCTFail("Did not expect exception")
+        }
+        do {
+            let _ = try domain.doublePoint(p1)
+            XCTFail("Expected ECException.notOnCurve")
+        } catch ECException.notOnCurve {
+        } catch {
+            XCTFail("Expected ECException.notOnCurve")
+        }
+        do {
+            let _ = try domain.addPoints(p1, p2)
+            XCTFail("Expected ECException.notOnCurve")
+        } catch ECException.notOnCurve {
+        } catch {
+            XCTFail("Expected ECException.notOnCurve")
+        }
+        do {
+            let _ = try domain.subtractPoints(p1, p2)
+            XCTFail("Expected ECException.notOnCurve")
+        } catch ECException.notOnCurve {
+        } catch {
+            XCTFail("Expected ECException.notOnCurve")
+        }
+        do {
+            let _ = try domain.negatePoint(p1)
+            XCTFail("Expected ECException.notOnCurve")
+        } catch ECException.notOnCurve {
+        } catch {
+            XCTFail("Expected ECException.notOnCurve")
+        }
+        do {
+            let _ = try domain.multiplyPoint(p1, BInt.ONE)
+            XCTFail("Expected ECException.notOnCurve")
+        } catch ECException.notOnCurve {
+        } catch {
+            XCTFail("Expected ECException.notOnCurve")
+        }
+    }
 
 }

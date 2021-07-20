@@ -110,12 +110,21 @@ public class ECPublicKey: CustomStringConvertible {
     ///   - bw: Optional bitwidth used to select the proper message digest. By default the domain field size is used
     /// - Returns: *true* iff the signature is verified
     public func verify(signature: ECSignature, msg: Bytes, bw: Int? = nil) -> Bool {
+        let order = self.domain.order
+        guard signature.r.count > 0 && signature.s.count > 0 else {
+            return false
+        }
+        let r = BInt(magnitude: signature.r)
+        guard r > BInt.ZERO && r < order else {
+            return false
+        }
+        let s = BInt(magnitude: signature.s)
+        guard s > BInt.ZERO && s < order else {
+            return false
+        }
         let md = bw == nil ? MessageDigest.instance(self.domain) : MessageDigest.instance(bw!)
         md.update(msg)
         let digest = md.digest()
-        let order = self.domain.order
-        let r = BInt(magnitude: signature.r)
-        let s = BInt(magnitude: signature.s)
         var e = BInt(magnitude: digest)
         let d = digest.count * 8 - order.bitWidth
         if d > 0 {
@@ -130,8 +139,12 @@ public class ECPublicKey: CustomStringConvertible {
         } else {
             wu2 = self.domain.domainP!.multiplyW(u2, &self.wptsP!)
         }
-        let R = self.domain.add(self.domain.multiplyG(u1), wu2)
-        return R.x.mod(order) == r.mod(order)
+        do {
+            let R = try self.domain.addPoints(self.domain.multiplyG(u1), wu2)
+            return R.infinity ? false : R.x.mod(order) == r
+        } catch {
+            return false
+        }
     }
     
     /// Verifies a signature with ECDSA

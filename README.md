@@ -7,11 +7,12 @@ This encompasses:
 <li>Signature signing and verifying using the ECDSA algorithm, including the option of deterministic signatures</li>
 <li>General elliptic curve arithmetic</li>
 </ul>
+SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 bit types.
 <h2><b>Usage</b></h2>
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "1.0.2"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "1.1.0"),
 	  ]
 
 <h2><b>Basics</b></h2>
@@ -112,7 +113,7 @@ prime256v1, secp384r1 and secp521r1 can be verified by SwiftECC using domains EC
 
 	import SwiftECC
 	
-	// Get a predefined domain - for example brainpoolP160r1
+	// Get a predefined domain - for example brainpool BP160r1
 	
 	let domain = Domain.instance(curve: .BP160r1)
 	
@@ -169,8 +170,8 @@ This is example 3.5 from [GUIDE]. It shows how to make your own prime characteri
     let p1 = Point(BInt(5), BInt(22))
     let p2 = Point(BInt(16), BInt(27))
 	
-    print("p1 + p2 =", domain.add(p1, p2))
-    print("p1 * 2  =", domain.multiply(p1, BInt(2)))
+    print("p1 + p2 =", try domain.addPoints(p1, p2))
+    print("p1 * 2  =", try domain.multiplyPoint(p1, BInt(2)))
 	
     // Inspect the domain - please refer [SEC 1] appendix C.2
     print(domain.asn1Explicit())
@@ -206,8 +207,8 @@ This is example 3.6 from [GUIDE]. It shows how to make your own characteristic 2
     let p1 = Point(BInt(2), BInt(15))
     let p2 = Point(BInt(12), BInt(12))
 	
-    print("p1 + p2 =", domain.add(p1, p2))
-    print("p1 * 2  =", domain.multiply(p1, BInt(2)))
+    print("p1 + p2 =", try domain.addPoints(p1, p2))
+    print("p1 * 2  =", try domain.multiplyPoint(p1, BInt(2)))
 	
     // Inspect the domain - please refer [SEC 1] appendix C.2
     print(domain.asn1Explicit())
@@ -332,13 +333,11 @@ was measured on a MacBook Pro 2018, 2,2 GHz 6-Core Intel Core i7. The results ar
 
 <h2><b>Dependencies</b></h2>
 
-SwiftECC requires Swift 5.0.
-
 The SwiftECC package depends on the ASN1 and BigInt packages
 
     dependencies: [
         .package(url: "https://github.com/leif-ibsen/ASN1", from: "1.2.1"),
-        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.1.2"),
+        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.2.5"),
     ],
 
 <h2><b>References</b></h2>

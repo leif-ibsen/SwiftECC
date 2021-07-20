@@ -37,6 +37,8 @@ public enum ECException: Error, CustomStringConvertible {
             return "Padding is wrong"
         case .unknownOid:
             return "Unknown domain OID"
+        case .notOnCurve:
+            return "Point not on curve"
         }
     }
     
@@ -75,5 +77,8 @@ public enum ECException: Error, CustomStringConvertible {
 
     /// Unknown domain OID
     case unknownOid
+    
+    /// Point not on curve
+    case notOnCurve
 
 }

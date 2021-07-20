@@ -138,7 +138,7 @@ public class ECPrivateKey: CustomStringConvertible {
             throw ECException.notEnoughInput
         }
         let R = Bytes(msg[0 ..< bwl])
-        let S = try self.domain.multiply(self.domain.decodePoint(R), self.s).x
+        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s).x
         let tag1 = Bytes(msg[msg.count - tagLength ..< msg.count])
         var result = Bytes(msg[bwl ..< msg.count - tagLength])
         let cipher = Cipher.instance(cipher, mode, self.domain.align(S.asMagnitudeBytes()), R)

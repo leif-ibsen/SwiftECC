@@ -27,6 +27,17 @@ class SignatureTest: XCTestCase {
         XCTAssertEqual((domain.p.bitWidth + 7) / 8, sig2.s.count)
         XCTAssertTrue(pub.verify(signature: sig2, msg: data1))
         XCTAssertFalse(pub.verify(signature: sig2, msg: data2))
+        
+        // Signature r and s out of range
+        
+        let sig3 = ECSignature(r: [0], s: sig2.s)
+        XCTAssertFalse(pub.verify(signature: sig3, msg: data1))
+        let sig4 = ECSignature(r: Bytes(repeating: 0xff, count: (domain.order.bitWidth + 7) / 8), s: sig2.s)
+        XCTAssertFalse(pub.verify(signature: sig4, msg: data1))
+        let sig5 = ECSignature(r: sig2.r, s: [0])
+        XCTAssertFalse(pub.verify(signature: sig5, msg: data1))
+        let sig6 = ECSignature(r: sig2.r, s: Bytes(repeating: 0xff, count: (domain.order.bitWidth + 7) / 8))
+        XCTAssertFalse(pub.verify(signature: sig6, msg: data1))
     }
 
     func test1() {

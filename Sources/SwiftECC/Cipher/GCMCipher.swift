@@ -11,9 +11,9 @@ typealias Long = UInt64
 typealias Longs = [Long]
 
 //
-// Implementation of Galois/Counter Mode cipher based on AES - please refer NIST Special Publication 800-38D, November 2007
+// [NIST] - implementation of Galois/Counter Mode cipher based on AES
 //
-// The method is 'Shoup's, 4-bit tables' from 'The Galois/Counter Mode of Operation (GCM)'
+// The method is 'Shoup's, 4-bit tables' from [GCM]
 //
 class GCMCipher: Cipher {
     
@@ -120,7 +120,7 @@ class GCMCipher: Cipher {
                             0xe100000000000000, 0xfd20000000000000, 0xd940000000000000, 0xc560000000000000,
                             0x9180000000000000, 0x8da0000000000000, 0xa9c0000000000000, 0xb5e0000000000000]
 
-    // The Galois/Counter Mode of Operation (GCM) - algorithm 2
+    // [GCM] - algorithm 2
     func multiplyH(_ x: inout Block) {
         var z0 = Long(0)
         var z1 = Long(0)
@@ -155,7 +155,7 @@ class GCMCipher: Cipher {
 }
 
 //
-// Helper structure for GCMCipher - please refer NIST Special Publication 800-38D, November 2007
+// [NIST] - helper structure for GCMCipher
 //
 struct Block {
     

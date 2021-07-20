@@ -197,7 +197,7 @@ class BlueTest: XCTestCase {
 
     let a100 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
-    // aaa encrypted by BlueECC
+    // a100 encrypted by BlueECC
     
 let encryptedA100_256: Bytes =
     [ 4, 50, 45, 153, 144, 228, 219, 14, 72, 155, 107, 194, 193, 73, 137, 120
