@@ -1020,62 +1020,6 @@ based on the curve   y^2 + x * y = x^3 + a * x^2 + b</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC6DomainC6doubleyAA5PointVAFF"></a>
-                    <a name="//apple_ref/swift/Method/double(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC6DomainC6doubleyAA5PointVAFF">double(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Doubles a curve Point - DEPRECATED, use <em>doublePoint</em> instead</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <em>self</em> contains <em>p</em>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"use doublePoint instead"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">double</span><span class="p">(</span><span class="n">_</span> <span class="nv">p</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>p</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A curve point</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>p + p</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:8SwiftECC6DomainC11doublePointyAA0E0VAFKF"></a>
                     <a name="//apple_ref/swift/Method/doublePoint(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC6DomainC11doublePointyAA0E0VAFKF">doublePoint(_:<wbr>)</a>
@@ -1124,74 +1068,6 @@ based on the curve   y^2 + x * y = x^3 + a * x^2 + b</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>p + p</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:8SwiftECC6DomainC3addyAA5PointVAF_AFtF"></a>
-                    <a name="//apple_ref/swift/Method/add(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC6DomainC3addyAA5PointVAF_AFtF">add(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Adds two curve Points - DEPRECATED, use <em>addPoints</em> instead</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <em>self</em> contains <em>p1</em> and <em>self</em> contains <em>p2</em>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"use addPoints instead"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="n">_</span> <span class="nv">p1</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">p2</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>p1</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The first curve point</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>p2</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The second curve point</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>p1 + p2</p>
                       </div>
                     </section>
                   </div>
@@ -1266,74 +1142,6 @@ based on the curve   y^2 + x * y = x^3 + a * x^2 + b</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC6DomainC8subtractyAA5PointVAF_AFtF"></a>
-                    <a name="//apple_ref/swift/Method/subtract(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC6DomainC8subtractyAA5PointVAF_AFtF">subtract(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Subtracts two curve Points - DEPRECATED, use <em>subtractPoints</em> instead</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <em>self</em> contains <em>p1</em> and <em>self</em> contains <em>p2</em>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"use subtractPoints instead"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">subtract</span><span class="p">(</span><span class="n">_</span> <span class="nv">p1</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">p2</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>p1</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The first curve point</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>p2</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The second curve point</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>p1 - p2</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:8SwiftECC6DomainC14subtractPointsyAA5PointVAF_AFtKF"></a>
                     <a name="//apple_ref/swift/Method/subtractPoints(_:_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC6DomainC14subtractPointsyAA5PointVAF_AFtKF">subtractPoints(_:<wbr>_:<wbr>)</a>
@@ -1401,62 +1209,6 @@ based on the curve   y^2 + x * y = x^3 + a * x^2 + b</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC6DomainC6negateyAA5PointVAFF"></a>
-                    <a name="//apple_ref/swift/Method/negate(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC6DomainC6negateyAA5PointVAFF">negate(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Negates a curve Point - DEPRECATED, use <em>negatePoint</em> instead</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <em>self</em> contains <em>p</em>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"use negatePoint instead"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">negate</span><span class="p">(</span><span class="n">_</span> <span class="nv">p</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>p</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A curve point</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>-p</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:8SwiftECC6DomainC11negatePointyAA0E0VAFKF"></a>
                     <a name="//apple_ref/swift/Method/negatePoint(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC6DomainC11negatePointyAA0E0VAFKF">negatePoint(_:<wbr>)</a>
@@ -1505,74 +1257,6 @@ based on the curve   y^2 + x * y = x^3 + a * x^2 + b</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>-p</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:8SwiftECC6DomainC8multiplyyAA5PointVAF_6BigInt4BIntVtF"></a>
-                    <a name="//apple_ref/swift/Method/multiply(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC6DomainC8multiplyyAA5PointVAF_6BigInt4BIntVtF">multiply(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Multiplies a curve Point by an integer - DEPRECATED, use <em>multiplyPoint</em> instead</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <em>self</em> contains <em>p</em>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"use multiplyPoint instead"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">_</span> <span class="nv">p</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">n</span><span class="p">:</span> <span class="kt">BInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>p</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The curve point to multiply</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>n</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The integer to multiply with</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>n * p</p>
                       </div>
                     </section>
                   </div>
@@ -2061,7 +1745,7 @@ All domain components are included in the encoding - not just the domain OID</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-07-20)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-08-03)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

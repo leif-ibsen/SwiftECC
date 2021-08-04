@@ -92,8 +92,8 @@ public class ECPublicKey: CustomStringConvertible {
     // MARK: Computed Properties
 
     /// The ASN1 encoding of *self*
-    public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1Sequence().add(ASN1ObjectIdentifier("1.2.840.10045.2.1")).add(self.domain.asn1)).add(ASN1BitString(
-        try self.domain.encodePoint(self.w), 0)) } catch { return ASN1.NULL } } }
+    public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1Sequence().add(ASN1ObjectIdentifier("1.2.840.10045.2.1")!).add(self.domain.asn1)).add(try ASN1BitString(
+        self.domain.encodePoint(self.w), 0)) } catch { return ASN1.NULL } } }
     /// The PEM encoding of *self*
     public var pem: String { get { return Base64.pemEncode(self.asn1.encode(), "PUBLIC KEY") } }
     /// A textual representation of the ASN1 encoding of *self*

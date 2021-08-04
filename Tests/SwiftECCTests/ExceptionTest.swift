@@ -161,7 +161,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
 
     func testUnknownOid() {
         do {
-            let _ = try Domain.instance(oid: ASN1ObjectIdentifier("1.2.3"))
+            let _ = try Domain.instance(oid: ASN1ObjectIdentifier("1.2.3")!)
             XCTFail("Expected ECException.unknownOid")
         } catch ECException.unknownOid {
         } catch {

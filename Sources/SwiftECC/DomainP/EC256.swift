@@ -19,7 +19,7 @@ class EC256k1: DomainP {
     static let gy = BInt("483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8", radix: 16)!
     static let order = BInt("fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.10")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.10")!
 
     init() {
         super.init(EC256k1.name, EC256k1.p, EC256k1.a, EC256k1.b, EC256k1.gx, EC256k1.gy, EC256k1.order, EC256k1.cofactor, EC256k1.oid)
@@ -37,7 +37,7 @@ class EC256r1: DomainP {
     static let gy = BInt("4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5", radix: 16)!
     static let order = BInt("ffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.2.840.10045.3.1.7")
+    static let oid = ASN1ObjectIdentifier("1.2.840.10045.3.1.7")!
 
     init() {
         super.init(EC256r1.name, EC256r1.p, EC256r1.a, EC256r1.b, EC256r1.gx, EC256r1.gy, EC256r1.order, EC256r1.cofactor, EC256r1.oid)

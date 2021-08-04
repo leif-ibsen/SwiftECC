@@ -81,7 +81,7 @@ public class ECPrivateKey: CustomStringConvertible {
     // MARK: Computed Properties
     
     /// The ASN1 encoding of *self*
-    public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1.ONE).add(ASN1OctetString(self.domain.align(self.s.asMagnitudeBytes()))).add(ASN1Ctx(0, [self.domain.asn1])).add(ASN1Ctx(1, [ASN1BitString(try self.domain.encodePoint(self.domain.multiplyG(self.s)), 0)])) } catch { return ASN1.NULL } } }
+    public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1.ONE).add(ASN1OctetString(self.domain.align(self.s.asMagnitudeBytes()))).add(ASN1Ctx(0, [self.domain.asn1])).add(ASN1Ctx(1, [try ASN1BitString(self.domain.encodePoint(self.domain.multiplyG(self.s)), 0)])) } catch { return ASN1.NULL } } }
     /// The PEM base 64 encoding of *self*
     public var pem: String { get { return Base64.pemEncode(self.asn1.encode(), "EC PRIVATE KEY") } }
     /// A textual representation of the ASN1 encoding of *self*

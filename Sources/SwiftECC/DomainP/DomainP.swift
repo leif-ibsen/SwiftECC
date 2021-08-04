@@ -215,7 +215,7 @@ class DomainP {
         return self.oid!
     }
     
-    // Barrett reduction algorithm from Project Nayuki - www.nayuki.io
+    // Barrett reduction algorithm from Project Nayuki - https://www.nayuki.io/page/barrett-reduction-algorithm
     // Requires 0 <= x and x < self.p ** 2, which is the case for all invocations
     func reduceModP(_ x: BInt) -> BInt {
         assert(0 <= x && x < self.p ** 2)

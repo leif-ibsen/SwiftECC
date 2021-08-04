@@ -55,9 +55,9 @@ public class Domain: CustomStringConvertible {
     // MARK: - Constants
 
     /// Prime characteristic domain OID
-    public static let OID_P = ASN1ObjectIdentifier("1.2.840.10045.1.1")
+    public static let OID_P = ASN1ObjectIdentifier("1.2.840.10045.1.1")!
     /// Characteristic 2 domain OID
-    public static let OID_2 = ASN1ObjectIdentifier("1.2.840.10045.1.2")
+    public static let OID_2 = ASN1ObjectIdentifier("1.2.840.10045.1.2")!
 
     
     // MARK: Static Methods
@@ -303,18 +303,6 @@ public class Domain: CustomStringConvertible {
     
     // MARK: Instance Methods
     
-    /// Doubles a curve Point - DEPRECATED, use *doublePoint* instead
-    ///
-    /// - Precondition: *self* contains *p*
-    /// - Parameters:
-    ///   - p: A curve point
-    /// - Returns: p + p
-    @available(*, deprecated, message: "use doublePoint instead")
-    public func double(_ p: Point) -> Point {
-        precondition(self.contains(p))
-        return self.characteristic2 ? self.domain2!.double(Point2.fromPoint(domain2!.rp, p)).toPoint() : self.domainP!.double(p)
-    }
-    
     /// Doubles a curve Point
     ///
     /// - Parameters:
@@ -328,20 +316,6 @@ public class Domain: CustomStringConvertible {
         return self.characteristic2 ? self.domain2!.double(Point2.fromPoint(domain2!.rp, p)).toPoint() : self.domainP!.double(p)
     }
 
-    /// Adds two curve Points - DEPRECATED, use *addPoints* instead
-    ///
-    /// - Precondition: *self* contains *p1* and *self* contains *p2*
-    /// - Parameters:
-    ///   - p1: The first curve point
-    ///   - p2: The second curve point
-    /// - Returns: p1 + p2
-    @available(*, deprecated, message: "use addPoints instead")
-    public func add(_ p1: Point, _ p2: Point) -> Point {
-        precondition(self.contains(p1))
-        precondition(self.contains(p2))
-        return self.characteristic2 ? self.domain2!.add(Point2.fromPoint(domain2!.rp, p1), Point2.fromPoint(domain2!.rp, p2)).toPoint() : self.domainP!.add(p1, p2)
-    }
-    
     /// Adds two curve Points
     ///
     /// - Parameters:
@@ -356,20 +330,6 @@ public class Domain: CustomStringConvertible {
         return self.characteristic2 ? self.domain2!.add(Point2.fromPoint(domain2!.rp, p1), Point2.fromPoint(domain2!.rp, p2)).toPoint() : self.domainP!.add(p1, p2)
     }
     
-    /// Subtracts two curve Points - DEPRECATED, use *subtractPoints* instead
-    ///
-    /// - Precondition: *self* contains *p1* and *self* contains *p2*
-    /// - Parameters:
-    ///   - p1: The first curve point
-    ///   - p2: The second curve point
-    /// - Returns: p1 - p2
-    @available(*, deprecated, message: "use subtractPoints instead")
-    public func subtract(_ p1: Point, _ p2: Point) -> Point {
-        precondition(self.contains(p1))
-        precondition(self.contains(p2))
-        return self.characteristic2 ? self.domain2!.subtract(Point2.fromPoint(domain2!.rp, p1), Point2.fromPoint(domain2!.rp, p2)).toPoint() : self.domainP!.subtract(p1, p2)
-    }
-
     /// Subtracts two curve Points
     ///
     /// - Parameters:
@@ -384,18 +344,6 @@ public class Domain: CustomStringConvertible {
         return self.characteristic2 ? self.domain2!.subtract(Point2.fromPoint(domain2!.rp, p1), Point2.fromPoint(domain2!.rp, p2)).toPoint() : self.domainP!.subtract(p1, p2)
     }
 
-    /// Negates a curve Point - DEPRECATED, use *negatePoint* instead
-    ///
-    /// - Precondition: *self* contains *p*
-    /// - Parameters:
-    ///   - p: A curve point
-    /// - Returns: -p
-    @available(*, deprecated, message: "use negatePoint instead")
-    public func negate(_ p: Point) -> Point {
-        precondition(self.contains(p))
-        return self.characteristic2 ? self.domain2!.negate(Point2.fromPoint(domain2!.rp, p)).toPoint() : self.domainP!.negate(p)
-    }
-
     /// Negates a curve Point
     ///
     /// - Parameters:
@@ -407,20 +355,6 @@ public class Domain: CustomStringConvertible {
             throw ECException.notOnCurve
         }
         return self.characteristic2 ? self.domain2!.negate(Point2.fromPoint(domain2!.rp, p)).toPoint() : self.domainP!.negate(p)
-    }
-
-    /// Multiplies a curve Point by an integer - DEPRECATED, use *multiplyPoint* instead
-    ///
-    /// - Precondition: *self* contains *p*
-    /// - Parameters:
-    ///   - p: The curve point to multiply
-    ///   - n: The integer to multiply with
-    /// - Returns: n * p
-    @available(*, deprecated, message: "use multiplyPoint instead")
-    public func multiply(_ p: Point, _ n: BInt) -> Point {
-        precondition(self.contains(p))
-        let multiplier = n.mod(self.order)
-        return self.characteristic2 ? self.domain2!.multiply(Point2.fromPoint(domain2!.rp, p), multiplier).toPoint() : self.domainP!.multiply(p, multiplier)
     }
 
     /// Multiplies a curve Point by an integer

@@ -20,7 +20,7 @@ class EC283k1: Domain2 {
     static let gy = BInt("1ccda380f1c9e318d90f95d07e5426fe87e45c0e8184698e45962364e34116177dd2259", radix: 16)!
     static let order = BInt("1ffffffffffffffffffffffffffffffffffe9ae2ed07577265dff7f94451e061e163c61", radix: 16)!
     static let cofactor = 4
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.16")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.16")!
 
     init() {
         super.init(EC283k1.name, EC283k1.rp, EC283k1.a, EC283k1.b, EC283k1.gx, EC283k1.gy, EC283k1.order, EC283k1.cofactor, EC283k1.oid)
@@ -44,7 +44,7 @@ class EC283r1: Domain2 {
     static let gy = BInt("3676854fe24141cb98fe6d4b20d02b4516ff702350eddb0826779c813f0df45be8112f4", radix: 16)!
     static let order = BInt("3ffffffffffffffffffffffffffffffffffef90399660fc938a90165b042a7cefadb307", radix: 16)!
     static let cofactor = 2
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.17")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.17")!
 
     init() {
         super.init(EC283r1.name, EC283r1.rp, EC283r1.a, EC283r1.b, EC283r1.gx, EC283r1.gy, EC283r1.order, EC283r1.cofactor, EC283r1.oid)

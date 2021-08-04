@@ -19,7 +19,7 @@ class EC224k1: DomainP {
     static let gy = BInt("7e089fed7fba344282cafbd6f7e319f7c0b0bd59e2ca4bdb556d61a5", radix: 16)!
     static let order = BInt("10000000000000000000000000001dce8d2ec6184caf0a971769fb1f7", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.32")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.32")!
 
     init() {
         super.init(EC224k1.name, EC224k1.p, EC224k1.a, EC224k1.b, EC224k1.gx, EC224k1.gy, EC224k1.order, EC224k1.cofactor, EC224k1.oid)
@@ -37,7 +37,7 @@ class EC224r1: DomainP {
     static let gy = BInt("bd376388b5f723fb4c22dfe6cd4375a05a07476444d5819985007e34", radix: 16)!
     static let order = BInt("ffffffffffffffffffffffffffff16a2e0b8f03e13dd29455c5c2a3d", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.33")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.33")!
 
     init() {
         super.init(EC224r1.name, EC224r1.p, EC224r1.a, EC224r1.b, EC224r1.gx, EC224r1.gy, EC224r1.order, EC224r1.cofactor, EC224r1.oid)

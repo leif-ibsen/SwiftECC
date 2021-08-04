@@ -18,7 +18,7 @@ class BP160r1: DomainP {
     static let gy = BInt("1667cb477a1a8ec338f94741669c976316da6321", radix: 16)!
     static let order = BInt("e95e4a5f737059dc60df5991d45029409e60fc09", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.3.36.3.3.2.8.1.1.1")
+    static let oid = ASN1ObjectIdentifier("1.3.36.3.3.2.8.1.1.1")!
 
     init() {
         super.init(BP160r1.name, BP160r1.p, BP160r1.a, BP160r1.b, BP160r1.gx, BP160r1.gy, BP160r1.order, BP160r1.cofactor, BP160r1.oid)
@@ -36,7 +36,7 @@ class BP160t1: DomainP {
     static let gy = BInt("add6718b7c7c1961f0991b842443772152c9e0ad", radix: 16)!
     static let order = BInt("e95e4a5f737059dc60df5991d45029409e60fc09", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.3.36.3.3.2.8.1.1.2")
+    static let oid = ASN1ObjectIdentifier("1.3.36.3.3.2.8.1.1.2")!
 
     init() {
         super.init(BP160t1.name, BP160t1.p, BP160t1.a, BP160t1.b, BP160t1.gx, BP160t1.gy, BP160t1.order, BP160t1.cofactor, BP160t1.oid)

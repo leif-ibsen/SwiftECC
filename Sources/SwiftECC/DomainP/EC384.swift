@@ -18,7 +18,7 @@ class EC384r1: DomainP {
     static let gy = BInt("3617de4a96262c6f5d9e98bf9292dc29f8f41dbd289a147ce9da3113b5f0b8c00a60b1ce1d7e819d7a431d7c90ea0e5f", radix: 16)!
     static let order = BInt("ffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db248b0a77aecec196accc52973", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.34")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.34")!
 
     init() {
         super.init(EC384r1.name, EC384r1.p, EC384r1.a, EC384r1.b, EC384r1.gx, EC384r1.gy, EC384r1.order, EC384r1.cofactor, EC384r1.oid)

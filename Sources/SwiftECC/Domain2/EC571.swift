@@ -20,7 +20,7 @@ class EC571k1: Domain2 {
     static let gy = BInt("349dc807f4fbf374f4aeade3bca95314dd58cec9f307a54ffc61efc006d8a2c9d4979c0ac44aea74fbebbb9f772aedcb620b01a7ba7af1b320430c8591984f601cd4c143ef1c7a3", radix: 16)!
     static let order = BInt("20000000000000000000000000000000000000000000000000000000000000000000000131850e1f19a63e4b391a8db917f4138b630d84be5d639381e91deb45cfe778f637c1001", radix: 16)!
     static let cofactor = 4
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.38")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.38")!
 
     init() {
         super.init(EC571k1.name, EC571k1.rp, EC571k1.a, EC571k1.b, EC571k1.gx, EC571k1.gy, EC571k1.order, EC571k1.cofactor, EC571k1.oid)
@@ -44,7 +44,7 @@ class EC571r1: Domain2 {
     static let gy = BInt("37bf27342da639b6dccfffeb73d69d78c6c27a6009cbbca1980f8533921e8a684423e43bab08a576291af8f461bb2a8b3531d2f0485c19b16e2f1516e23dd3c1a4827af1b8ac15b", radix: 16)!
     static let order = BInt("3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe661ce18ff55987308059b186823851ec7dd9ca1161de93d5174d66e8382e9bb2fe84e47", radix: 16)!
     static let cofactor = 2
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.39")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.39")!
 
     init() {
         super.init(EC571r1.name, EC571r1.rp, EC571r1.a, EC571r1.b, EC571r1.gx, EC571r1.gy, EC571r1.order, EC571r1.cofactor, EC571r1.oid)

@@ -20,7 +20,7 @@ class EC409k1: Domain2 {
     static let gy = BInt("1e369050b7c4e42acba1dacbf04299c3460782f918ea427e6325165e9ea10e3da5f6c42e9c55215aa9ca27a5863ec48d8e0286b", radix: 16)!
     static let order = BInt("7ffffffffffffffffffffffffffffffffffffffffffffffffffe5f83b2d4ea20400ec4557d5ed3e3e7ca5b4b5c83b8e01e5fcf", radix: 16)!
     static let cofactor = 4
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.36")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.36")!
 
     init() {
         super.init(EC409k1.name, EC409k1.rp, EC409k1.a, EC409k1.b, EC409k1.gx, EC409k1.gy, EC409k1.order, EC409k1.cofactor, EC409k1.oid)
@@ -44,7 +44,7 @@ class EC409r1: Domain2 {
     static let gy = BInt("61b1cfab6be5f32bbfa78324ed106a7636b9c5a7bd198d0158aa4f5488d08f38514f1fdf4b4f40d2181b3681c364ba0273c706", radix: 16)!
     static let order = BInt("10000000000000000000000000000000000000000000000000001e2aad6a612f33307be5fa47c3c9e052f838164cd37d9a21173", radix: 16)!
     static let cofactor = 2
-    static let oid = ASN1ObjectIdentifier("1.3.132.0.37")
+    static let oid = ASN1ObjectIdentifier("1.3.132.0.37")!
 
     init() {
         super.init(EC409r1.name, EC409r1.rp, EC409r1.a, EC409r1.b, EC409r1.gx, EC409r1.gy, EC409r1.order, EC409r1.cofactor, EC409r1.oid)

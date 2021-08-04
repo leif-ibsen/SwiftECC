@@ -18,7 +18,7 @@ class BP384r1: DomainP {
     static let gy = BInt("8abe1d7520f9c2a45cb1eb8e95cfd55262b70b29feec5864e19c054ff99129280e4646217791811142820341263c5315", radix: 16)!
     static let order = BInt("8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b31f166e6cac0425a7cf3ab6af6b7fc3103b883202e9046565", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.3.36.3.3.2.8.1.1.11")
+    static let oid = ASN1ObjectIdentifier("1.3.36.3.3.2.8.1.1.11")!
 
     init() {
         super.init(BP384r1.name, BP384r1.p, BP384r1.a, BP384r1.b, BP384r1.gx, BP384r1.gy, BP384r1.order, BP384r1.cofactor, BP384r1.oid)
@@ -36,7 +36,7 @@ class BP384t1: DomainP {
     static let gy = BInt("25ab056962d30651a114afd2755ad336747f93475b7a1fca3b88f2b6a208ccfe469408584dc2b2912675bf5b9e582928", radix: 16)!
     static let order = BInt("8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b31f166e6cac0425a7cf3ab6af6b7fc3103b883202e9046565", radix: 16)!
     static let cofactor = 1
-    static let oid = ASN1ObjectIdentifier("1.3.36.3.3.2.8.1.1.12")
+    static let oid = ASN1ObjectIdentifier("1.3.36.3.3.2.8.1.1.12")!
 
     init() {
         super.init(BP384t1.name, BP384t1.p, BP384t1.a, BP384t1.b, BP384t1.gx, BP384t1.gy, BP384t1.order, BP384t1.cofactor, BP384t1.oid)
