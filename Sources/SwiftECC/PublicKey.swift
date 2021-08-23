@@ -110,6 +110,9 @@ public class ECPublicKey: CustomStringConvertible {
     ///   - bw: Optional bitwidth used to select the proper message digest. By default the domain field size is used
     /// - Returns: *true* iff the signature is verified
     public func verify(signature: ECSignature, msg: Bytes, bw: Int? = nil) -> Bool {
+        if self.domain != signature.domain {
+            return false
+        }
         let order = self.domain.order
         guard signature.r.count > 0 && signature.s.count > 0 else {
             return false

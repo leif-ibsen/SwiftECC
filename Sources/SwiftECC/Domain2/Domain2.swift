@@ -99,8 +99,10 @@ class Domain2 {
         return pt.infinity ? Point2.INFINITY : Point2(pt.x, pt.x.plus(pt.y))
     }
 
+/*
     // [CRANDALL] - algorithm 7.2.4
     func multiply(_ pt: Point2, _ n: BInt) -> Point2 {
+        assert(0 <= n && n < self.order)
         if n.isZero {
             return Point2.INFINITY
         }
@@ -122,7 +124,25 @@ class Domain2 {
         }
         return q
     }
-    
+*/
+
+    // Montgomery ladder algorithm, about 40% slower than the above algorithm but runs in constant time
+    func multiply(_ pt: Point2, _ n: BInt) -> Point2 {
+        assert(0 <= n && n < self.order)
+        var r0 = Point2.INFINITY
+        var r1 = pt
+        for i in (0 ..< n.bitWidth).reversed() {
+            if n.testBit(i) {
+                r0 = add(r0, r1)
+                r1 = double(r1)
+            } else {
+                r1 = add(r0, r1)
+                r0 = double(r0)
+            }
+        }
+        return r0
+    }
+
     // Multiply the generator point by n
     func multiplyG(_ n: BInt) -> Point {
         return multiplyGW(n, &self.gpts)

@@ -69,7 +69,7 @@ class VerifyTest: XCTestCase {
         return BInt(string, radix: 16)!.asMagnitudeBytes()
     }
 
-    func string2Signature(_ string: String) -> ECSignature {
+    func string2Signature(_ string: String, _ domain: Domain) -> ECSignature {
         let n = string.lengthOfBytes(using: .utf8)
         var r = ""
         var s = ""
@@ -82,57 +82,73 @@ class VerifyTest: XCTestCase {
             }
             i += 1
         }
-        return ECSignature(r: BInt(r, radix: 16)!.asMagnitudeBytes(), s: BInt(s, radix: 16)!.asMagnitudeBytes())
+        return ECSignature(domain: domain, r: BInt(r, radix: 16)!.asMagnitudeBytes(), s: BInt(s, radix: 16)!.asMagnitudeBytes())
     }
 
-    func doTest(_ key: ECPublicKey, _ message: String, _ sig: String, _ ok: Bool) throws {
-        XCTAssertEqual(key.verify(signature: string2Signature(sig), msg: string2Bytes(message)), ok)
+    func doTest(_ domain: Domain, _ key: ECPublicKey, _ message: String, _ sig: String, _ ok: Bool) throws {
+        XCTAssertEqual(key.verify(signature: string2Signature(sig, domain), msg: string2Bytes(message)), ok)
     }
 
     func testBP224r1() throws {
+        let domain = Domain.instance(curve: .BP224r1)
         let key1 = try ECPublicKey(pem: BP224r1KeyPem1)
-        try doTest(key1, BP224r1Message, BP224r1Signature1, true)
-        try doTest(key1, BP224r1Message, BP224r1Signature2, false)
-        try doTest(key1, BP224r1Message, BP224r1Signature9, false)
-        try doTest(key1, BP224r1Message, BP224r1Signature10, false)
-        try doTest(key1, BP224r1Message, BP224r1Signature11, false)
-        try doTest(key1, BP224r1Message, BP224r1Signature15, false)
-        try doTest(key1, BP224r1Message, BP224r1Signature16, false)
+        try doTest(domain, key1, BP224r1Message, BP224r1Signature1, true)
+        try doTest(domain, key1, BP224r1Message, BP224r1Signature2, false)
+        try doTest(domain, key1, BP224r1Message, BP224r1Signature9, false)
+        try doTest(domain, key1, BP224r1Message, BP224r1Signature10, false)
+        try doTest(domain, key1, BP224r1Message, BP224r1Signature11, false)
+        try doTest(domain, key1, BP224r1Message, BP224r1Signature15, false)
+        try doTest(domain, key1, BP224r1Message, BP224r1Signature16, false)
         let key2 = try ECPublicKey(pem: BP224r1KeyPem2)
-        try doTest(key2, BP224r1Message, BP224r1Signature94, true)
-        try doTest(key2, BP224r1Message, BP224r1Signature95, true)
-        try doTest(key2, BP224r1Message, BP224r1Signature96, false)
+        try doTest(domain, key2, BP224r1Message, BP224r1Signature94, true)
+        try doTest(domain, key2, BP224r1Message, BP224r1Signature95, true)
+        try doTest(domain, key2, BP224r1Message, BP224r1Signature96, false)
+
+        // Wrong domain
+        try doTest(Domain.instance(curve: .EC224r1), key2, BP224r1Message, BP224r1Signature95, false)
     }
 
     func testEC256r1() throws {
+        let domain = Domain.instance(curve: .EC256r1)
         let key1 = try ECPublicKey(pem: EC256r1KeyPem1)
-        try doTest(key1, EC256r1Message1, EC256r1Signature1, true)
-        try doTest(key1, EC256r1Message1, EC256r1Signature2, false)
-        try doTest(key1, EC256r1Message1, EC256r1Signature10, false)
-        try doTest(key1, EC256r1Message1, EC256r1Signature11, false)
-        try doTest(key1, EC256r1Message58, EC256r1Signature58, true)
-        try doTest(key1, EC256r1Message59, EC256r1Signature59, true)
+        try doTest(domain, key1, EC256r1Message1, EC256r1Signature1, true)
+        try doTest(domain, key1, EC256r1Message1, EC256r1Signature2, false)
+        try doTest(domain, key1, EC256r1Message1, EC256r1Signature10, false)
+        try doTest(domain, key1, EC256r1Message1, EC256r1Signature11, false)
+        try doTest(domain, key1, EC256r1Message58, EC256r1Signature58, true)
+        try doTest(domain, key1, EC256r1Message59, EC256r1Signature59, true)
+        
+        // Wrong domain
+        try doTest(Domain.instance(curve: .BP256r1), key1, EC256r1Message59, EC256r1Signature59, false)
     }
     
     func testEC384r1() throws {
+        let domain = Domain.instance(curve: .EC384r1)
         let key1 = try ECPublicKey(pem: EC384r1KeyPem1)
-        try doTest(key1, EC384r1Message1, EC384r1Signature1, true)
-        try doTest(key1, EC384r1Message1, EC384r1Signature2, false)
-        try doTest(key1, EC384r1Message1, EC384r1Signature9, false)
-        try doTest(key1, EC384r1Message1, EC384r1Signature10, false)
-        try doTest(key1, EC384r1Message1, EC384r1Signature11, false)
-        try doTest(key1, EC384r1Message58, EC384r1Signature58, true)
-        try doTest(key1, EC384r1Message59, EC384r1Signature59, true)
+        try doTest(domain, key1, EC384r1Message1, EC384r1Signature1, true)
+        try doTest(domain, key1, EC384r1Message1, EC384r1Signature2, false)
+        try doTest(domain, key1, EC384r1Message1, EC384r1Signature9, false)
+        try doTest(domain, key1, EC384r1Message1, EC384r1Signature10, false)
+        try doTest(domain, key1, EC384r1Message1, EC384r1Signature11, false)
+        try doTest(domain, key1, EC384r1Message58, EC384r1Signature58, true)
+        try doTest(domain, key1, EC384r1Message59, EC384r1Signature59, true)
+        
+        // Wrong domain
+        try doTest(Domain.instance(curve: .BP384r1), key1, EC384r1Message59, EC384r1Signature59, false)
     }
 
     func testEC521r1() throws {
+        let domain = Domain.instance(curve: .EC521r1)
         let key1 = try ECPublicKey(pem: EC521r1KeyPem1)
-        try doTest(key1, EC521r1Message1, EC521r1Signature1, true)
-        try doTest(key1, EC521r1Message1, EC521r1Signature2, false)
-        try doTest(key1, EC521r1Message1, EC521r1Signature56, false)
-        try doTest(key1, EC521r1Message1, EC521r1Signature57, false)
-        try doTest(key1, EC521r1Message58, EC521r1Signature58, true)
-        try doTest(key1, EC521r1Message59, EC521r1Signature59, true)
+        try doTest(domain, key1, EC521r1Message1, EC521r1Signature1, true)
+        try doTest(domain, key1, EC521r1Message1, EC521r1Signature2, false)
+        try doTest(domain, key1, EC521r1Message1, EC521r1Signature56, false)
+        try doTest(domain, key1, EC521r1Message1, EC521r1Signature57, false)
+        try doTest(domain, key1, EC521r1Message58, EC521r1Signature58, true)
+        try doTest(domain, key1, EC521r1Message59, EC521r1Signature59, true)
+
+        // Wrong domain
+        try doTest(Domain.instance(curve: .BP512r1), key1, EC521r1Message59, EC521r1Signature59, false)
     }
 
 }

@@ -303,24 +303,27 @@ let encryptedA100_521: Bytes =
     }
 
     func testVerify256() throws {
+        let domain = Domain.instance(curve: .EC256r1)
         let pub256 = try ECPublicKey(pem: pub256r1)
-        XCTAssert(pub256.verify(signature: ECSignature(r: emptyR256, s: emptyS256), msg: empty.data(using: .utf8)!))
-        XCTAssert(pub256.verify(signature: ECSignature(r: foxR256, s: foxS256), msg: fox.data(using: .utf8)!))
-        XCTAssert(pub256.verify(signature: ECSignature(r: a100_R256, s: a100_S256), msg: a100.data(using: .utf8)!))
+        XCTAssert(pub256.verify(signature: ECSignature(domain: domain, r: emptyR256, s: emptyS256), msg: empty.data(using: .utf8)!))
+        XCTAssert(pub256.verify(signature: ECSignature(domain: domain, r: foxR256, s: foxS256), msg: fox.data(using: .utf8)!))
+        XCTAssert(pub256.verify(signature: ECSignature(domain: domain, r: a100_R256, s: a100_S256), msg: a100.data(using: .utf8)!))
     }
     
     func testVerify384() throws {
+        let domain = Domain.instance(curve: .EC384r1)
         let pub384 = try ECPublicKey(pem: pub384r1)
-        XCTAssert(pub384.verify(signature: ECSignature(r: emptyR384, s: emptyS384), msg: empty.data(using: .utf8)!))
-        XCTAssert(pub384.verify(signature: ECSignature(r: foxR384, s: foxS384), msg: fox.data(using: .utf8)!))
-        XCTAssert(pub384.verify(signature: ECSignature(r: a100_R384, s: a100_S384), msg: a100.data(using: .utf8)!))
+        XCTAssert(pub384.verify(signature: ECSignature(domain: domain, r: emptyR384, s: emptyS384), msg: empty.data(using: .utf8)!))
+        XCTAssert(pub384.verify(signature: ECSignature(domain: domain, r: foxR384, s: foxS384), msg: fox.data(using: .utf8)!))
+        XCTAssert(pub384.verify(signature: ECSignature(domain: domain, r: a100_R384, s: a100_S384), msg: a100.data(using: .utf8)!))
     }
 
     func testVerify521() throws {
+        let domain = Domain.instance(curve: .EC521r1)
         let pub521 = try ECPublicKey(pem: pub521r1)
-        XCTAssert(pub521.verify(signature: ECSignature(r: emptyR521, s: emptyS521), msg: empty.data(using: .utf8)!))
-        XCTAssert(pub521.verify(signature: ECSignature(r: foxR521, s: foxS521), msg: fox.data(using: .utf8)!))
-        XCTAssert(pub521.verify(signature: ECSignature(r: a100_R521, s: a100_S521), msg: a100.data(using: .utf8)!))
+        XCTAssert(pub521.verify(signature: ECSignature(domain: domain, r: emptyR521, s: emptyS521), msg: empty.data(using: .utf8)!))
+        XCTAssert(pub521.verify(signature: ECSignature(domain: domain, r: foxR521, s: foxS521), msg: fox.data(using: .utf8)!))
+        XCTAssert(pub521.verify(signature: ECSignature(domain: domain, r: a100_R521, s: a100_S521), msg: a100.data(using: .utf8)!))
     }
 
 }

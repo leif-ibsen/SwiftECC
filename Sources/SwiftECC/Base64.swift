@@ -105,10 +105,9 @@ public struct Base64 {
         var bytes: Bytes = []
         var eq = 0
         var i = 0
-        var x = 0
         var bbbb = Bytes(repeating: 0, count: 4)
         for s in input {
-            x = Int(s.unicodeScalars.first!.value)
+            var x = Int(s.unicodeScalars.first!.value)
             switch x {
             case 65...90: // A .. Z
                 if eq > 0 {

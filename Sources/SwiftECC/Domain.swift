@@ -21,7 +21,7 @@ public typealias Bytes = [Byte]
 /// A Domain instance contains an elliptic curve domain - either with characteristic 2 or characteristic an odd prime.
 /// Please refer [SEC 1] section 3.1.
 ///
-public class Domain: CustomStringConvertible {
+public class Domain: CustomStringConvertible, Equatable {
     
     init(_ domainP: DomainP) {
         self.name = domainP.name
@@ -303,6 +303,19 @@ public class Domain: CustomStringConvertible {
     
     // MARK: Instance Methods
     
+    /// Equality of two Domain instances
+    ///
+    /// - Parameters:
+    ///   - d1: a Domain instance
+    ///   - d2: a Domain instance
+    /// - Returns: *true* if d1 and d2 are equal, *false* otherwise
+    public static func == (d1: Domain, d2: Domain) -> Bool {
+        if d1.characteristic2 != d2.characteristic2 {
+            return false
+        }
+        return d1.p == d2.p && d1.a == d2.a && d1.b == d2.b && d1.g == d2.g && d1.order == d2.order && d1.cofactor == d2.cofactor
+    }
+
     /// Doubles a curve Point
     ///
     /// - Parameters:

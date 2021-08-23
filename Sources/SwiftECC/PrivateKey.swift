@@ -110,7 +110,7 @@ public class ECPrivateKey: CustomStringConvertible {
         }
         let r = R.x.mod(order)
         let s = (k.modInverse(order) * (h + r * self.s)).mod(order)
-        return ECSignature(r: self.domain.align(r.asMagnitudeBytes()), s: self.domain.align(s.asMagnitudeBytes()))
+        return ECSignature(domain: domain, r: self.domain.align(r.asMagnitudeBytes()), s: self.domain.align(s.asMagnitudeBytes()))
     }
     
     /// Signs a Data message with ECDSA

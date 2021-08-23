@@ -12,7 +12,7 @@ SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "2.0.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "2.1.0"),
 	  ]
 
 <h2><b>Basics</b></h2>
@@ -337,7 +337,7 @@ The SwiftECC package depends on the ASN1 and BigInt packages
 
     dependencies: [
         .package(url: "https://github.com/leif-ibsen/ASN1", from: "2.0.0"),
-        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.2.5"),
+        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.2.6"),
     ],
 
 <h2><b>References</b></h2>

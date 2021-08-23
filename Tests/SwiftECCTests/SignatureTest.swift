@@ -30,13 +30,13 @@ class SignatureTest: XCTestCase {
         
         // Signature r and s out of range
         
-        let sig3 = ECSignature(r: [0], s: sig2.s)
+        let sig3 = ECSignature(domain: domain, r: [0], s: sig2.s)
         XCTAssertFalse(pub.verify(signature: sig3, msg: data1))
-        let sig4 = ECSignature(r: Bytes(repeating: 0xff, count: (domain.order.bitWidth + 7) / 8), s: sig2.s)
+        let sig4 = ECSignature(domain: domain, r: Bytes(repeating: 0xff, count: (domain.order.bitWidth + 7) / 8), s: sig2.s)
         XCTAssertFalse(pub.verify(signature: sig4, msg: data1))
-        let sig5 = ECSignature(r: sig2.r, s: [0])
+        let sig5 = ECSignature(domain: domain, r: sig2.r, s: [0])
         XCTAssertFalse(pub.verify(signature: sig5, msg: data1))
-        let sig6 = ECSignature(r: sig2.r, s: Bytes(repeating: 0xff, count: (domain.order.bitWidth + 7) / 8))
+        let sig6 = ECSignature(domain: domain, r: sig2.r, s: Bytes(repeating: 0xff, count: (domain.order.bitWidth + 7) / 8))
         XCTAssertFalse(pub.verify(signature: sig6, msg: data1))
     }
 

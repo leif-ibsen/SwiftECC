@@ -65,10 +65,10 @@ class FuzzTest: XCTestCase {
         for c in ECCurve.allCases {
             let domain = Domain.instance(curve: c)
             let (pub, _) = domain.makeKeyPair()
-            XCTAssertFalse(pub.verify(signature: ECSignature(r: [], s: []), msg: [1]))
-            XCTAssertFalse(pub.verify(signature: ECSignature(r: Bytes(repeating: 1, count: 100000), s: Bytes(repeating: 1, count: 100000)), msg: [1]))
-            XCTAssertFalse(pub.verify(signature: ECSignature(r: [1], s: [1]), msg: []))
-            XCTAssertFalse(pub.verify(signature: ECSignature(r: Bytes(repeating: 1, count: 100000), s: Bytes(repeating: 1, count: 100000)), msg: []))
+            XCTAssertFalse(pub.verify(signature: ECSignature(domain: domain, r: [], s: []), msg: [1]))
+            XCTAssertFalse(pub.verify(signature: ECSignature(domain: domain, r: Bytes(repeating: 1, count: 100000), s: Bytes(repeating: 1, count: 100000)), msg: [1]))
+            XCTAssertFalse(pub.verify(signature: ECSignature(domain: domain, r: [1], s: [1]), msg: []))
+            XCTAssertFalse(pub.verify(signature: ECSignature(domain: domain, r: Bytes(repeating: 1, count: 100000), s: Bytes(repeating: 1, count: 100000)), msg: []))
         }
     }
     

@@ -18,9 +18,11 @@ public class ECSignature {
     /// Creates a signature from its *r* and *s* components
     ///
     /// - Parameters:
+    ///   - domain: The domain of the signature
     ///   - r: The r component
     ///   - s: The s component
-    public init(r: Bytes, s: Bytes) {
+    public init(domain: Domain, r: Bytes, s: Bytes) {
+        self.domain = domain
         self.r = r
         self.s = s
     }
@@ -44,17 +46,19 @@ public class ECSignature {
         guard let s1 = seq.get(1) as? ASN1Integer else {
             throw ECException.asn1Structure
         }
-        self.init(r: domain.align(r0.value.asMagnitudeBytes()), s: domain.align(s1.value.asMagnitudeBytes()))
+        self.init(domain: domain, r: domain.align(r0.value.asMagnitudeBytes()), s: domain.align(s1.value.asMagnitudeBytes()))
     }
 
 
     // MARK: Stored Properties
     
+    /// The domain of the signature
+    public let domain: Domain
     /// The *r* component of the signature
     public let r: Bytes
     /// The *s* component of the signature
     public let s: Bytes
-    
+
     
     // MARK: Computed Properties
     

@@ -54,6 +54,18 @@ class DomainTest: XCTestCase {
         XCTAssertEqual(d.reduceModP(domain.p + 1), BInt.ONE)
     }
 
+    func equalTest(_ c: ECCurve) {
+        let domain = Domain.instance(curve: c)
+        for c1 in ECCurve.allCases {
+            let domain1 = Domain.instance(curve: c1)
+            if domain.name == domain1.name {
+                XCTAssertTrue(domain == domain1)
+            } else {
+                XCTAssertFalse(domain == domain1)
+            }
+        }
+    }
+
     func doTest(_ c: ECCurve) throws {
         let domain = Domain.instance(curve: c)
         try domainTest(domain, try domain.multiplyPoint(domain.g, BInt(0)))
@@ -65,6 +77,7 @@ class DomainTest: XCTestCase {
         try multiplyGTest(domain, BInt(2))
         try multiplyGTest(domain, BInt(bitWidth: domain.g.x.bitWidth / 2))
         reduceModPTest(domain)
+        equalTest(c)
     }
 
     func test() throws {
