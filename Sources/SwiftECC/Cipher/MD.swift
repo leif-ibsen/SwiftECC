@@ -5,13 +5,17 @@
 //  Created by Leif Ibsen on 05/01/2020.
 //
 
-//
-// Message digest interface to the SHA2 MD's
-//
-enum MessageDigestAlgorithm: String {
+///
+/// Message digest algorithms
+///
+public enum MessageDigestAlgorithm: CaseIterable {
+    /// SHA2 224
     case SHA2_224
+    /// SHA2 256
     case SHA2_256
+    /// SHA2 384
     case SHA2_384
+    /// SHA2 512
     case SHA2_512
 }
 

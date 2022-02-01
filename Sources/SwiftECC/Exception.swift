@@ -39,6 +39,8 @@ public enum ECException: Error, CustomStringConvertible {
             return "Unknown domain OID"
         case .notOnCurve:
             return "Point not on curve"
+        case .keyAgreementParameter:
+            return "Invalid key agreement parameter"
         }
     }
     
@@ -59,6 +61,9 @@ public enum ECException: Error, CustomStringConvertible {
 
     /// Point to encode does not lie on the domain curve
     case encodePoint
+
+    /// Invalid key agreement parameter
+    case keyAgreementParameter
 
     /// Not enough input to decrypt
     case notEnoughInput

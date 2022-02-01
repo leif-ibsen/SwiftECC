@@ -94,6 +94,14 @@ class Test4: XCTestCase {
         } catch {
             XCTFail("Expected domainParameter exception")
         }
+        do {
+            // Generator point not on curve
+            try Domain.instance(name: EC4.name, rp: EC4.rp, a: EC4.a, b: EC4.b, gx: EC4.gx, gy: BInt("2")!, order: EC4.order, cofactor: EC4.cofactor)
+            XCTFail("Expected domainParameter exception")
+        } catch ECException.domainParameter {
+        } catch {
+            XCTFail("Expected domainParameter exception")
+        }
     }
     
     func test4() throws {

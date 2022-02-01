@@ -161,4 +161,50 @@ public class ECPrivateKey: CustomStringConvertible {
     public func decrypt(msg: Data, cipher: AESCipher, mode: BlockMode = .GCM) throws -> Data {
         return try Data(self.decrypt(msg: Bytes(msg), cipher: cipher, mode: mode))
     }
+    
+    /// Constructs a shared secret key using Diffie-Hellman key agreement - please refer [SEC 1] section 3.3.1
+    ///
+    /// - Parameters:
+    ///   - pubKey: The other party's public key
+    ///   - length: The required length of the shared secret
+    ///   - md: The message digest algorithm to use
+    ///   - sharedInfo: Information shared with the other party
+    ///   - cofactor: Use cofactor version - *false* is default
+    /// - Returns: A byte array which is the shared secret key
+    /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* is negative
+    public func keyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
+        if self.domain != pubKey.domain {
+            throw ECException.keyAgreementParameter
+        }
+        let mda = MessageDigest(md)
+        if length >= mda.digestLength * 0xffffffff || length < 0 {
+            throw ECException.keyAgreementParameter
+        }
+        var Z = try self.domain.multiplyPoint(pubKey.w, (cofactor ? self.domain.cofactor : 1) * self.s).x.asMagnitudeBytes()
+        Z = self.domain.align(Z)
+        
+        // [SEC 1] - section 3.6.1
+
+        var k: Bytes = []
+        var counter: Bytes = [0, 0, 0, 1]
+        let n = length == 0 ? 0 : (length - 1) / mda.digestLength + 1
+        for _ in 0 ..< n {
+            mda.update(Z)
+            mda.update(counter)
+            mda.update(sharedInfo)
+            k += mda.digest()
+            counter[3] &+= 1
+            if counter[3] == 0 {
+                counter[2] &+= 1
+                if counter[2] == 0 {
+                    counter[1] &+= 1
+                    if counter[1] == 0 {
+                        counter[0] &+= 1
+                    }
+                }
+            }
+        }
+        return Bytes(k[0 ..< length])
+    }
+
 }

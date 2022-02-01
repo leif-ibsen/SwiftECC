@@ -157,6 +157,14 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         } catch {
             XCTFail("Expected ECException.publicKeyParameter")
         }
+        do {
+            let domain = Domain.instance(curve: .BP160r1)
+            try ECPublicKey(domain: domain, w: Point.INFINITY)
+            XCTFail("Expected ECException.publicKeyParameter")
+        } catch ECException.publicKeyParameter {
+        } catch {
+            XCTFail("Expected ECException.publicKeyParameter")
+        }
     }
 
     func testUnknownOid() {
@@ -212,6 +220,37 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         } catch ECException.notOnCurve {
         } catch {
             XCTFail("Expected ECException.notOnCurve")
+        }
+    }
+    
+    func testECDHParameter() {
+        let domain1 = Domain.instance(curve: .BP256r1)
+        let domain2 = Domain.instance(curve: .EC256r1)
+        let (pub1, priv1) = domain1.makeKeyPair()
+        let (pub2, _) = domain2.makeKeyPair()
+        do {
+            // Different domains
+            let _ = try priv1.keyAgreement(pubKey: pub2, length: 20, md: .SHA2_256, sharedInfo: [])
+            XCTFail("Expected ECException.keyAgreementParameter")
+        } catch ECException.keyAgreementParameter {
+        } catch {
+            XCTFail("Expected ECException.keyAgreementParameter")
+        }
+        do {
+            // Length is negative
+            let _ = try priv1.keyAgreement(pubKey: pub1, length: -20, md: .SHA2_256, sharedInfo: [])
+            XCTFail("Expected ECException.keyAgreementParameter")
+        } catch ECException.keyAgreementParameter {
+        } catch {
+            XCTFail("Expected ECException.keyAgreementParameter")
+        }
+        do {
+            // Length is too large
+            let _ = try priv1.keyAgreement(pubKey: pub1, length: 32 * 0xffffffff, md: .SHA2_256, sharedInfo: [])
+            XCTFail("Expected ECException.keyAgreementParameter")
+        } catch ECException.keyAgreementParameter {
+        } catch {
+            XCTFail("Expected ECException.keyAgreementParameter")
         }
     }
 

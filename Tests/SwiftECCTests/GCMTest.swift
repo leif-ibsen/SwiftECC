@@ -1,6 +1,6 @@
 //
 //  GCMTest.swift
-//  AECTests
+//  SwiftECCTests
 //
 //  Created by Leif Ibsen on 08/02/2020.
 //

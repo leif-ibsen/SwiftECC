@@ -1,6 +1,6 @@
 //
 //  CipherTest.swift
-//  AECTests
+//  SwiftECCTests
 //
 //  Created by Leif Ibsen on 04/02/2020.
 //

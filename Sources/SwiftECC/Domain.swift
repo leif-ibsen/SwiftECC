@@ -235,12 +235,16 @@ public class Domain: CustomStringConvertible, Equatable {
     ///   - cofactor: The cofactor
     ///   - oid: An optional domain OID
     /// - Returns: The domain
-    /// - Throws: A *domainParameter* exception if 4 * a^3 + 27 * b^2 = 0
+    /// - Throws: A *domainParameter* exception if 4 * a^3 + 27 * b^2 = 0 or the generator point is not on the curve
     public static func instance(name: String, p: BInt, a: BInt, b: BInt, gx: BInt, gy: BInt, order: BInt, cofactor: Int, oid: ASN1ObjectIdentifier? = nil) throws -> Domain {
         if (4 * a * a * a + 27 * b * b) % p == BInt.ZERO {
             throw ECException.domainParameter
         }
-        return Domain(DomainP(name, p, a, b, gx, gy, order, cofactor, oid))
+        let domain = Domain(DomainP(name, p, a, b, gx, gy, order, cofactor, oid))
+        if !domain.contains(domain.g) {
+            throw ECException.domainParameter
+        }
+        return domain
     }
 
     /// Constructs a characteristic 2 domain
@@ -257,12 +261,16 @@ public class Domain: CustomStringConvertible, Equatable {
     ///   - cofactor: The cofactor
     ///   - oid: An optional domain OID
     /// - Returns: The domain
-    /// - Throws: A *domainParameter* exception if b = 0
+    /// - Throws: A *domainParameter* exception if b = 0 or the generator point is not on the curve
     public static func instance(name: String, rp: RP, a: BInt, b: BInt, gx: BInt, gy: BInt, order: BInt, cofactor: Int, oid: ASN1ObjectIdentifier? = nil) throws -> Domain {
         if b.isZero {
             throw ECException.domainParameter
         }
-        return Domain(Domain2(name, rp, a, b, gx, gy, order, cofactor, oid))
+        let domain = Domain(Domain2(name, rp, a, b, gx, gy, order, cofactor, oid))
+        if !domain.contains(domain.g) {
+            throw ECException.domainParameter
+        }
+        return domain
     }
 
 

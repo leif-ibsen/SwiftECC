@@ -10,8 +10,7 @@
 /// Base64 exists to provide a namespace. It contains static functions for Base64 encoding and decoding.
 ///
 public struct Base64 {
-    
-    static let linesize = 76
+
     static let base64chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
                         "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f",
                         "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
@@ -31,7 +30,7 @@ public struct Base64 {
     ///   - pem: The PEM header- and footer string
     /// - Returns: The Base64 PEM encoding of *input*
     public static func pemEncode(_ input: Bytes, _ pem: String) -> String {
-        return "-----BEGIN " + pem + "-----\n" + encode(input) + "\n-----END " + pem + "-----"
+        return "-----BEGIN " + pem + "-----\n" + encode(input, 64) + "\n-----END " + pem + "-----"
     }
 
     /// PEM decodes a string
@@ -56,8 +55,9 @@ public struct Base64 {
     ///
     /// - Parameters:
     ///   - input: Bytes to encode
+    ///   - linesize: Number of characters per line - 76 is default
     /// - Returns: The Base64 encoding of *input*
-    public static func encode(_ input: Bytes) -> String {
+    public static func encode(_ input: Bytes, _ linesize: Int = 76) -> String {
         var base64 = ""
         var i = 0
         var k = 0

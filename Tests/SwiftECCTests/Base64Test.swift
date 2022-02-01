@@ -1,6 +1,6 @@
 //
 //  Base64Test.swift
-//  AECTests
+//  SwiftECCTests
 //
 //  Created by Leif Ibsen on 06/01/2020.
 //
