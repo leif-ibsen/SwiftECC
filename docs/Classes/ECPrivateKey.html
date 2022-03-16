@@ -191,9 +191,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC12ECPrivateKeyC3derACSays5UInt8VG_tKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(der:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC3derACSays5UInt8VG_tKcfc">init(der:<wbr>)</a>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC3der5pkcs8ACSays5UInt8VG_SbtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(der:pkcs8:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC3der5pkcs8ACSays5UInt8VG_SbtKcfc">init(der:<wbr>pkcs8:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -213,7 +213,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">der</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">der</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pkcs8</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -230,6 +230,18 @@
                               <td>
                                 <div>
                                   <p>The DER encoding of the key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pkcs8</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>true</em> if the encoding is in PKCS#8 format - else <em>false</em></p>
                                 </div>
                               </td>
                             </tr>
@@ -252,7 +264,9 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a private key from its PEM encoding</p>
+                        <p>Creates a private key from its PEM encoding.
+The PEM type is either &lsquo;PRIVATE KEY&rsquo; meaning the format is PKCS#8,
+or it is &lsquo;EC PRIVATE KEY&rsquo; meaning the format is not PKCS#8</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     An exception if the PEM encoding is wrong
@@ -343,7 +357,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The private value - a integer number</p>
+                        <p>The private value - a positive integer</p>
 
                       </div>
                       <div class="declaration">
@@ -400,6 +414,33 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC3derSays5UInt8VGvp"></a>
+                    <a name="//apple_ref/swift/Property/der" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC3derSays5UInt8VGvp">der</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The DER encoding of <em>self</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">der</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC3pemSSvp"></a>
                     <a name="//apple_ref/swift/Property/pem" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC3pemSSvp">pem</a>
@@ -418,6 +459,60 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">pem</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC8derPkcs8Says5UInt8VGvp"></a>
+                    <a name="//apple_ref/swift/Property/derPkcs8" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC8derPkcs8Says5UInt8VGvp">derPkcs8</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The DER encoding of <em>self</em> in PKCS#8 format</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">derPkcs8</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC8pemPkcs8SSvp"></a>
+                    <a name="//apple_ref/swift/Property/pemPkcs8" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC8pemPkcs8SSvp">pemPkcs8</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The PEM base 64 encoding of <em>self</em> in PKCS#8 format</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">pemPkcs8</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -854,7 +949,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-01-31)</p>
+          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-03-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

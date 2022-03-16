@@ -180,6 +180,33 @@ Please refer [SEC 1] section 3.1.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC6DomainC6OID_EC4ASN10F16ObjectIdentifierCvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/OID_EC" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC6DomainC6OID_EC4ASN10F16ObjectIdentifierCvpZ">OID_EC</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Elliptic curve OID</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">OID_EC</span><span class="p">:</span> <span class="kt">ASN1ObjectIdentifier</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -1023,6 +1050,37 @@ based on the curve   y^2 + x * y = x^3 + a * x^2 + b</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:8SwiftECC6DomainC11makeKeyPairAA08ECPublicE0C_AA09ECPrivateE0CtyF"></a>
+                    <a name="//apple_ref/swift/Method/makeKeyPair()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC6DomainC11makeKeyPairAA08ECPublicE0C_AA09ECPrivateE0CtyF">makeKeyPair()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates a private- and public key pair for <em>self</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeKeyPair</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Classes/ECPublicKey.html">ECPublicKey</a></span><span class="p">,</span> <span class="kt"><a href="../Classes/ECPrivateKey.html">ECPrivateKey</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>(ECPublicKey, ECPrivateKey)</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:8SwiftECC6DomainC2eeoiySbAC_ACtFZ"></a>
                     <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC6DomainC2eeoiySbAC_ACtFZ">==(_:<wbr>_:<wbr>)</a>
@@ -1774,43 +1832,12 @@ All domain components are included in the encoding - not just the domain OID</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:8SwiftECC6DomainC11makeKeyPairAA08ECPublicE0C_AA09ECPrivateE0CtyF"></a>
-                    <a name="//apple_ref/swift/Method/makeKeyPair()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC6DomainC11makeKeyPairAA08ECPublicE0C_AA09ECPrivateE0CtyF">makeKeyPair()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Generates a private- and public key pair for <em>self</em></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeKeyPair</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Classes/ECPublicKey.html">ECPublicKey</a></span><span class="p">,</span> <span class="kt"><a href="../Classes/ECPrivateKey.html">ECPrivateKey</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>(ECPublicKey, ECPrivateKey)</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-01-31)</p>
+          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-03-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

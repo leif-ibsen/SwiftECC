@@ -58,6 +58,8 @@ public class Domain: CustomStringConvertible, Equatable {
     public static let OID_P = ASN1ObjectIdentifier("1.2.840.10045.1.1")!
     /// Characteristic 2 domain OID
     public static let OID_2 = ASN1ObjectIdentifier("1.2.840.10045.1.2")!
+    /// Elliptic curve OID
+    public static let OID_EC = ASN1ObjectIdentifier("1.2.840.10045.2.1")!
 
     
     // MARK: Static Methods
@@ -311,6 +313,18 @@ public class Domain: CustomStringConvertible, Equatable {
     
     // MARK: Instance Methods
     
+    /// Generates a private- and public key pair for *self*
+    ///
+    /// - Returns: (ECPublicKey, ECPrivateKey)
+    public func makeKeyPair() -> (ECPublicKey, ECPrivateKey) {
+        let s = (self.order - BInt.ONE).randomLessThan() + BInt.ONE
+        do {
+            return try (ECPublicKey(domain: self, w: self.multiplyG(s)), ECPrivateKey(domain: self, s: s))
+        } catch {
+            fatalError("'makeKeyPair' inconsistency")
+        }
+    }
+    
     /// Equality of two Domain instances
     ///
     /// - Parameters:
@@ -470,18 +484,6 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Returns: Explicit ASN1 encoding of *self*
     public func asn1Explicit() -> ASN1 {
         return self.characteristic2 ? self.domain2!.asn1(true) : self.domainP!.asn1(true)
-    }
-    
-    /// Generates a private- and public key pair for *self*
-    ///
-    /// - Returns: (ECPublicKey, ECPrivateKey)
-    public func makeKeyPair() -> (ECPublicKey, ECPrivateKey) {
-        let s = (self.order - BInt.ONE).randomLessThan() + BInt.ONE
-        do {
-            return try (ECPublicKey(domain: self, w: self.multiplyG(s)), ECPrivateKey(domain: self, s: s))
-        } catch {
-            fatalError("'makeKeyPair' inconsistency")
-        }
     }
     
     // Multiply the generator point by n

@@ -128,69 +128,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC11ECPublicKeyC6domain1wAcA6DomainC_AA5PointVtKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(domain:w:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC6domain1wAcA6DomainC_AA5PointVtKcfc">init(domain:<wbr>w:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates a public key</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    An exception if <em>w</em> is not on the curve or is infinity
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">domain</span><span class="p">:</span> <span class="kt"><a href="../Classes/Domain.html">Domain</a></span><span class="p">,</span> <span class="nv">w</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>domain</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The domain the key belongs to</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>w</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The public key value - a curve point</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:8SwiftECC11ECPublicKeyC3derACSays5UInt8VG_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(der:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC11ECPublicKeyC3derACSays5UInt8VG_tKcfc">init(der:<wbr>)</a>
@@ -281,6 +218,52 @@
                               <td>
                                 <div>
                                   <p>The PEM encoding of the key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC07privateD0AcA09ECPrivateD0C_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(privateKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC07privateD0AcA09ECPrivateD0C_tcfc">init(privateKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a public key from the corresponding private key</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPrivateKey.html">ECPrivateKey</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The corresponding private key</p>
                                 </div>
                               </td>
                             </tr>
@@ -391,6 +374,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">asn1</span><span class="p">:</span> <span class="kt">ASN1</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC3derSays5UInt8VGvp"></a>
+                    <a name="//apple_ref/swift/Property/der" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC3derSays5UInt8VGvp">der</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The DER encoding of <em>self</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">der</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -765,7 +775,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-01-31)</p>
+          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-03-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

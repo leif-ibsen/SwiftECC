@@ -112,130 +112,130 @@ class CipherTest: XCTestCase {
     func testECB() throws {
         let cipher128e = ECBCipher(key128, [])
         var x = input
-        cipher128e.encrypt(&x)
+        _ = cipher128e.encrypt(&x)
         XCTAssertEqual(ECB128Output[0 ..< ECB128Output.count], x[0 ..< ECB128Output.count])
         let cipher128d = ECBCipher(key128, [])
-        try cipher128d.decrypt(&x)
+        _ = try cipher128d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher192e = ECBCipher(key192, [])
         x = input
-        cipher192e.encrypt(&x)
+        _ = cipher192e.encrypt(&x)
         XCTAssertEqual(ECB192Output[0 ..< ECB192Output.count], x[0 ..< ECB192Output.count])
         let cipher192d = ECBCipher(key192, [])
-        try cipher192d.decrypt(&x)
+        _ = try cipher192d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher256e = ECBCipher(key256, [])
         x = input
-        cipher256e.encrypt(&x)
+        _ = cipher256e.encrypt(&x)
         XCTAssertEqual(ECB256Output[0 ..< ECB256Output.count], x[0 ..< ECB256Output.count])
         let cipher256d = ECBCipher(key256, [])
-        try cipher256d.decrypt(&x)
+        _ = try cipher256d.decrypt(&x)
         XCTAssertEqual(input, x)
     }
     
     func testCBC() throws {
         let cipher128e = CBCCipher(key128, iv, [])
         var x = input
-        cipher128e.encrypt(&x)
+        _ = cipher128e.encrypt(&x)
         XCTAssertEqual(CBC128Output[0 ..< CBC128Output.count], x[0 ..< CBC128Output.count])
         let cipher128d = CBCCipher(key128, iv, [])
-        try cipher128d.decrypt(&x)
+        _ = try cipher128d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher192e = CBCCipher(key192, iv, [])
         x = input
-        cipher192e.encrypt(&x)
+        _ = cipher192e.encrypt(&x)
         XCTAssertEqual(CBC192Output[0 ..< CBC192Output.count], x[0 ..< CBC192Output.count])
         let cipher192d = CBCCipher(key192, iv, [])
-        try cipher192d.decrypt(&x)
+        _ = try cipher192d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher256e = CBCCipher(key256, iv, [])
         x = input
-        cipher256e.encrypt(&x)
+        _ = cipher256e.encrypt(&x)
         XCTAssertEqual(CBC256Output[0 ..< CBC256Output.count], x[0 ..< CBC256Output.count])
         let cipher256d = CBCCipher(key256, iv, [])
-        try cipher256d.decrypt(&x)
+        _ = try cipher256d.decrypt(&x)
         XCTAssertEqual(input, x)
     }
     
     func testCFB() throws {
         let cipher128e = CFBCipher(key128, iv, [])
         var x = input
-        cipher128e.encrypt(&x)
+        _ = cipher128e.encrypt(&x)
         XCTAssertEqual(CFB128Output, x)
         let cipher128d = CFBCipher(key128, iv, [])
-        try cipher128d.decrypt(&x)
+        _ = try cipher128d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher192e = CFBCipher(key192, iv, [])
         x = input
-        cipher192e.encrypt(&x)
+        _ = cipher192e.encrypt(&x)
         XCTAssertEqual(CFB192Output, x)
         let cipher192d = CFBCipher(key192, iv, [])
-        try cipher192d.decrypt(&x)
+        _ = try cipher192d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher256e = CFBCipher(key256, iv, [])
         x = input
-        cipher256e.encrypt(&x)
+        _ = cipher256e.encrypt(&x)
         XCTAssertEqual(CFB256Output, x)
         let cipher256d = CFBCipher(key256, iv, [])
-        try cipher256d.decrypt(&x)
+        _ = try cipher256d.decrypt(&x)
         XCTAssertEqual(input, x)
     }
     
     func testOFB() throws {
         let cipher128e = OFBCipher(key128, iv, [])
         var x = input
-        cipher128e.encrypt(&x)
+        _ = cipher128e.encrypt(&x)
         XCTAssertEqual(OFB128Output, x)
         let cipher128d = OFBCipher(key128, iv, [])
-        try cipher128d.decrypt(&x)
+        _ = try cipher128d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher192e = OFBCipher(key192, iv, [])
         x = input
-        cipher192e.encrypt(&x)
+        _ = cipher192e.encrypt(&x)
         XCTAssertEqual(OFB192Output, x)
         let cipher192d = OFBCipher(key192, iv, [])
-        try cipher192d.decrypt(&x)
+        _ = try cipher192d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher256e = OFBCipher(key256, iv, [])
         x = input
-        cipher256e.encrypt(&x)
+        _ = cipher256e.encrypt(&x)
         XCTAssertEqual(OFB256Output, x)
         let cipher256d = OFBCipher(key256, iv, [])
-        try cipher256d.decrypt(&x)
+        _ = try cipher256d.decrypt(&x)
         XCTAssertEqual(input, x)
     }
     
     func testCTR() throws {
         let cipher128e = CTRCipher(key128, ctr, [])
         var x = input
-        cipher128e.encrypt(&x)
+        _ = cipher128e.encrypt(&x)
         XCTAssertEqual(CTR128Output, x)
         let cipher128d = CTRCipher(key128, ctr, [])
-        try cipher128d.decrypt(&x)
+        _ = try cipher128d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher192e = CTRCipher(key192, ctr, [])
         x = input
-        cipher192e.encrypt(&x)
+        _ = cipher192e.encrypt(&x)
         XCTAssertEqual(CTR192Output, x)
         let cipher192d = CTRCipher(key192, ctr, [])
-        try cipher192d.decrypt(&x)
+        _ = try cipher192d.decrypt(&x)
         XCTAssertEqual(input, x)
         
         let cipher256e = CTRCipher(key256, ctr, [])
         x = input
-        cipher256e.encrypt(&x)
+        _ = cipher256e.encrypt(&x)
         XCTAssertEqual(CTR256Output, x)
         let cipher256d = CTRCipher(key256, ctr, [])
-        try cipher256d.decrypt(&x)
+        _ = try cipher256d.decrypt(&x)
         XCTAssertEqual(input, x)
     }
 

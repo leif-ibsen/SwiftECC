@@ -4,11 +4,13 @@
 <li><a href="#use">Usage</a></li>
 <li><a href="#basic">Basics</a>
 <ul>
-	<li><a href="#basic1">Encryption and Decryption</a></li>
-	<li><a href="#basic2">Signing and Verifying</a></li>
-	<li><a href="#basic3">Secret Key Agreement</a></li>
-	<li><a href="#basic4">Creating Domains</a></li>
-	<li><a href="#basic5">Elliptic Curve Arithmetic</a></li>
+	<li><a href="#basic1">Creating New Keys</a></li>
+	<li><a href="#basic2">Loading Existing Keys</a></li>
+	<li><a href="#basic3">Encryption and Decryption</a></li>
+	<li><a href="#basic4">Signing and Verifying</a></li>
+	<li><a href="#basic5">Secret Key Agreement</a></li>
+	<li><a href="#basic6">Creating New Domains</a></li>
+	<li><a href="#basic7">Elliptic Curve Arithmetic</a></li>
 </ul></li>
 <li><a href="#keydev">Key Derivation</a></li>
 <li><a href="#perf">Performance</a></li>
@@ -30,7 +32,7 @@ SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "2.2.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.0.0"),
 	  ]
 
 <h2 id="basic"><b>Basics</b></h2>
@@ -44,7 +46,65 @@ and it is possible to create your own characteristic 2, and odd prime characteri
 You need a public key in order to encrypt a message or verify a signature, and you need a private key in order to decrypt a message or sign a message.
 Given a domain, you can generate public/private key pairs or you can load them from the PEM- or DER encoding of existing keys.
 
-<h3 id="basic1"><b>Encryption and Decryption</b></h3>
+<h3 id="basic1"><b>Creating New Keys</b></h3>
+For a given domain it is possible to generate a public/private key pair. For example:
+
+    let domain = Domain.instance(curve: .EC384r1)
+    let (pubKey, privKey) = domain.generateKeyPair()
+
+The private key is simply a random positive integer less than the domain order. The public key is the domain generator point multiplied by the private key.
+Given a private key, say 'privKey', you can generate the corresponding public key, like
+
+    let pubKey = ECPublicKey(privateKey: privKey)
+
+<h3 id="basic2"><b>Loading Existing Keys</b></h3>
+It is possible to create keys from their PEM encodings. For example
+
+    // Public key encoding - EC384r1 domain
+    let pubKeyPem =
+    """
+    -----BEGIN PUBLIC KEY-----
+    MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEQW/MahMwMTFjwY95uOEdfBVC7HrQhTGG
+    TwxiPlgDiARqC6y6EQ1Ajkuhe4A02WOltRYQRXKytzspOR25UfgtagURAwxVFYzR
+    9cmi6FRmvvq/Tsigd/dAi4FNjniR7/Pg
+    -----END PUBLIC KEY-----
+    """
+    let pubKey = try ECPublicKey(pem: pubKeyPem)
+    
+    // Private key encoding in PKCS#8 format - EC384r1 domain
+    let privKeyPem =
+    """
+    -----BEGIN PRIVATE KEY-----
+    MIG/AgEAMBAGByqGSM49AgEGBSuBBAAiBIGnMIGkAgEBBDBmpNziSYmGoWwl7apJ
+    M9ZdDBxkJqmxMScHGXG45ZQXSv7fIuJlsSwxK76nUiiO7gigBwYFK4EEACKhZANi
+    AARBb8xqEzAxMWPBj3m44R18FULsetCFMYZPDGI+WAOIBGoLrLoRDUCOS6F7gDTZ
+    Y6W1FhBFcrK3Oyk5HblR+C1qBREDDFUVjNH1yaLoVGa++r9OyKB390CLgU2OeJHv
+    8+A=
+    -----END PRIVATE KEY-----
+    """
+    let privKey = try ECPrivateKey(pem: privKeyPem)
+    
+    // See the key ASN1 structures
+    print(pubKey)
+    print(privKey)
+
+giving:
+
+    Sequence (2):
+      Sequence (2):
+        Object Identifier: 1.2.840.10045.2.1
+        Object Identifier: 1.3.132.0.34
+      Bit String (776): 00000100 01000001 01101111 11001100 01101010 00010011 00110000 00110001 00110001 01100011 11000001 10001111 01111001 10111000 11100001 00011101 01111100 00010101 01000010 11101100 01111010 11010000 10000101 00110001 10000110 01001111 00001100 01100010 00111110 01011000 00000011 10001000 00000100 01101010 00001011 10101100 10111010 00010001 00001101 01000000 10001110 01001011 10100001 01111011 10000000 00110100 11011001 01100011 10100101 10110101 00010110 00010000 01000101 01110010 10110010 10110111 00111011 00101001 00111001 00011101 10111001 01010001 11111000 00101101 01101010 00000101 00010001 00000011 00001100 01010101 00010101 10001100 11010001 11110101 11001001 10100010 11101000 01010100 01100110 10111110 11111010 10111111 01001110 11001000 10100000 01110111 11110111 01000000 10001011 10000001 01001101 10001110 01111000 10010001 11101111 11110011 11100000
+
+    Sequence (4):
+      Integer: 1
+      Octet String (48): 66 a4 dc e2 49 89 86 a1 6c 25 ed aa 49 33 d6 5d 0c 1c 64 26 a9 b1 31 27 07 19 71 b8 e5 94 17 4a fe df 22 e2 65 b1 2c 31 2b be a7 52 28 8e ee 08
+      [0]:
+        Object Identifier: 1.3.132.0.34
+      [1]:
+        Bit String (776): 00000100 01000001 01101111 11001100 01101010 00010011 00110000 00110001 00110001 01100011 11000001 10001111 01111001 10111000 11100001 00011101 01111100 00010101 01000010 11101100 01111010 11010000 10000101 00110001 10000110 01001111 00001100 01100010 00111110 01011000 00000011 10001000 00000100 01101010 00001011 10101100 10111010 00010001 00001101 01000000 10001110 01001011 10100001 01111011 10000000 00110100 11011001 01100011 10100101 10110101 00010110 00010000 01000101 01110010 10110010 10110111 00111011 00101001 00111001 00011101 10111001 01010001 11111000 00101101 01101010 00000101 00010001 00000011 00001100 01010101 00010101 10001100 11010001 11110101 11001001 10100010 11101000 01010100 01100110 10111110 11111010 10111111 01001110 11001000 10100000 01110111 11110111 01000000 10001011 10000001 01001101 10001110 01111000 10010001 11101111 11110011 11100000
+
+<h3 id="basic3"><b>Encryption and Decryption</b></h3>
 Encryption and decryption is done using the ECIES algorithm based on AES block cipher. The algorithm uses one of
 AES-128, AES-192 or AES-256 ciphers, depending on your choice.</br>
 The following cipher block modes are supported:
@@ -112,7 +172,7 @@ giving<br/>
 	
 	The quick brown fox jumps over the lazy dog!
 
-<h3 id="basic2"><b>Signing and Verifying</b></h3>
+<h3 id="basic4"><b>Signing and Verifying</b></h3>
 Signing data and verifying signatures is performed using the ECDSA algorithm. It is possible to generate
 deterministic signatures as specificed in [RFC-6979] by setting the <i>deterministic</i> parameter to <i>true</i> in the sign operation.
 
@@ -177,7 +237,7 @@ giving (for example):<br/>
 	
 	Signature is good
 
-<h3 id="basic3"><b>Secret Key Agreement</b></h3>
+<h3 id="basic5"><b>Secret Key Agreement</b></h3>
 Given your own private key and another party's public key, you can generate a byte array that can be used as a symmetric encryption key.
 The other party can generate the same byte array by using his own private key and your public key.
 <h4><b>Example</b></h4>
@@ -222,7 +282,7 @@ To convert a SwiftECC public key - e.g. 'pubKey' - to the corresponding CryptoKi
 
 	let ckKey = try P256.KeyAgreement.PublicKey(pemRepresentation: pubKey.pem)
 
-<h3 id="basic4"><b>Creating Domains</b></h3>
+<h3 id="basic6"><b>Creating New Domains</b></h3>
 You can create your own domains as illustrated by the two examples below.
 <h4><b>Example</b></h4>
 
@@ -298,7 +358,7 @@ giving<br/>
       Integer: 22
       Integer: 2
 
-<h3 id="basic5"><b>Elliptic Curve Arithmetic</b></h3>
+<h3 id="basic7"><b>Elliptic Curve Arithmetic</b></h3>
 SwiftECC implements the common elliptic curve arithmetic operations:
 <ul>
 <li>Point multiplication</li>
@@ -403,8 +463,8 @@ was measured on an iMac 2021, Apple M1 chip. The results are shown in the table 
 The SwiftECC package depends on the ASN1 and BigInt packages
 
     dependencies: [
-        .package(url: "https://github.com/leif-ibsen/ASN1", from: "2.0.0"),
-        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.2.11"),
+        .package(url: "https://github.com/leif-ibsen/ASN1", from: "2.0.1"),
+        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.2.12"),
     ],
 
 <h2 id="ref"><b>References</b></h2>

@@ -193,9 +193,9 @@ class Domain2 {
             let seq1 = ASN1Sequence()
                 .add(ASN1Integer(BInt(self.rp.m)))
             if self.rp.k3 == 0 {
-                seq1.add(ASN1Integer(BInt(self.rp.k1)))
+                _ = seq1.add(ASN1Integer(BInt(self.rp.k1)))
             } else {
-                seq1.add(ASN1Sequence()
+                _ = seq1.add(ASN1Sequence()
                     .add(ASN1Integer(BInt(self.rp.k1)))
                     .add(ASN1Integer(BInt(self.rp.k2)))
                     .add(ASN1Integer(BInt(self.rp.k3))))

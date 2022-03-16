@@ -20,13 +20,7 @@ public class ECPublicKey: CustomStringConvertible {
 
     // MARK: Initializers
     
-    /// Creates a public key
-    ///
-    /// - Parameters:
-    ///   - domain: The domain the key belongs to
-    ///   - w: The public key value - a curve point
-    /// - Throws: An exception if *w* is not on the curve or is infinity
-    public init(domain: Domain, w: Point) throws {
+    init(domain: Domain, w: Point) throws {
         if !domain.contains(w) || w.infinity {
             throw ECException.publicKeyParameter
         }
@@ -79,6 +73,19 @@ public class ECPublicKey: CustomStringConvertible {
     public convenience init(pem: String) throws {
         try self.init(der: Base64.pemDecode(pem, "PUBLIC KEY"))
     }
+    
+    /// Creates a public key from the corresponding private key
+    ///
+    /// - Parameters:
+    ///   - privateKey: The corresponding private key
+    public convenience init(privateKey: ECPrivateKey) {
+        do {
+            let d = privateKey.domain
+            try self.init(domain: d, w: d.multiplyG(privateKey.s))
+        } catch {
+            fatalError("ECPublicKey inconsistency")
+        }
+    }
 
     
     // MARK: Stored Properties
@@ -92,10 +99,12 @@ public class ECPublicKey: CustomStringConvertible {
     // MARK: Computed Properties
 
     /// The ASN1 encoding of *self*
-    public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1Sequence().add(ASN1ObjectIdentifier("1.2.840.10045.2.1")!).add(self.domain.asn1)).add(try ASN1BitString(
-        self.domain.encodePoint(self.w), 0)) } catch { return ASN1.NULL } } }
+    public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1Sequence().add(Domain.OID_EC).add(self.domain.asn1))
+            .add(try ASN1BitString(self.domain.encodePoint(self.w), 0)) } catch { return ASN1.NULL } } }
+    /// The DER encoding of *self*
+    public var der: Bytes { get { return self.asn1.encode() } }
     /// The PEM encoding of *self*
-    public var pem: String { get { return Base64.pemEncode(self.asn1.encode(), "PUBLIC KEY") } }
+    public var pem: String { get { return Base64.pemEncode(self.der, "PUBLIC KEY") } }
     /// A textual representation of the ASN1 encoding of *self*
     public var description: String { get { return self.asn1.description } }
 

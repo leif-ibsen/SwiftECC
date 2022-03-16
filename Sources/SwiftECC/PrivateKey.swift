@@ -34,8 +34,9 @@ public class ECPrivateKey: CustomStringConvertible {
     ///
     /// - Parameters:
     ///   - der: The DER encoding of the key
+    ///   - pkcs8: *true* if the encoding is in PKCS#8 format - else *false*
     /// - Throws: An exception if the DER encoding is wrong
-    public convenience init(der: Bytes) throws {
+    public convenience init(der: Bytes, pkcs8: Bool = false) throws {
         let asn1 = try ASN1.build(der)
         guard let seq = asn1 as? ASN1Sequence else {
             throw ECException.asn1Structure
@@ -43,30 +44,61 @@ public class ECPrivateKey: CustomStringConvertible {
         if seq.getValue().count < 3 {
             throw ECException.asn1Structure
         }
-        guard let mag = seq.get(1) as? ASN1OctetString else {
-            throw ECException.asn1Structure
+        var domain: Domain
+        var s: BInt
+        if pkcs8 {
+            guard let seq1 = seq.get(1) as? ASN1Sequence else {
+                throw ECException.asn1Structure
+            }
+            if seq1.getValue().count < 2 {
+                throw ECException.asn1Structure
+            }
+            domain = try Domain.domainFromASN1(seq1.get(1))
+            guard let octets = seq.get(2) as? ASN1OctetString else {
+                throw ECException.asn1Structure
+            }
+            guard let seq2 = try ASN1.build(octets.value) as? ASN1Sequence else {
+                throw ECException.asn1Structure
+            }
+            if seq2.getValue().count < 2 {
+                throw ECException.asn1Structure
+            }
+            guard let mag = seq2.get(1) as? ASN1OctetString else {
+                throw ECException.asn1Structure
+            }
+            s = BInt(magnitude: mag.value)
+        } else {
+            guard let mag = seq.get(1) as? ASN1OctetString else {
+                throw ECException.asn1Structure
+            }
+            guard let ctx = seq.get(2) as? ASN1Ctx else {
+                throw ECException.asn1Structure
+            }
+            guard let d = ctx.value else {
+                throw ECException.asn1Structure
+            }
+            if d.count == 0 {
+                throw ECException.asn1Structure
+            }
+            domain = try Domain.domainFromASN1(d[0])
+            s = BInt(magnitude: mag.value)
         }
-        guard let ctx = seq.get(2) as? ASN1Ctx else {
-            throw ECException.asn1Structure
-        }
-        guard let d = ctx.value else {
-            throw ECException.asn1Structure
-        }
-        if d.count == 0 {
-            throw ECException.asn1Structure
-        }
-        let domain = try Domain.domainFromASN1(d[0])
-        let s = BInt(magnitude: mag.value)
         try self.init(domain: domain, s: s)
     }
     
-    /// Creates a private key from its PEM encoding
+    /// Creates a private key from its PEM encoding.
+    /// The PEM type is either 'PRIVATE KEY' meaning the format is PKCS#8,
+    /// or it is 'EC PRIVATE KEY' meaning the format is not PKCS#8
     ///
     /// - Parameters:
     ///   - pem: The PEM encoding of the key
     /// - Throws: An exception if the PEM encoding is wrong
     public convenience init(pem: String) throws {
-        try self.init(der: Base64.pemDecode(pem, "EC PRIVATE KEY"))
+        if pem.starts(with: "-----BEGIN PRIVATE KEY") {
+            try self.init(der: Base64.pemDecode(pem, "PRIVATE KEY"), pkcs8: true)
+        } else {
+            try self.init(der: Base64.pemDecode(pem, "EC PRIVATE KEY"), pkcs8: false)
+        }
     }
 
     
@@ -74,7 +106,7 @@ public class ECPrivateKey: CustomStringConvertible {
     
     /// The domain the key belongs to
     public let domain: Domain
-    /// The private value - a integer number
+    /// The private value - a positive integer
     public let s: BInt
 
     
@@ -82,8 +114,17 @@ public class ECPrivateKey: CustomStringConvertible {
     
     /// The ASN1 encoding of *self*
     public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1.ONE).add(ASN1OctetString(self.domain.align(self.s.asMagnitudeBytes()))).add(ASN1Ctx(0, [self.domain.asn1])).add(ASN1Ctx(1, [try ASN1BitString(self.domain.encodePoint(self.domain.multiplyG(self.s)), 0)])) } catch { return ASN1.NULL } } }
+    /// The DER encoding of *self*
+    public var der: Bytes { get { return self.asn1.encode() } }
     /// The PEM base 64 encoding of *self*
-    public var pem: String { get { return Base64.pemEncode(self.asn1.encode(), "EC PRIVATE KEY") } }
+    public var pem: String { get { return Base64.pemEncode(self.der, "EC PRIVATE KEY") } }
+    /// The DER encoding of *self* in PKCS#8 format
+    public var derPkcs8: Bytes { get { return ASN1Sequence()
+            .add(ASN1.ZERO)
+            .add(ASN1Sequence().add(Domain.OID_EC).add(self.domain.asn1))
+            .add(ASN1OctetString(self.asn1.encode())).encode() } }
+    /// The PEM base 64 encoding of *self* in PKCS#8 format
+    public var pemPkcs8: String { get { return Base64.pemEncode(self.derPkcs8, "PRIVATE KEY") } }
     /// A textual representation of the ASN1 encoding of *self*
     public var description: String { get { return self.asn1.description } }
 

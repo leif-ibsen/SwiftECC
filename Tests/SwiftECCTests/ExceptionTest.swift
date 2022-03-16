@@ -28,7 +28,7 @@ class ExceptionTest: XCTestCase {
             let message = "abc".data(using: .utf8)!
             var xyz = pub.encrypt(msg: message, cipher: .AES128)
             xyz[xyz.count - 1] ^= 0xff
-            try priv.decrypt(msg: xyz, cipher: .AES128)
+            _ = try priv.decrypt(msg: xyz, cipher: .AES128)
             XCTFail("Expected ECException.authentication")
         } catch ECException.authentication {
         } catch {
@@ -41,7 +41,7 @@ class ExceptionTest: XCTestCase {
             let bytes: Bytes = [1, 2, 3]
             var b64 = Base64.encode(bytes)
             b64.append("a")
-            try Base64.decode(b64)
+            _ = try Base64.decode(b64)
             XCTFail("Expected ECException.base64")
         } catch ECException.base64 {
         } catch {
@@ -54,7 +54,7 @@ class ExceptionTest: XCTestCase {
             let domain = Domain.instance(curve: .BP160r1)
             var bytes = try domain.encodePoint(domain.g)
             bytes[0] = 5
-            try domain.decodePoint(bytes)
+            _ = try domain.decodePoint(bytes)
             XCTFail("Expected ECException.decodePoint")
         } catch ECException.decodePoint {
         } catch {
@@ -64,14 +64,14 @@ class ExceptionTest: XCTestCase {
 
     func testDomainParameter() {
         do {
-            try Domain.instance(name: EC29.name, p: EC29.fp, a: BInt(2), b: BInt(4), gx: EC29.gx, gy: EC29.gy, order: EC29.order, cofactor: EC29.cofactor)
+            _ = try Domain.instance(name: EC29.name, p: EC29.fp, a: BInt(2), b: BInt(4), gx: EC29.gx, gy: EC29.gy, order: EC29.order, cofactor: EC29.cofactor)
             XCTFail("Expected ECException.domainParameter")
         } catch ECException.domainParameter {
         } catch {
             XCTFail("Expected ECException.domainParameter")
         }
         do {
-            try Domain.instance(name: EC4.name, rp: EC4.rp, a: EC4.a, b: BInt(0), gx: EC4.gx, gy: EC4.gy, order: EC4.order, cofactor: EC4.cofactor)
+            _ = try Domain.instance(name: EC4.name, rp: EC4.rp, a: EC4.a, b: BInt(0), gx: EC4.gx, gy: EC4.gy, order: EC4.order, cofactor: EC4.cofactor)
             XCTFail("Expected ECException.domainParameter")
         } catch ECException.domainParameter {
         } catch {
@@ -82,7 +82,7 @@ class ExceptionTest: XCTestCase {
     func testEncodePoint() {
         do {
             let domain = Domain.instance(curve: .BP160r1)
-            try domain.encodePoint(Point(BInt(1), BInt(2)))
+            _ = try domain.encodePoint(Point(BInt(1), BInt(2)))
             XCTFail("Expected ECException.encodePoint")
         } catch ECException.encodePoint {
         } catch {
@@ -95,7 +95,7 @@ class ExceptionTest: XCTestCase {
             let domain = Domain.instance(curve: .BP160r1)
             let (_, priv) = domain.makeKeyPair()
             let xyz = Bytes(repeating: 0, count: 30)
-            try priv.decrypt(msg: xyz, cipher: .AES128)
+            _ = try priv.decrypt(msg: xyz, cipher: .AES128)
             XCTFail("Expected ECException.notEnoughInput")
         } catch ECException.notEnoughInput {
         } catch {
@@ -110,7 +110,7 @@ class ExceptionTest: XCTestCase {
             let message = "abc".data(using: .utf8)!
             var xyz = pub.encrypt(msg: message, cipher: .AES128, mode: .ECB)
             xyz[xyz.count - 33] ^= 0xff
-            try priv.decrypt(msg: xyz, cipher: .AES128, mode: .ECB)
+            _ = try priv.decrypt(msg: xyz, cipher: .AES128, mode: .ECB)
             XCTFail("Expected ECException.padding")
         } catch ECException.padding {
         } catch {
@@ -129,7 +129,7 @@ BJ1Ih0zTull/inAHWp3DWm3kL03lNWn5X+jHTnsRZB7I1VbY0ezuk1iVmABsPeSXKe69dMouEuTC
 jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
 -----END EC PRIVATE KEY-----
 """
-            try Base64.pemDecode(priv521r1, "PRIVATE KEY")
+            _ = try Base64.pemDecode(priv521r1, "PRIVATE KEY")
             XCTFail("Expected ECException.pemStructure")
         } catch ECException.pemStructure {
         } catch {
@@ -140,7 +140,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
     func testPrivateKeyParameter() {
         do {
             let domain = Domain.instance(curve: .BP160r1)
-            try ECPrivateKey(domain: domain, s: domain.order)
+            _ = try ECPrivateKey(domain: domain, s: domain.order)
             XCTFail("Expected ECException.privateKeyParameter")
         } catch ECException.privateKeyParameter {
         } catch {
@@ -151,7 +151,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
     func testPublicKeyParameter() {
         do {
             let domain = Domain.instance(curve: .BP160r1)
-            try ECPublicKey(domain: domain, w: Point(BInt.ONE, BInt.ONE))
+            _ = try ECPublicKey(domain: domain, w: Point(BInt.ONE, BInt.ONE))
             XCTFail("Expected ECException.publicKeyParameter")
         } catch ECException.publicKeyParameter {
         } catch {
@@ -159,7 +159,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         }
         do {
             let domain = Domain.instance(curve: .BP160r1)
-            try ECPublicKey(domain: domain, w: Point.INFINITY)
+            _ = try ECPublicKey(domain: domain, w: Point.INFINITY)
             XCTFail("Expected ECException.publicKeyParameter")
         } catch ECException.publicKeyParameter {
         } catch {
