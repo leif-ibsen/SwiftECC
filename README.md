@@ -32,7 +32,7 @@ SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.0.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.1.0"),
 	  ]
 
 <h2 id="basic"><b>Basics</b></h2>
@@ -56,6 +56,10 @@ The private key is simply a random positive integer less than the domain order. 
 Given a private key, say 'privKey', you can generate the corresponding public key, like
 
     let pubKey = ECPublicKey(privateKey: privKey)
+
+Given a domain, say 'dom' and a curve point, say 'pt', you can generate a public key, like
+
+    let pubKey = try ECPublicKey(domain: dom, w: pt)
 
 <h3 id="basic2"><b>Loading Existing Keys</b></h3>
 It is possible to create keys from their PEM encodings. For example

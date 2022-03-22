@@ -20,14 +20,20 @@ public class ECPublicKey: CustomStringConvertible {
 
     // MARK: Initializers
     
-    init(domain: Domain, w: Point) throws {
+    /// Creates a public key from its domain and curve point
+    ///
+    /// - Parameters:
+    ///   - domain: The domain
+    ///   - w: The curve point
+    /// - Throws: A *publicKeyParameter* exception if *w* is not on the curve or is inifinity
+    public init(domain: Domain, w: Point) throws {
         if !domain.contains(w) || w.infinity {
             throw ECException.publicKeyParameter
         }
         self.domain = domain
         self.w = w
         
-        // Compute and cache multiples of 'w' to speed-up encrytion and signature verification
+        // Compute and cache multiples of 'w' to speed-up encryption and signature verification
 
         if self.domain.characteristic2 {
             self.wptsP = nil
