@@ -9,6 +9,8 @@
 /// Message digest algorithms
 ///
 public enum MessageDigestAlgorithm: CaseIterable {
+    /// SHA1
+    case SHA1
     /// SHA2 224
     case SHA2_224
     /// SHA2 256
@@ -37,6 +39,12 @@ class MessageDigest {
     
     init(_ algorithm: MessageDigestAlgorithm) {
         switch algorithm {
+        case .SHA1:
+            self.impl = SHA1()
+            self.digestLength = 20
+            self.buffer = Bytes(repeating: 0, count: 64)
+            self.hw = Words(repeating: 0, count: 5)
+            self.hl = Longs(repeating: 0, count: 0)
         case .SHA2_224:
             self.impl = SHA2_256(true)
             self.digestLength = 28

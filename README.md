@@ -6,11 +6,12 @@
 <ul>
 	<li><a href="#basic1">Creating New Keys</a></li>
 	<li><a href="#basic2">Loading Existing Keys</a></li>
-	<li><a href="#basic3">Encryption and Decryption</a></li>
-	<li><a href="#basic4">Signing and Verifying</a></li>
-	<li><a href="#basic5">Secret Key Agreement</a></li>
-	<li><a href="#basic6">Creating New Domains</a></li>
-	<li><a href="#basic7">Elliptic Curve Arithmetic</a></li>
+	<li><a href="#basic3">Encrypted Private Keys</a></li>
+	<li><a href="#basic4">Encryption and Decryption</a></li>
+	<li><a href="#basic5">Signing and Verifying</a></li>
+	<li><a href="#basic6">Secret Key Agreement</a></li>
+	<li><a href="#basic7">Creating New Domains</a></li>
+	<li><a href="#basic8">Elliptic Curve Arithmetic</a></li>
 </ul></li>
 <li><a href="#keydev">Key Derivation</a></li>
 <li><a href="#perf">Performance</a></li>
@@ -32,7 +33,7 @@ SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.1.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.2.0"),
 	  ]
 
 <h2 id="basic"><b>Basics</b></h2>
@@ -108,7 +109,59 @@ giving:
       [1]:
         Bit String (776): 00000100 01000001 01101111 11001100 01101010 00010011 00110000 00110001 00110001 01100011 11000001 10001111 01111001 10111000 11100001 00011101 01111100 00010101 01000010 11101100 01111010 11010000 10000101 00110001 10000110 01001111 00001100 01100010 00111110 01011000 00000011 10001000 00000100 01101010 00001011 10101100 10111010 00010001 00001101 01000000 10001110 01001011 10100001 01111011 10000000 00110100 11011001 01100011 10100101 10110101 00010110 00010000 01000101 01110010 10110010 10110111 00111011 00101001 00111001 00011101 10111001 01010001 11111000 00101101 01101010 00000101 00010001 00000011 00001100 01010101 00010101 10001100 11010001 11110101 11001001 10100010 11101000 01010100 01100110 10111110 11111010 10111111 01001110 11001000 10100000 01110111 11110111 01000000 10001011 10000001 01001101 10001110 01111000 10010001 11101111 11110011 11100000
 
-<h3 id="basic3"><b>Encryption and Decryption</b></h3>
+<h3 id="basic3"><b>Encrypted Private Keys</b></h3>
+Private keys can be encrypted as described in [PKCS#5] using the PBES2 scheme. For example:
+
+    let pw = Bytes("MySecret".utf8)
+    let domain = Domain.instance(curve: .EC384r1)
+    let (_, priv) = domain.makeKeyPair()
+    let encryptedKey = priv.pemEncrypted(password: pw, cipher: .AES256)
+    print(encryptedKey)
+
+giving (for example):
+
+    -----BEGIN ENCRYPTED PRIVATE KEY-----
+    MIIBHjBJBgkqhkiG9w0BBQ0wPDAbBgkqhkiG9w0BBQwwDgQI3id2VFlFxXUCAggA
+    MB0GCWCGSAFlAwQBKgQQlJJQtcZ23p1Q4fXmvpS6hgSB0DBuxL/sCUc/c9NDhrHK
+    /R2sbtS7rs5a9zUFwcMNV1nVUCK1SSbaCg8/BxHPfqKlAw4RcnsQtN+YD7hz5pxF
+    YDcYk4mEZo7ODFkRxhKF7vLsUsRZAl2XYGIJflp03+fAWdsiNisjo/4Y/5xxWvCe
+    OBzfjRpsDT4HjRgcxTtxrzvInzrJkQwyDBAkPMudIshkPOQ1LEoXhi0gVFl9jGN+
+    eSLv5Wba2chf/kQcw7R4B3iiE5787wE2fWvvh4ek3oSYcLCvO/gkwgUhyA2hk3rn
+    01k=
+    -----END ENCRYPTED PRIVATE KEY-----
+
+The implied encryption parameters are cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes.
+The password is simply a byte array, any possible interpretation of it as a string is unspecified.
+The encrypted private key is compatible with, and is readable by OpenSSL.
+
+Private keys can be created from their PEM encodings in encrypted form.
+In the example the encrypted private key was created by OpenSSL using the AES-256 cipher in CBC mode with password 'abcd'.
+
+    let encryptedPem =
+    """
+    -----BEGIN ENCRYPTED PRIVATE KEY-----
+    MIHeMEkGCSqGSIb3DQEFDTA8MBsGCSqGSIb3DQEFDDAOBAg7pgGVDlE/xgICCAAw
+    HQYJYIZIAWUDBAEqBBCFF4KWxWqhOB5Q8dOwdcPkBIGQbuj2TvlhtpMZ3ZhLBBBx
+    kJfY1l09yNcJNEcvS8RX4/STXZkt5gMBgtY2DvGAKI0wkpbim+kXSjM6/hmNxY5b
+    jhQapm8l8jbVGkETtYfseZXpvIT5lnBy9KtO8o3OmlRTV3xXu3KeDZakDoimfQ8G
+    N7SldmFRcz171yMoIQ17ZU95uneZoogsRuMVMVUJXEh7
+    -----END ENCRYPTED PRIVATE KEY-----
+    """
+    let privKey = try ECPrivateKey(pem: encryptedPem, password: Bytes("abcd".utf8))
+    print(privKey)
+
+giving:
+
+    Sequence (4):
+      Integer: 1
+      Octet String (32): 1e 4d c5 de 0f 47 66 6b 7e 4c b8 ee e5 0f f9 6c 4a d3 4f 6f 2e 07 f7 fc e7 c8 24 dd 17 18 fd fa
+      [0]:
+        Object Identifier: 1.2.840.10045.3.1.7
+      [1]:
+        Bit String (520): 00000100 00101110 10100100 10110110 10001111 11111010 00111111 00000111 01011010 01011101 01110000 01100001 10110000 10101110 01011010 10011100 10001111 00110100 11010000 11111101 10010110 11001110 00101011 10001111 11000001 10101001 11000000 00001101 00011101 11011101 11001011 10101110 10011000 11001011 10000101 01110001 10100010 11100000 01100011 01101010 11110100 11011101 00011000 01011101 10010110 01010101 10110011 00101101 01010000 10100010 00110001 10000100 11011001 00111001 00011000 01100100 10001110 11011111 10011100 00010100 10110101 11011010 00111010 10101100 11111100
+
+SwiftECC can read encrypted private key files provided they were encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.
+<h3 id="basic4"><b>Encryption and Decryption</b></h3>
 Encryption and decryption is done using the ECIES algorithm based on AES block cipher. The algorithm uses one of
 AES-128, AES-192 or AES-256 ciphers, depending on your choice.</br>
 The following cipher block modes are supported:
@@ -176,7 +229,7 @@ giving<br/>
 	
 	The quick brown fox jumps over the lazy dog!
 
-<h3 id="basic4"><b>Signing and Verifying</b></h3>
+<h3 id="basic5"><b>Signing and Verifying</b></h3>
 Signing data and verifying signatures is performed using the ECDSA algorithm. It is possible to generate
 deterministic signatures as specificed in [RFC-6979] by setting the <i>deterministic</i> parameter to <i>true</i> in the sign operation.
 
@@ -241,7 +294,7 @@ giving (for example):<br/>
 	
 	Signature is good
 
-<h3 id="basic5"><b>Secret Key Agreement</b></h3>
+<h3 id="basic6"><b>Secret Key Agreement</b></h3>
 Given your own private key and another party's public key, you can generate a byte array that can be used as a symmetric encryption key.
 The other party can generate the same byte array by using his own private key and your public key.
 <h4><b>Example</b></h4>
@@ -286,7 +339,7 @@ To convert a SwiftECC public key - e.g. 'pubKey' - to the corresponding CryptoKi
 
 	let ckKey = try P256.KeyAgreement.PublicKey(pemRepresentation: pubKey.pem)
 
-<h3 id="basic6"><b>Creating New Domains</b></h3>
+<h3 id="basic7"><b>Creating New Domains</b></h3>
 You can create your own domains as illustrated by the two examples below.
 <h4><b>Example</b></h4>
 
@@ -362,7 +415,7 @@ giving<br/>
       Integer: 22
       Integer: 2
 
-<h3 id="basic7"><b>Elliptic Curve Arithmetic</b></h3>
+<h3 id="basic8"><b>Elliptic Curve Arithmetic</b></h3>
 SwiftECC implements the common elliptic curve arithmetic operations:
 <ul>
 <li>Point multiplication</li>
@@ -482,6 +535,7 @@ There are references in the source code where appropriate.
 <li>[GUIDE] - Hankerson, Menezes, Vanstone: Guide to Elliptic Curve Cryptography. Springer 2004</li>
 <li>[KNUTH] - Donald E. Knuth: Seminumerical Algorithms. Addison-Wesley 1971</li>
 <li>[NIST] - NIST Special Publication 800-38D, November 2007</li>
+<li>[PKCS#5] - Password-Based Cryptography Specification - Version 2.0, September 2000</li>
 <li>[RFC-6979] - Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA), August 2013</li>
 <li>[SAVACS] - E. Savacs, C.K. Koc: The Montgomery Modular Inverse - Revisited, July 2000</li>
 <li>[SEC 1] - Standards for Efficient Cryptography 1 (SEC 1), Certicom Corp. 2009</li>

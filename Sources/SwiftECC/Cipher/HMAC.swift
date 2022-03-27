@@ -25,7 +25,10 @@ class HMac {
         var macKey = Bytes(repeating: 0, count: self.blockSize)
         if key.count > self.blockSize {
             self.md.update(key)
-            macKey = self.md.digest()
+            let x = self.md.digest()
+            for i in 0 ..< x.count {
+                macKey[i] = x[i]
+            }
         } else {
             for i in 0 ..< key.count {
                 macKey[i] = key[i]

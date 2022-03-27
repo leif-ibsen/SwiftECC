@@ -37,6 +37,22 @@ class SHA2Test: XCTestCase {
         return s
     }
 
+    func test1() {
+        let md = MessageDigest(.SHA1)
+        md.update(s1)
+        XCTAssertEqual(toHexString(md.digest()), "da39a3ee5e6b4b0d3255bfef95601890afd80709")
+        md.update(s2)
+        XCTAssertEqual(toHexString(md.digest()), "a9993e364706816aba3e25717850c26c9cd0d89d")
+        md.update(s3)
+        XCTAssertEqual(toHexString(md.digest()), "84983e441c3bd26ebaae4aa1f95129e5e54670f1")
+        md.update(s4)
+        XCTAssertEqual(toHexString(md.digest()), "a49b2446a02c645bf419f995b67091253a04a259")
+        md.update(s5)
+        XCTAssertEqual(toHexString(md.digest()), "34aa973cd4c4daa4f61eeb2bdbad27316534016f")
+        md.update(s6)
+        XCTAssertEqual(toHexString(md.digest()), "7789f0c9ef7bfc40d93311143dfbe69e2017f592")
+    }
+
     func test224() {
         let md = MessageDigest(.SHA2_224)
         md.update(s1)

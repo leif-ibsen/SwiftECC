@@ -10,7 +10,7 @@ import ASN1
 
 class KeysTest: XCTestCase {
 
-    func doTest(_ c: ECCurve) throws {
+    func doTest1(_ c: ECCurve) throws {
         let domain = Domain.instance(curve: c)
         let (pubKey, privKey) = domain.makeKeyPair()
         let pubDER = pubKey.der
@@ -41,10 +41,10 @@ class KeysTest: XCTestCase {
         XCTAssertEqual(privKey.domain.name, privKeyPEM.domain.name)
         XCTAssertEqual(privKey.domain.name, privKeyPEM8.domain.name)
     }
-
+    
     func test1() throws {
         for c in ECCurve.allCases {
-            try doTest(c)
+            try doTest1(c)
         }
     }
 
