@@ -28,7 +28,7 @@ class EciesTest: XCTestCase {
             XCTFail("\(error)")
         }
     }
-    
+
     func doTest2(_ cipher: AESCipher, _ mode: BlockMode, _ pub: ECPublicKey, _ priv: ECPrivateKey) {
         do {
             let encrypted = pub.encrypt(msg: data, cipher: cipher, mode: mode)
@@ -70,8 +70,7 @@ class EciesTest: XCTestCase {
     }
 
     func doTest(_ c: ECCurve) {
-        let domain = Domain.instance(curve: c)
-        let (pub, priv) = domain.makeKeyPair()
+        let (pub, priv) = Domain.instance(curve: c).makeKeyPair()
         for aes in AESCipher.allCases {
             for mode in BlockMode.allCases {
                 doTest1(aes, mode, pub, priv)
@@ -81,10 +80,10 @@ class EciesTest: XCTestCase {
         }
     }
 
-    func test1() {
+    func test() {
         for c in ECCurve.allCases {
             doTest(c)
         }
     }
-    
+
 }
