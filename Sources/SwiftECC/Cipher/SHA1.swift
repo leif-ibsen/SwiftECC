@@ -13,7 +13,7 @@ class SHA1: MessageDigestImpl {
         self.w = Words(repeating: 0, count: 80)
     }
 
-    func doReset(_ hw: inout Words, _ hl: inout Longs) {
+    func doReset(_ hw: inout Words, _ hl: inout Limbs) {
         hw[0] = 0x67452301
         hw[1] = 0xefcdab89
         hw[2] = 0x98badcfe
@@ -21,7 +21,7 @@ class SHA1: MessageDigestImpl {
         hw[4] = 0xc3d2e1f0
     }
 
-    func doBuffer(_ buffer: inout Bytes, _ hw: inout Words, _ hl: inout Longs) {
+    func doBuffer(_ buffer: inout Bytes, _ hw: inout Words, _ hl: inout Limbs) {
         for i in 0 ..< w.count {
             w[i] = 0
         }
