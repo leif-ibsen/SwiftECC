@@ -28,7 +28,7 @@ class SHA2_256: MessageDigestImpl {
         self.sha224 = sha224
     }
     
-    func doReset(_ hw: inout Words, _ hl: inout Longs) {
+    func doReset(_ hw: inout Words, _ hl: inout Limbs) {
         if self.sha224 {
             hw[0] = 0xc1059ed8
             hw[1] = 0x367cd507
@@ -50,7 +50,7 @@ class SHA2_256: MessageDigestImpl {
         }
     }
     
-    func doBuffer(_ buffer: inout Bytes, _ hw: inout Words, _ hl: inout Longs) {
+    func doBuffer(_ buffer: inout Bytes, _ hw: inout Words, _ hl: inout Limbs) {
         for i in 0 ..< w.count {
             w[i] = 0
         }
@@ -150,7 +150,7 @@ class SHA2_256: MessageDigestImpl {
 
 class SHA2_512: MessageDigestImpl {
     
-    static let k: Longs = [
+    static let k: Limbs = [
         0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc,
         0x3956c25bf348b538, 0x59f111f1b605d019, 0x923f82a4af194f9b, 0xab1c5ed5da6d8118,
         0xd807aa98a3030242, 0x12835b0145706fbe, 0x243185be4ee4b28c, 0x550c7dc3d5ffb4e2,
@@ -172,15 +172,15 @@ class SHA2_512: MessageDigestImpl {
         0x28db77f523047d84, 0x32caab7b40c72493, 0x3c9ebe0a15c9bebc, 0x431d67c49c100d4c,
         0x4cc5d4becb3e42b6, 0x597f299cfc657e2a, 0x5fcb6fab3ad6faec, 0x6c44198c4a475817 ]
     
-    var l: Longs
+    var l: Limbs
     let sha384: Bool
     
     init(_ sha384: Bool) {
-        self.l = Longs(repeating: 0, count: 80)
+        self.l = Limbs(repeating: 0, count: 80)
         self.sha384 = sha384
     }
     
-    func doReset(_ hw: inout Words, _ hl: inout Longs) {
+    func doReset(_ hw: inout Words, _ hl: inout Limbs) {
         if self.sha384 {
             hl[0] = 0xcbbb9d5dc1059ed8
             hl[1] = 0x629a292a367cd507
@@ -202,20 +202,20 @@ class SHA2_512: MessageDigestImpl {
         }
     }
     
-    func doBuffer(_ buffer: inout Bytes, _ hw: inout Words, _ hl: inout Longs) {
+    func doBuffer(_ buffer: inout Bytes, _ hw: inout Words, _ hl: inout Limbs) {
         for i in 0 ..< l.count {
             l[i] = 0
         }
         for i in 0 ..< 16 {
             let index = 8 * i
-            let l0 = Long(buffer[index]) << 56
-            let l1 = Long(buffer[index + 1]) << 48
-            let l2 = Long(buffer[index + 2]) << 40
-            let l3 = Long(buffer[index + 3]) << 32
-            let l4 = Long(buffer[index + 4]) << 24
-            let l5 = Long(buffer[index + 5]) << 16
-            let l6 = Long(buffer[index + 6]) << 8
-            let l7 = Long(buffer[index + 7])
+            let l0 = Limb(buffer[index]) << 56
+            let l1 = Limb(buffer[index + 1]) << 48
+            let l2 = Limb(buffer[index + 2]) << 40
+            let l3 = Limb(buffer[index + 3]) << 32
+            let l4 = Limb(buffer[index + 4]) << 24
+            let l5 = Limb(buffer[index + 5]) << 16
+            let l6 = Limb(buffer[index + 6]) << 8
+            let l7 = Limb(buffer[index + 7])
             self.l[i] = l0 | l1 | l2 | l3 | l4 | l5 | l6 | l7
         }
         for i in 16 ..< 80 {
@@ -251,27 +251,27 @@ class SHA2_512: MessageDigestImpl {
         hl[7] &+= h
     }
     
-    func CH(_ x: Long, _ y: Long, _ z: Long) -> Long {
+    func CH(_ x: Limb, _ y: Limb, _ z: Limb) -> Limb {
         return (x & y) ^ ((~x) & z)
     }
 
-    func MAJ(_ x: Long, _ y: Long, _ z: Long) -> Long {
+    func MAJ(_ x: Limb, _ y: Limb, _ z: Limb) -> Limb {
         return (x & y) ^ (x & z) ^ (y & z)
     }
 
-    func BSIG0(_ x: Long) -> Long {
+    func BSIG0(_ x: Limb) -> Limb {
         return SHA2_512.rotateRight(x, 28) ^ SHA2_512.rotateRight(x, 34) ^ SHA2_512.rotateRight(x, 39)
     }
     
-    func BSIG1(_ x: Long) -> Long {
+    func BSIG1(_ x: Limb) -> Limb {
         return SHA2_512.rotateRight(x, 14) ^ SHA2_512.rotateRight(x, 18) ^ SHA2_512.rotateRight(x, 41)
     }
     
-    func SSIG0(_ x: Long) -> Long {
+    func SSIG0(_ x: Limb) -> Limb {
         return SHA2_512.rotateRight(x, 1) ^ SHA2_512.rotateRight(x, 8) ^ (x >> 7)
     }
     
-    func SSIG1(_ x: Long) -> Long {
+    func SSIG1(_ x: Limb) -> Limb {
         return SHA2_512.rotateRight(x, 19) ^ SHA2_512.rotateRight(x, 61) ^ (x >> 6)
     }
     
@@ -298,7 +298,7 @@ class SHA2_512: MessageDigestImpl {
         return b
     }
     
-    static func rotateRight(_ x: Long, _ n: Int) -> Long {
+    static func rotateRight(_ x: Limb, _ n: Int) -> Limb {
         return (x >> n) | (x << (64 - n))
     }
 
