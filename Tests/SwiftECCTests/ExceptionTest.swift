@@ -34,6 +34,17 @@ class ExceptionTest: XCTestCase {
         } catch {
             XCTFail("Expected ECException.authentication")
         }
+        do {
+            let domain = Domain.instance(curve: .BP160r1)
+            let (pub, priv) = domain.makeKeyPair()
+            let message = Bytes("abc".utf8)
+            let xyz = pub.encryptChaCha(msg: message, aad: [Byte(1), Byte(2), Byte(3)])
+            _ = try priv.decryptChaCha(msg: xyz, aad: [Byte(3), Byte(2), Byte(1)])
+            XCTFail("Expected ECException.authentication")
+        } catch ECException.authentication {
+        } catch {
+            XCTFail("Expected ECException.authentication")
+        }
     }
 
     func testBase64() {
