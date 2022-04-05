@@ -7,7 +7,8 @@
 	<li><a href="#basic1">Creating New Keys</a></li>
 	<li><a href="#basic2">Loading Existing Keys</a></li>
 	<li><a href="#basic3">Encrypted Private Keys</a></li>
-	<li><a href="#basic4">Encryption and Decryption</a></li>
+	<li><a href="#basic9">ChaChaPoly Encryption and Decryption</a></li>
+	<li><a href="#basic4">AES Encryption and Decryption</a></li>
 	<li><a href="#basic5">Signing and Verifying</a></li>
 	<li><a href="#basic6">Secret Key Agreement</a></li>
 	<li><a href="#basic7">Creating New Domains</a></li>
@@ -22,7 +23,7 @@
 SwiftECC provides elliptic curve cryptography in Swift.
 This encompasses:
 <ul>
-<li>Encryption and decryption using the ECIES algorithm based on the AES block cipher</li>
+<li>Encryption and decryption using the ECIES algorithm based on the AES block cipher or the ChaCha20/Poly1305 cipher/message authentication</li>
 <li>Signature signing and verifying using the ECDSA algorithm, including the option of deterministic signatures</li>
 <li>Secret key agreement using the Diffie-Hellman key agreement algorithm - ECDH</li>
 <li>Ability to create your own domains</li>
@@ -33,7 +34,7 @@ SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.2.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.3.0"),
 	  ]
 
 <h2 id="basic"><b>Basics</b></h2>
@@ -161,8 +162,31 @@ giving:
         Bit String (520): 00000100 00101110 10100100 10110110 10001111 11111010 00111111 00000111 01011010 01011101 01110000 01100001 10110000 10101110 01011010 10011100 10001111 00110100 11010000 11111101 10010110 11001110 00101011 10001111 11000001 10101001 11000000 00001101 00011101 11011101 11001011 10101110 10011000 11001011 10000101 01110001 10100010 11100000 01100011 01101010 11110100 11011101 00011000 01011101 10010110 01010101 10110011 00101101 01010000 10100010 00110001 10000100 11011001 00111001 00011000 01100100 10001110 11011111 10011100 00010100 10110101 11011010 00111010 10101100 11111100
 
 SwiftECC can read encrypted private key files provided they were encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.
-<h3 id="basic4"><b>Encryption and Decryption</b></h3>
-Encryption and decryption is done using the ECIES algorithm based on AES block cipher. The algorithm uses one of
+<h3 id="basic4"><b>ChaChaPoly Encryption and Decryption</b></h3>
+Encryption and decryption is done using the ECIES algorithm based on the ChaCha20 cipher.
+Message authentication - possibly including additional authenticated data - uses Poly1305 message authentication.</br>
+The encryption and decryption speed for domain EC256k1 (the bitcoin domain) measured on an iMac 2021, Apple M1 chip is about 250 Megabytes per second.
+<h4><b>Example</b></h4>
+
+    let plainText = "Hi, there!"
+    let aaData = "This is the additional authenticated data"
+    
+    let (pub, priv) = Domain.instance(curve: .EC256k1).makeKeyPair()
+    let cipherText = pub.encryptChaCha(msg: Bytes(plainText.utf8), aad: Bytes(aaData.utf8))
+    
+    do {
+        let text = try priv.decryptChaCha(msg: cipherText, aad: Bytes(aaData.utf8))
+        print(String(bytes: text, encoding: .utf8)!)
+    } catch {
+        print("Exception: \(error)")
+    }
+
+giving:
+
+    Hi, there!
+
+<h3 id="basic4"><b>AES Encryption and Decryption</b></h3>
+Encryption and decryption is done using the ECIES algorithm based on the AES block cipher using one of
 AES-128, AES-192 or AES-256 ciphers, depending on your choice.</br>
 The following cipher block modes are supported:
 <ul>
@@ -173,8 +197,8 @@ The following cipher block modes are supported:
 <li>CTR - Counter mode</li>
 <li>OFB - Output Feedback mode</li>
 </ul>
-The encryption and decryption speed for domain EC256k1 (the bitcoin domain) was measured on an iMac 2021, Apple M1 chip.
-The results using AES-128 are shown in the table below - units are Megabytes per second.
+The encryption and decryption speed for domain EC256k1 (the bitcoin domain) measured on an iMac 2021, Apple M1 chip
+using AES-128 are shown below - units are Megabytes per second.
 <table width="80%">
 <tr><th align="left" width="20%">Block Mode</th><th align="right" width="40%">Encrypt</th><th align="right" width="40%">Decrypt</th></tr>
 <tr><td>GCM</td><td align="right">53 MByte/Sec</td><td align="right">53 MByte/Sec</td></tr>
@@ -430,7 +454,13 @@ as well as to do the reverse decoding.
 
 <h2 id="keydev"><b>Key Derivation</b></h2>
 SwiftECC uses the X9.63 Key Derivation Function to derive block cipher keying materiel. Please refer [SEC 1] section 3.6.
-Six cases are considered:
+Seven cases are considered:
+
+<h4><b>ChaCha20/Poly1305</b></h4>
+KDF generates 44 bytes.
+
+Encryption/decryption key = bytes 0 ..< 32</br>
+Nonce = bytes 32 ..< 44</br>
 
 <h4><b>AES-128/GCM block mode</b></h4>
 KDF generates 32 bytes.
@@ -530,6 +560,7 @@ Algorithms from the following books and papers have been used in the implementat
 There are references in the source code where appropriate.
 
 <ul>
+<li>[FILIPPO] - Filippo Valsorda: A GO IMPLEMENTATION OF POLY1305 THAT MAKES SENSE, April 2019</li>
 <li>[FIPS 180-4] - FIPS PUB 180-4 - Secure Hash Standard (SHS), August 2015</li>
 <li>[GCM] - The Galois/Counter Mode of Operation (GCM)</li>
 <li>[GUIDE] - Hankerson, Menezes, Vanstone: Guide to Elliptic Curve Cryptography. Springer 2004</li>
@@ -537,6 +568,7 @@ There are references in the source code where appropriate.
 <li>[NIST] - NIST Special Publication 800-38D, November 2007</li>
 <li>[PKCS#5] - Password-Based Cryptography Specification - Version 2.0, September 2000</li>
 <li>[RFC-6979] - Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA), August 2013</li>
+<li>[RFC-8439] - ChaCha20 and Poly1305 for IETF Protocols, June 2018</li>
 <li>[SAVACS] - E. Savacs, C.K. Koc: The Montgomery Modular Inverse - Revisited, July 2000</li>
 <li>[SEC 1] - Standards for Efficient Cryptography 1 (SEC 1), Certicom Corp. 2009</li>
 <li>[SEC 2] - Standards for Efficient Cryptography 2 (SEC 2), Certicom Corp. 2010</li>
@@ -544,4 +576,5 @@ There are references in the source code where appropriate.
 <li>[X9.62] - X9.62 - Public Key Cryptography For The Financial Services Industry, 1998</li>
 </ul>
 <h2 id="ack"><b>Acknowledgement</b></h2>
-The AES block cipher implementation is essentially a translation to Swift of the Go Language implementation of AES.
+The AES block cipher implementation is essentially a translation to Swift of the Go Language implementation of AES.</br>
+The Poly1305 implementation is based on the description in [FILIPPO].
