@@ -337,14 +337,14 @@ public class ECPrivateKey: CustomStringConvertible {
         return self.sign(msg: Bytes(msg), deterministic: deterministic)
     }
 
-    /// Decrypts a byte array message with ECIES
+    /// Decrypts a byte array message with ECIES using the AES cipher
     ///
     /// - Parameters:
     ///   - msg: The bytes to decrypt
     ///   - cipher: The AES cipher to use
     ///   - mode: The block mode to use - GCM is default
     /// - Returns: The decrypted message
-    /// - Throws: An exception if the message authentication fails or the message is too short
+    /// - Throws: An exception if message authentication fails or the message is too short
     public func decrypt(msg: Bytes, cipher: AESCipher, mode: BlockMode = .GCM) throws -> Bytes {
         let bwl = 2 * ((self.domain.p.bitWidth + 7) / 8) + 1
         let tagLength = mode == .GCM ? 16 : 32
@@ -357,25 +357,59 @@ public class ECPrivateKey: CustomStringConvertible {
         var result = Bytes(msg[bwl ..< msg.count - tagLength])
         let cipher = Cipher.instance(cipher, mode, self.domain.align(S.asMagnitudeBytes()), R)
         let tag2 = try cipher.decrypt(&result)
-        if tag1 != tag2 {
-            throw ECException.authentication
+        if tag1 == tag2 {
+            return result
         }
-        return result
-
+        throw ECException.authentication
     }
-    
-    /// Decrypts a Data message with ECIES
+
+    /// Decrypts a Data message with ECIES using the AES cipher
     ///
     /// - Parameters:
     ///   - msg: The data to decrypt
     ///   - cipher: The AES cipher to use
     ///   - mode: The block mode to use - GCM is default
     /// - Returns: The decrypted message
-    /// - Throws: An exception if the message authentication fails or the message is too short
+    /// - Throws: An exception if message authentication fails or the message is too short
     public func decrypt(msg: Data, cipher: AESCipher, mode: BlockMode = .GCM) throws -> Data {
         return try Data(self.decrypt(msg: Bytes(msg), cipher: cipher, mode: mode))
     }
     
+    /// Decrypts a byte array message with ECIES using the ChaCha20 cipher
+    ///
+    /// - Parameters:
+    ///   - msg: The bytes to decrypt
+    ///   - aad: Additional authenticated data - an empty array is default
+    /// - Returns: The decrypted message
+    /// - Throws: An exception if message authentication fails or the message is too short
+    public func decryptChaCha(msg: Bytes, aad: Bytes = []) throws -> Bytes {
+        let bwl = 2 * ((self.domain.p.bitWidth + 7) / 8) + 1
+        let tagLength = 16
+        if msg.count < bwl + tagLength {
+            throw ECException.notEnoughInput
+        }
+        let R = Bytes(msg[0 ..< bwl])
+        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s).x
+        let tag1 = Bytes(msg[msg.count - tagLength ..< msg.count])
+        var result = Bytes(msg[bwl ..< msg.count - tagLength])
+        let (key, nonce) = Cipher.kdf(32, 12, self.domain.align(S.asMagnitudeBytes()), R)
+        if ChaChaPoly(key, nonce).decrypt(&result, tag1, aad) {
+            return result
+        }
+        throw ECException.authentication
+    }
+
+    /// Decrypts a Data message with ECIES using the ChaCha20 cipher
+    ///
+    /// - Parameters:
+    ///   - msg: The data to decrypt
+    ///   - aad: Additional authenticated data - empty data is default
+    /// - Returns: The decrypted message
+    /// - Throws: An exception if message authentication fails or the message is too short
+    public func decryptChaCha(msg: Data, aad: Data = Data()) throws -> Data {
+        return try Data(self.decryptChaCha(msg: Bytes(msg), aad: Bytes(aad)))
+    }
+
     /// Constructs a shared secret key using Diffie-Hellman key agreement - please refer [SEC 1] section 3.3.1
     ///
     /// - Parameters:
