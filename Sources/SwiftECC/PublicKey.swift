@@ -176,7 +176,7 @@ public class ECPublicKey: CustomStringConvertible {
         return self.verify(signature: signature, msg: Bytes(msg), bw: bw)
     }
 
-    /// Encrypts a byte array with ECIES
+    /// Encrypts a byte array with ECIES using the AES cipher
     ///
     /// - Parameters:
     ///   - msg: The bytes to encrypt
@@ -184,6 +184,49 @@ public class ECPublicKey: CustomStringConvertible {
     ///   - mode: The block mode to use - GCM is default
     /// - Returns: The encrypted message
     public func encrypt(msg: Bytes, cipher: AESCipher, mode: BlockMode = .GCM) -> Bytes {
+        let (R, S) = computeRS()
+        let cipher = Cipher.instance(cipher, mode, S, R)
+        var result = msg
+        let tag = cipher.encrypt(&result)
+        return R + result + tag
+    }
+
+    /// Encrypts a Data structure with ECIES using the AES cipher
+    ///
+    /// - Parameters:
+    ///   - msg: The data to encrypt
+    ///   - cipher: The AES cipher to use
+    ///   - mode: The block mode to use - GCM is default
+    /// - Returns: The encrypted message
+    public func encrypt(msg: Data, cipher: AESCipher, mode: BlockMode = .GCM) -> Data {
+        return Data(self.encrypt(msg: Bytes(msg), cipher: cipher, mode: mode))
+    }
+
+    /// Encrypts a byte array with ECIES using the ChaCha20 cipher
+    ///
+    /// - Parameters:
+    ///   - msg: The bytes to encrypt
+    ///   - aad: Additional authenticated data - an empty array is default
+    /// - Returns: The encrypted message and tag
+    public func encryptChaCha(msg: Bytes, aad: Bytes = []) -> Bytes {
+        let (R, S) = computeRS()
+        let (key, nonce) = Cipher.kdf(32, 12, S, R)
+        var result = msg
+        let tag = ChaChaPoly(key, nonce).encrypt(&result, aad)
+        return R + result + tag
+    }
+    
+    /// Encrypts a Data structure with ECIES using the ChaCha20 cipher
+    ///
+    /// - Parameters:
+    ///   - msg: The data to encrypt
+    ///   - aad: Additional authenticated data - empty data is default
+    /// - Returns: The encrypted message and tag
+    public func encryptChaCha(msg: Data, aad: Data = Data()) -> Data {
+        return Data(self.encryptChaCha(msg: Bytes(msg), aad: Bytes(aad)))
+    }
+
+    func computeRS() -> (R: Bytes, S: Bytes) {
         let r = (self.domain.order - BInt.ONE).randomLessThan() + BInt.ONE
         do {
             let R = try self.domain.encodePoint(self.domain.multiplyG(r))
@@ -194,24 +237,10 @@ public class ECPublicKey: CustomStringConvertible {
                 SP = self.domain.domainP!.multiplyW(r, &self.wptsP!)
             }
             let S = self.domain.align(SP.x.asMagnitudeBytes())
-            let cipher = Cipher.instance(cipher, mode, S, R)
-            var result = msg
-            let tag = cipher.encrypt(&result)
-            return R + result + tag
+            return (R, S)
         } catch {
             fatalError("'encrypt' inconsistency")
         }
-    }
-
-    /// Encrypts a Data structure with ECIES
-    ///
-    /// - Parameters:
-    ///   - msg: The data to encrypt
-    ///   - cipher: The AES cipher to use
-    ///   - mode: The block mode to use - GCM is default
-    /// - Returns: The encrypted message
-    public func encrypt(msg: Data, cipher: AESCipher, mode: BlockMode = .GCM) -> Data {
-        return Data(self.encrypt(msg: Bytes(msg), cipher: cipher, mode: mode))
     }
 
 }
