@@ -5,6 +5,12 @@
 //  Created by Leif Ibsen on 05/01/2020.
 //
 
+typealias Word = UInt32
+typealias Words = [Word]
+
+typealias Limb = UInt64
+typealias Limbs = [Limb]
+
 ///
 /// Message digest algorithms
 ///
@@ -22,8 +28,8 @@ public enum MessageDigestAlgorithm: CaseIterable {
 }
 
 protocol MessageDigestImpl {
-    func doBuffer(_ buffer: inout Bytes, _ hw: inout Words, _ hl: inout Longs)
-    func doReset(_ hw: inout Words, _ hl: inout Longs)
+    func doBuffer(_ buffer: inout Bytes, _ hw: inout Words, _ hl: inout Limbs)
+    func doReset(_ hw: inout Words, _ hl: inout Limbs)
     func padding(_ totalBytes: Int, _ blockSize: Int) -> Bytes
 }
 
@@ -35,7 +41,7 @@ class MessageDigest {
     var bytes: Int
     var buffer: Bytes
     var hw: Words
-    var hl: Longs
+    var hl: Limbs
     
     init(_ algorithm: MessageDigestAlgorithm) {
         switch algorithm {
@@ -44,31 +50,31 @@ class MessageDigest {
             self.digestLength = 20
             self.buffer = Bytes(repeating: 0, count: 64)
             self.hw = Words(repeating: 0, count: 5)
-            self.hl = Longs(repeating: 0, count: 0)
+            self.hl = Limbs(repeating: 0, count: 0)
         case .SHA2_224:
             self.impl = SHA2_256(true)
             self.digestLength = 28
             self.buffer = Bytes(repeating: 0, count: 64)
             self.hw = Words(repeating: 0, count: 8)
-            self.hl = Longs(repeating: 0, count: 0)
+            self.hl = Limbs(repeating: 0, count: 0)
         case .SHA2_256:
             self.impl = SHA2_256(false)
             self.digestLength = 32
             self.buffer = Bytes(repeating: 0, count: 64)
             self.hw = Words(repeating: 0, count: 8)
-            self.hl = Longs(repeating: 0, count: 0)
+            self.hl = Limbs(repeating: 0, count: 0)
         case .SHA2_384:
             self.impl = SHA2_512(true)
             self.digestLength = 48
             self.buffer = Bytes(repeating: 0, count: 128)
             self.hw = Words(repeating: 0, count: 0)
-            self.hl = Longs(repeating: 0, count: 8)
+            self.hl = Limbs(repeating: 0, count: 8)
         case .SHA2_512:
             self.impl = SHA2_512(false)
             self.digestLength = 64
             self.buffer = Bytes(repeating: 0, count: 128)
             self.hw = Words(repeating: 0, count: 0)
-            self.hl = Longs(repeating: 0, count: 8)
+            self.hl = Limbs(repeating: 0, count: 8)
         }
         self.totalBytes = 0
         self.bytes = 0
