@@ -5,11 +5,6 @@
 //  Created by Leif Ibsen on 03/02/2020.
 //
 
-typealias Word = UInt32
-typealias Words = [Word]
-typealias Long = UInt64
-typealias Longs = [Long]
-
 //
 // [NIST] - implementation of Galois/Counter Mode cipher based on AES
 //
@@ -89,7 +84,7 @@ class GCMCipher: Cipher {
                 k += 1
             }
         }
-        ghash(Block(0, Long(input.count * 8)), &tag)
+        ghash(Block(0, Limb(input.count * 8)), &tag)
         gctr(self.J0, &tag)
         return tag.bytes
     }
@@ -115,15 +110,15 @@ class GCMCipher: Cipher {
     }
 
     // Reduction table
-    static let RT: Longs = [0x0000000000000000, 0x1c20000000000000, 0x3840000000000000, 0x2460000000000000,
+    static let RT: Limbs = [0x0000000000000000, 0x1c20000000000000, 0x3840000000000000, 0x2460000000000000,
                             0x7080000000000000, 0x6ca0000000000000, 0x48c0000000000000, 0x54e0000000000000,
                             0xe100000000000000, 0xfd20000000000000, 0xd940000000000000, 0xc560000000000000,
                             0x9180000000000000, 0x8da0000000000000, 0xa9c0000000000000, 0xb5e0000000000000]
 
     // [GCM] - algorithm 2
     func multiplyH(_ x: inout Block) {
-        var z0 = Long(0)
-        var z1 = Long(0)
+        var z0 = Limb(0)
+        var z1 = Limb(0)
         var w1 = x.a1
         for _ in stride(from: 0, to: 64, by: 4) {
             let rti = Int(z1 & 0xf)
@@ -162,45 +157,45 @@ struct Block {
     static let R = Block(0xe100000000000000, 0x0000000000000000)
     static let Z = Block(0, 0)
 
-    var a0: Long
-    var a1: Long
+    var a0: Limb
+    var a1: Limb
 
-    init(_ a0: Long, _ a1: Long) {
+    init(_ a0: Limb, _ a1: Limb) {
         self.a0 = a0
         self.a1 = a1
     }
     
     init(_ x: Bytes) {
-        self.a0 = Long(x[0])
+        self.a0 = Limb(x[0])
         self.a0 <<= 8
-        self.a0 |= Long(x[1])
+        self.a0 |= Limb(x[1])
         self.a0 <<= 8
-        self.a0 |= Long(x[2])
+        self.a0 |= Limb(x[2])
         self.a0 <<= 8
-        self.a0 |= Long(x[3])
+        self.a0 |= Limb(x[3])
         self.a0 <<= 8
-        self.a0 |= Long(x[4])
+        self.a0 |= Limb(x[4])
         self.a0 <<= 8
-        self.a0 |= Long(x[5])
+        self.a0 |= Limb(x[5])
         self.a0 <<= 8
-        self.a0 |= Long(x[6])
+        self.a0 |= Limb(x[6])
         self.a0 <<= 8
-        self.a0 |= Long(x[7])
-        self.a1 = Long(x[8])
+        self.a0 |= Limb(x[7])
+        self.a1 = Limb(x[8])
         self.a1 <<= 8
-        self.a1 |= Long(x[9])
+        self.a1 |= Limb(x[9])
         self.a1 <<= 8
-        self.a1 |= Long(x[10])
+        self.a1 |= Limb(x[10])
         self.a1 <<= 8
-        self.a1 |= Long(x[11])
+        self.a1 |= Limb(x[11])
         self.a1 <<= 8
-        self.a1 |= Long(x[12])
+        self.a1 |= Limb(x[12])
         self.a1 <<= 8
-        self.a1 |= Long(x[13])
+        self.a1 |= Limb(x[13])
         self.a1 <<= 8
-        self.a1 |= Long(x[14])
+        self.a1 |= Limb(x[14])
         self.a1 <<= 8
-        self.a1 |= Long(x[15])
+        self.a1 |= Limb(x[15])
     }
 
     var bytes: Bytes {
@@ -287,7 +282,7 @@ struct Block {
     mutating func multiply(_ x: Block) {
         var z = Block.Z
         var v = x
-        var mask0: Long = 0x8000000000000000
+        var mask0: Limb = 0x8000000000000000
         for _ in 0 ..< 64 {
             if self.a0 & mask0 != 0 {
                 z.add(v)
@@ -300,7 +295,7 @@ struct Block {
                 v.shiftRigth()
             }
         }
-        var mask1: Long = 0x8000000000000000
+        var mask1: Limb = 0x8000000000000000
         for _ in 0 ..< 64 {
             if self.a1 & mask1 != 0 {
                 z.add(v)
