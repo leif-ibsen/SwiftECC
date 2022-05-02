@@ -346,16 +346,20 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Returns: The decrypted message
     /// - Throws: An exception if message authentication fails or the message is too short
     public func decrypt(msg: Bytes, cipher: AESCipher, mode: BlockMode = .GCM) throws -> Bytes {
+        // [GUIDE] - algorithm 4.43
         let bwl = 2 * ((self.domain.p.bitWidth + 7) / 8) + 1
         let tagLength = mode == .GCM ? 16 : 32
         if msg.count < bwl + tagLength {
             throw ECException.notEnoughInput
         }
         let R = Bytes(msg[0 ..< bwl])
-        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s).x
+        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s)
+        if S.infinity {
+            throw ECException.authentication
+        }
         let tag1 = Bytes(msg[msg.count - tagLength ..< msg.count])
         var result = Bytes(msg[bwl ..< msg.count - tagLength])
-        let cipher = Cipher.instance(cipher, mode, self.domain.align(S.asMagnitudeBytes()), R)
+        let cipher = Cipher.instance(cipher, mode, self.domain.align(S.x.asMagnitudeBytes()), R)
         let tag2 = try cipher.decrypt(&result)
         if tag1 == tag2 {
             return result
@@ -375,6 +379,47 @@ public class ECPrivateKey: CustomStringConvertible {
         return try Data(self.decrypt(msg: Bytes(msg), cipher: cipher, mode: mode))
     }
     
+    /// Returns the AES key and HMAC key that were used to encrypt the message
+    ///
+    /// - Parameters:
+    ///   - msg: The encrypted data
+    ///   - cipher: The AES cipher that was used to encrypt
+    ///   - mode: The block mode that was used to encrypt - GCM is default
+    /// - Returns: The AES key and HMAC key that were used during encryption
+    /// - Throws: An exception if the message is too short
+    public func getKeyAndMac(msg: Bytes, cipher: AESCipher, mode: BlockMode = .GCM) throws -> (key: Bytes, mac: Bytes) {
+        let bwl = 2 * ((self.domain.p.bitWidth + 7) / 8) + 1
+        let tagLength = mode == .GCM ? 16 : 32
+        if msg.count < bwl + tagLength {
+            throw ECException.notEnoughInput
+        }
+        let R = Bytes(msg[0 ..< bwl])
+        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s).x
+        var keySize: Int
+        switch cipher {
+        case .AES128:
+            keySize = AES.keySize128
+        case .AES192:
+            keySize = AES.keySize192
+        case .AES256:
+            keySize = AES.keySize256
+        }
+        return Cipher.kdf(keySize, tagLength, self.domain.align(S.asMagnitudeBytes()), R)
+    }
+
+    /// Returns the AES key and HMAC key that were used to encrypt the message
+    ///
+    /// - Parameters:
+    ///   - msg: The encrypted data
+    ///   - cipher: The AES cipher that was used to encrypt
+    ///   - mode: The block mode that was used to encrypt - GCM is default
+    /// - Returns: The AES key and HMAC key that were used during encryption
+    /// - Throws: An exception if the message is too short
+    public func getKeyAndMac(msg: Data, cipher: AESCipher, mode: BlockMode = .GCM) throws -> (key: Data, mac: Data) {
+        let (key, mac) = try self.getKeyAndMac(msg: Bytes(msg), cipher: cipher, mode: mode)
+        return (Data(key), Data(mac))
+    }
+
     /// Decrypts a byte array message with ECIES using the ChaCha20 cipher
     ///
     /// - Parameters:

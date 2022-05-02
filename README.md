@@ -34,7 +34,7 @@ SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.3.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.4.0"),
 	  ]
 
 <h2 id="basic"><b>Basics</b></h2>
@@ -465,38 +465,40 @@ Nonce = bytes 32 ..< 44</br>
 <h4><b>AES-128/GCM block mode</b></h4>
 KDF generates 32 bytes.
 
-Encryption/decryption key = bytes 0 ..< 16</br>
+AES encryption/decryption key = bytes 0 ..< 16</br>
 Initialization vector = bytes 16 ..< 32</br>
 
 <h4><b>AES-192/GCM block mode</b></h4>
 KDF generates 40 bytes.
 
-Encryption/decryption key = bytes 0 ..< 24</br>
+AES encryption/decryption key = bytes 0 ..< 24</br>
 Initialization vector = bytes 24 ..< 40</br>
 
 <h4><b>AES-256/GCM block mode</b></h4>
 KDF generates 48 bytes.
 
-Encryption/decryption key = bytes 0 ..< 32</br>
+AES encryption/decryption key = bytes 0 ..< 32</br>
 Initialization vector = bytes 32 ..< 48</br>
 
 <h4><b>AES-128/Non-GCM block mode</b></h4>
 KDF generates 48 bytes.
 
-Encryption/decryption key = bytes 0 ..< 16</br>
+AES encryption/decryption key = bytes 0 ..< 16</br>
 HMAC key = bytes 16 ..< 48</br>
 
 <h4><b>AES-192/Non-GCM block mode</b></h4>
 KDF generates 56 bytes.
 
-Encryption/decryption key = bytes 0 ..< 24</br>
+AES encryption/decryption key = bytes 0 ..< 24</br>
 HMAC key = bytes 24 ..< 56</br>
 
 <h4><b>AES-256/Non-GCM block mode</b></h4>
 KDF generates 64 bytes.
 
-Encryption/decryption key = bytes 0 ..< 32</br>
+AES encryption/decryption key = bytes 0 ..< 32</br>
 HMAC key = bytes 32 ..< 64</br>
+
+The AES key and HMAC key can be retrieved with the ECPrivateKey method 'getKeyAndMac'.
 
 For block modes CBC, CFB, CTR, and OFB the initialization vector (IV) is 16 zero bytes.
 

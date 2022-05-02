@@ -184,6 +184,7 @@ public class ECPublicKey: CustomStringConvertible {
     ///   - mode: The block mode to use - GCM is default
     /// - Returns: The encrypted message
     public func encrypt(msg: Bytes, cipher: AESCipher, mode: BlockMode = .GCM) -> Bytes {
+        // [GUIDE] - algorithm 4.42
         let (R, S) = computeRS()
         let cipher = Cipher.instance(cipher, mode, S, R)
         var result = msg

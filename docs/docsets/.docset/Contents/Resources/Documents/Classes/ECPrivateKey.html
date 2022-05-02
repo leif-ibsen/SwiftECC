@@ -1099,6 +1099,164 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC03getD6AndMac3msg6cipher4modeSays5UInt8VG3key_AJ3mactAJ_AA9AESCipherOAA9BlockModeOtKF"></a>
+                    <a name="//apple_ref/swift/Method/getKeyAndMac(msg:cipher:mode:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC03getD6AndMac3msg6cipher4modeSays5UInt8VG3key_AJ3mactAJ_AA9AESCipherOAA9BlockModeOtKF">getKeyAndMac(msg:<wbr>cipher:<wbr>mode:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the AES key and HMAC key that were used to encrypt the message</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if the message is too short
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getKeyAndMac</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cipher</span><span class="p">:</span> <span class="kt"><a href="../Enums/AESCipher.html">AESCipher</a></span><span class="p">,</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Enums/BlockMode.html">BlockMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">GCM</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">mac</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encrypted data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cipher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AES cipher that was used to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block mode that was used to encrypt - GCM is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The AES key and HMAC key that were used during encryption</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC03getD6AndMac3msg6cipher4mode10Foundation4DataV3key_AJ3mactAJ_AA9AESCipherOAA9BlockModeOtKF"></a>
+                    <a name="//apple_ref/swift/Method/getKeyAndMac(msg:cipher:mode:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC03getD6AndMac3msg6cipher4mode10Foundation4DataV3key_AJ3mactAJ_AA9AESCipherOAA9BlockModeOtKF">getKeyAndMac(msg:<wbr>cipher:<wbr>mode:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the AES key and HMAC key that were used to encrypt the message</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if the message is too short
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getKeyAndMac</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">cipher</span><span class="p">:</span> <span class="kt"><a href="../Enums/AESCipher.html">AESCipher</a></span><span class="p">,</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Enums/BlockMode.html">BlockMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">GCM</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">mac</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encrypted data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cipher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AES cipher that was used to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block mode that was used to encrypt - GCM is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The AES key and HMAC key that were used during encryption</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC010decryptChaF03msg3aadSays5UInt8VGAI_AItKF"></a>
                     <a name="//apple_ref/swift/Method/decryptChaCha(msg:aad:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC010decryptChaF03msg3aadSays5UInt8VGAI_AItKF">decryptChaCha(msg:<wbr>aad:<wbr>)</a>
@@ -1338,7 +1496,7 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-04-05)</p>
+          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-05-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
