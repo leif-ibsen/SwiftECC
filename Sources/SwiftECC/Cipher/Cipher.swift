@@ -38,9 +38,9 @@ public enum BlockMode: CaseIterable {
 }
 
 class Cipher {
-    
+
     static let MD = MessageDigestAlgorithm.SHA2_256
-    
+
     // All zero initialization vector
     static let iv = Bytes(repeating: 0, count: AES.blockSize)
     
@@ -58,7 +58,11 @@ class Cipher {
         md.update(R)
         let md2 = md.digest()
         key = Bytes(md1[0 ..< keySize])
-        mac = Bytes(md1[keySize ..< md.digestLength]) + Bytes(md2[0 ..< macSize + keySize - md.digestLength])
+        if keySize + macSize < md.digestLength {
+            mac = Bytes(md1[keySize ..< keySize + macSize])
+        } else {
+            mac = Bytes(md1[keySize ..< md.digestLength]) + Bytes(md2[0 ..< macSize + keySize - md.digestLength])
+        }
         return (key, mac)
     }
 

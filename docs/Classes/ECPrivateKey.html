@@ -317,7 +317,7 @@ or it is &lsquo;EC PRIVATE KEY&rsquo; meaning the format is not PKCS#8</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a private key from its encrypted DER encoding.</br>
+                        <p>Creates a private key from its encrypted DER encoding.<br/>
 The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
@@ -381,8 +381,8 @@ The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a private key from its encrypted PEM encoding.</br>
-The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.</br>
+                        <p>Creates a private key from its encrypted PEM encoding.<br/>
+The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.<br/>
 The PEM type is &lsquo;ENCRYPTED PRIVATE KEY&rsquo;</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
@@ -701,7 +701,7 @@ The PEM type is &lsquo;ENCRYPTED PRIVATE KEY&rsquo;</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Computes the password based encrypted encoding of <em>self</em> in DER format,</br>
+                        <p>Computes the password based encrypted encoding of <em>self</em> in DER format,<br/>
 using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes</p>
 
                       </div>
@@ -764,7 +764,7 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Computes the password based encrypted encoding of <em>self</em> in PEM format,</br>
+                        <p>Computes the password based encrypted encoding of <em>self</em> in PEM format,<br/>
 using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes</p>
 
                       </div>
@@ -951,7 +951,8 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Decrypts a byte array message with ECIES using the AES cipher</p>
+                        <p>Decrypts a byte array message with ECIES using the AES cipher<br/>
+Using this method with block mode GCM is deprecated. Use <em>decryptAESGCM</em> instead for much better performance</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     An exception if message authentication fails or the message is too short
@@ -1030,7 +1031,8 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Decrypts a Data message with ECIES using the AES cipher</p>
+                        <p>Decrypts a Data message with ECIES using the AES cipher<br/>
+Using this method with block mode GCM is deprecated. Use <em>decryptAESGCM</em> instead for much better performance</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     An exception if message authentication fails or the message is too short
@@ -1267,7 +1269,7 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Decrypts a byte array message with ECIES using the ChaCha20 cipher</p>
+                        <p>Decrypts a byte array message with ECIES using the ChaCha20/Poly1305 algorithm - possibly with additional authenticated data</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     An exception if message authentication fails or the message is too short
@@ -1334,7 +1336,7 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Decrypts a Data message with ECIES using the ChaCha20 cipher</p>
+                        <p>Decrypts a Data message with ECIES using the ChaCha20/Poly1305 algorithm - possibly with additional authenticated data</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     An exception if message authentication fails or the message is too short
@@ -1363,6 +1365,164 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
                               <td>
                                 <div>
                                   <p>The data to decrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Additional authenticated data - empty data is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The decrypted message</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC13decryptAESGCM3msg6cipher3aadSays5UInt8VGAJ_AA9AESCipherOAJtKF"></a>
+                    <a name="//apple_ref/swift/Method/decryptAESGCM(msg:cipher:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC13decryptAESGCM3msg6cipher3aadSays5UInt8VGAJ_AA9AESCipherOAJtKF">decryptAESGCM(msg:<wbr>cipher:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Decrypts a byte array message with ECIES using the AES/GCM algorithm - possibly with additional authenticated data</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if message authentication fails or the message is too short
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">decryptAESGCM</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cipher</span><span class="p">:</span> <span class="kt"><a href="../Enums/AESCipher.html">AESCipher</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span> <span class="o">=</span> <span class="p">[])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The bytes to decrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cipher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AES cipher to use</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Additional authenticated data - an empty array is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The decrypted message</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC13decryptAESGCM3msg6cipher3aad10Foundation4DataVAJ_AA9AESCipherOAJtKF"></a>
+                    <a name="//apple_ref/swift/Method/decryptAESGCM(msg:cipher:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC13decryptAESGCM3msg6cipher3aad10Foundation4DataVAJ_AA9AESCipherOAJtKF">decryptAESGCM(msg:<wbr>cipher:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Decrypts a Data message with ECIES using the AES/GCM algorithm - possibly with additional authenticated data</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if message authentication fails or the message is too short
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">decryptAESGCM</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">cipher</span><span class="p">:</span> <span class="kt"><a href="../Enums/AESCipher.html">AESCipher</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt">Data</span> <span class="o">=</span> <span class="kt">Data</span><span class="p">())</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to decrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cipher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AES cipher to use</p>
                                 </div>
                               </td>
                             </tr>
@@ -1496,8 +1656,8 @@ using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes<
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-06-01)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-12-08)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>

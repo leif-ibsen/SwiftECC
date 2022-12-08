@@ -1,13 +1,13 @@
 //
-//  EciesChaChaTest.swift
+//  EciesAESGCMTest.swift
 //  SwiftECCTests
 //
-//  Created by Leif Ibsen on 04/04/2022.
+//  Created by Leif Ibsen on 05/12/2022.
 //
 
 import XCTest
 
-class EciesChaChaTest: XCTestCase {
+final class EciesAESGCMTest: XCTestCase {
 
     let message = Bytes("The quick brown fox jumps over the lazy dog".utf8)
     let aad = Bytes("This is the Additional Authenticated Data".utf8)
@@ -18,31 +18,31 @@ class EciesChaChaTest: XCTestCase {
         }
     }
 
-    func doTest1(_ pub: ECPublicKey, _ priv: ECPrivateKey) {
+    func doTest1(_ pub: ECPublicKey, _ priv: ECPrivateKey, _ cipher: AESCipher) {
         do {
-            let encrypted = pub.encryptChaCha(msg: [], aad: [])
-            let decrypted = try priv.decryptChaCha(msg: encrypted, aad: [])
+            let encrypted = pub.encryptAESGCM(msg: [], cipher: cipher, aad: [])
+            let decrypted = try priv.decryptAESGCM(msg: encrypted, cipher: cipher, aad: [])
             XCTAssertEqual([], decrypted)
         } catch {
             XCTFail("\(error)")
         }
         do {
-            let encrypted = pub.encryptChaCha(msg: message, aad: [])
-            let decrypted = try priv.decryptChaCha(msg: encrypted, aad: [])
+            let encrypted = pub.encryptAESGCM(msg: message, cipher: cipher, aad: [])
+            let decrypted = try priv.decryptAESGCM(msg: encrypted, cipher: cipher, aad: [])
             XCTAssertEqual(message, decrypted)
         } catch {
             XCTFail("\(error)")
         }
         do {
-            let encrypted = pub.encryptChaCha(msg: [], aad: aad)
-            let decrypted = try priv.decryptChaCha(msg: encrypted, aad: aad)
+            let encrypted = pub.encryptAESGCM(msg: [], cipher: cipher, aad: aad)
+            let decrypted = try priv.decryptAESGCM(msg: encrypted, cipher: cipher, aad: aad)
             XCTAssertEqual([], decrypted)
         } catch {
             XCTFail("\(error)")
         }
         do {
-            let encrypted = pub.encryptChaCha(msg: message, aad: aad)
-            let decrypted = try priv.decryptChaCha(msg: encrypted, aad: aad)
+            let encrypted = pub.encryptAESGCM(msg: message, cipher: cipher, aad: aad)
+            let decrypted = try priv.decryptAESGCM(msg: encrypted, cipher: cipher, aad: aad)
             XCTAssertEqual(message, decrypted)
         } catch {
             XCTFail("\(error)")
@@ -52,8 +52,8 @@ class EciesChaChaTest: XCTestCase {
             randomBytes(&randomMessage)
             var randomAAD = Bytes(repeating: 0, count: 100)
             randomBytes(&randomAAD)
-            let encrypted = pub.encryptChaCha(msg: randomMessage, aad: randomAAD)
-            let decrypted = try priv.decryptChaCha(msg: encrypted, aad: randomAAD)
+            let encrypted = pub.encryptAESGCM(msg: randomMessage, cipher: cipher, aad: randomAAD)
+            let decrypted = try priv.decryptAESGCM(msg: encrypted, cipher: cipher, aad: randomAAD)
             XCTAssertEqual(randomMessage, decrypted)
         } catch {
             XCTFail("\(error)")
@@ -63,7 +63,9 @@ class EciesChaChaTest: XCTestCase {
     func test() {
         for c in ECCurve.allCases {
             let (pub, priv) = Domain.instance(curve: c).makeKeyPair()
-            doTest1(pub, priv)
+            for cipher in AESCipher.allCases {
+                doTest1(pub, priv, cipher)
+            }
         }
     }
 

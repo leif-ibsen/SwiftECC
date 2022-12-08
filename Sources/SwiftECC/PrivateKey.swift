@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CryptoKit
 import ASN1
 import BigInt
 
@@ -113,7 +114,7 @@ public class ECPrivateKey: CustomStringConvertible {
         }
     }
 
-    /// Creates a private key from its encrypted DER encoding.</br>
+    /// Creates a private key from its encrypted DER encoding.<br/>
     /// The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.
     ///
     /// - Parameters:
@@ -208,8 +209,8 @@ public class ECPrivateKey: CustomStringConvertible {
         try self.init(der: c, pkcs8: true)
     }
 
-    /// Creates a private key from its encrypted PEM encoding.</br>
-    /// The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.</br>
+    /// Creates a private key from its encrypted PEM encoding.<br/>
+    /// The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.<br/>
     /// The PEM type is 'ENCRYPTED PRIVATE KEY'
     ///
     /// - Parameters:
@@ -250,7 +251,7 @@ public class ECPrivateKey: CustomStringConvertible {
 
     // MARK: Instance Methods
     
-    /// Computes the password based encrypted encoding of *self* in DER format,</br>
+    /// Computes the password based encrypted encoding of *self* in DER format,<br/>
     /// using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes
     ///
     /// - Parameters:
@@ -293,7 +294,7 @@ public class ECPrivateKey: CustomStringConvertible {
         return seq1.encode()
     }
 
-    /// Computes the password based encrypted encoding of *self* in PEM format,</br>
+    /// Computes the password based encrypted encoding of *self* in PEM format,<br/>
     /// using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes
     ///
     /// - Parameters:
@@ -337,7 +338,21 @@ public class ECPrivateKey: CustomStringConvertible {
         return self.sign(msg: Bytes(msg), deterministic: deterministic)
     }
 
-    /// Decrypts a byte array message with ECIES using the AES cipher
+    func computeRS(_ msg: Bytes, _ tagLength: Int) throws -> (bwl: Int, R: Bytes, S: Point) {
+        let bwl = 2 * ((self.domain.p.bitWidth + 7) / 8) + 1
+        if msg.count < bwl + tagLength {
+            throw ECException.notEnoughInput
+        }
+        let R = Bytes(msg[0 ..< bwl])
+        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s)
+        if S.infinity {
+            throw ECException.authentication
+        }
+        return (bwl, R, S)
+    }
+
+    /// Decrypts a byte array message with ECIES using the AES cipher<br/>
+    /// Using this method with block mode GCM is deprecated. Use *decryptAESGCM* instead for much better performance
     ///
     /// - Parameters:
     ///   - msg: The bytes to decrypt
@@ -347,16 +362,8 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Throws: An exception if message authentication fails or the message is too short
     public func decrypt(msg: Bytes, cipher: AESCipher, mode: BlockMode = .GCM) throws -> Bytes {
         // [GUIDE] - algorithm 4.43
-        let bwl = 2 * ((self.domain.p.bitWidth + 7) / 8) + 1
         let tagLength = mode == .GCM ? 16 : 32
-        if msg.count < bwl + tagLength {
-            throw ECException.notEnoughInput
-        }
-        let R = Bytes(msg[0 ..< bwl])
-        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s)
-        if S.infinity {
-            throw ECException.authentication
-        }
+        let (bwl, R, S) = try computeRS(msg, tagLength)
         let tag1 = Bytes(msg[msg.count - tagLength ..< msg.count])
         var result = Bytes(msg[bwl ..< msg.count - tagLength])
         let cipher = Cipher.instance(cipher, mode, self.domain.align(S.x.asMagnitudeBytes()), R)
@@ -367,7 +374,8 @@ public class ECPrivateKey: CustomStringConvertible {
         throw ECException.authentication
     }
 
-    /// Decrypts a Data message with ECIES using the AES cipher
+    /// Decrypts a Data message with ECIES using the AES cipher<br/>
+    /// Using this method with block mode GCM is deprecated. Use *decryptAESGCM* instead for much better performance
     ///
     /// - Parameters:
     ///   - msg: The data to decrypt
@@ -388,23 +396,10 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Returns: The AES key and HMAC key that were used during encryption
     /// - Throws: An exception if the message is too short
     public func getKeyAndMac(msg: Bytes, cipher: AESCipher, mode: BlockMode = .GCM) throws -> (key: Bytes, mac: Bytes) {
-        let bwl = 2 * ((self.domain.p.bitWidth + 7) / 8) + 1
         let tagLength = mode == .GCM ? 16 : 32
-        if msg.count < bwl + tagLength {
-            throw ECException.notEnoughInput
-        }
-        let R = Bytes(msg[0 ..< bwl])
-        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s).x
-        var keySize: Int
-        switch cipher {
-        case .AES128:
-            keySize = AES.keySize128
-        case .AES192:
-            keySize = AES.keySize192
-        case .AES256:
-            keySize = AES.keySize256
-        }
-        return Cipher.kdf(keySize, tagLength, self.domain.align(S.asMagnitudeBytes()), R)
+        let (_, R, S) = try computeRS(msg, tagLength)
+        let keySize = cipher == .AES128 ? AES.keySize128 : (cipher == .AES192 ? AES.keySize192 : AES.keySize256)
+        return Cipher.kdf(keySize, tagLength, self.domain.align(S.x.asMagnitudeBytes()), R)
     }
 
     /// Returns the AES key and HMAC key that were used to encrypt the message
@@ -420,7 +415,7 @@ public class ECPrivateKey: CustomStringConvertible {
         return (Data(key), Data(mac))
     }
 
-    /// Decrypts a byte array message with ECIES using the ChaCha20 cipher
+    /// Decrypts a byte array message with ECIES using the ChaCha20/Poly1305 algorithm - possibly with additional authenticated data
     ///
     /// - Parameters:
     ///   - msg: The bytes to decrypt
@@ -428,23 +423,23 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Returns: The decrypted message
     /// - Throws: An exception if message authentication fails or the message is too short
     public func decryptChaCha(msg: Bytes, aad: Bytes = []) throws -> Bytes {
-        let bwl = 2 * ((self.domain.p.bitWidth + 7) / 8) + 1
         let tagLength = 16
-        if msg.count < bwl + tagLength {
-            throw ECException.notEnoughInput
+        let (bwl, R, S) = try computeRS(msg, tagLength)
+        let keySize = 32
+        let cipherText = Bytes(msg[bwl ..< msg.count - tagLength])
+        let tag = Bytes(msg[msg.count - tagLength ..< msg.count])
+        let (key, nonce) = Cipher.kdf(keySize, 12, self.domain.align(S.x.asMagnitudeBytes()), R)
+        do {
+            let cryptoKitKey = CryptoKit.SymmetricKey(data: key)
+            let cryptoKitNonce = try CryptoKit.ChaChaPoly.Nonce(data: nonce)
+            let sealbox = try CryptoKit.ChaChaPoly.SealedBox(nonce: cryptoKitNonce, ciphertext: cipherText, tag: tag)
+            return try Bytes(CryptoKit.ChaChaPoly.open(sealbox, using: cryptoKitKey, authenticating: aad))
+        } catch {
+            throw ECException.authentication
         }
-        let R = Bytes(msg[0 ..< bwl])
-        let S = try self.domain.multiplyPoint(self.domain.decodePoint(R), self.s).x
-        let tag1 = Bytes(msg[msg.count - tagLength ..< msg.count])
-        var result = Bytes(msg[bwl ..< msg.count - tagLength])
-        let (key, nonce) = Cipher.kdf(32, 12, self.domain.align(S.asMagnitudeBytes()), R)
-        if ChaChaPoly(key, nonce).decrypt(&result, tag1, aad) {
-            return result
-        }
-        throw ECException.authentication
     }
 
-    /// Decrypts a Data message with ECIES using the ChaCha20 cipher
+    /// Decrypts a Data message with ECIES using the ChaCha20/Poly1305 algorithm - possibly with additional authenticated data
     ///
     /// - Parameters:
     ///   - msg: The data to decrypt
@@ -453,6 +448,43 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Throws: An exception if message authentication fails or the message is too short
     public func decryptChaCha(msg: Data, aad: Data = Data()) throws -> Data {
         return try Data(self.decryptChaCha(msg: Bytes(msg), aad: Bytes(aad)))
+    }
+
+    /// Decrypts a byte array message with ECIES using the AES/GCM algorithm - possibly with additional authenticated data
+    ///
+    /// - Parameters:
+    ///   - msg: The bytes to decrypt
+    ///   - cipher: The AES cipher to use
+    ///   - aad: Additional authenticated data - an empty array is default
+    /// - Returns: The decrypted message
+    /// - Throws: An exception if message authentication fails or the message is too short
+    public func decryptAESGCM(msg: Bytes, cipher: AESCipher, aad: Bytes = []) throws -> Bytes {
+        let tagLength = 16
+        let (bwl, R, S) = try computeRS(msg, tagLength)
+        let keySize = cipher == .AES128 ? AES.keySize128 : (cipher == .AES192 ? AES.keySize192 : AES.keySize256)
+        let cipherText = Bytes(msg[bwl ..< msg.count - tagLength])
+        let tag = Bytes(msg[msg.count - tagLength ..< msg.count])
+        let (key, nonce) = Cipher.kdf(keySize, 12, self.domain.align(S.x.asMagnitudeBytes()), R)
+        do {
+            let cryptoKitKey = CryptoKit.SymmetricKey(data: key)
+            let cryptoKitNonce = try CryptoKit.AES.GCM.Nonce(data: nonce)
+            let sealbox = try CryptoKit.AES.GCM.SealedBox(nonce: cryptoKitNonce, ciphertext: cipherText, tag: tag)
+            return try Bytes(CryptoKit.AES.GCM.open(sealbox, using: cryptoKitKey, authenticating: aad))
+        } catch {
+            throw ECException.authentication
+        }
+    }
+
+    /// Decrypts a Data message with ECIES using the AES/GCM algorithm - possibly with additional authenticated data
+    ///
+    /// - Parameters:
+    ///   - msg: The data to decrypt
+    ///   - cipher: The AES cipher to use
+    ///   - aad: Additional authenticated data - empty data is default
+    /// - Returns: The decrypted message
+    /// - Throws: An exception if message authentication fails or the message is too short
+    public func decryptAESGCM(msg: Data, cipher: AESCipher, aad: Data = Data()) throws -> Data {
+        return try Data(self.decryptAESGCM(msg: Bytes(msg), cipher: cipher, aad: Bytes(aad)))
     }
 
     /// Constructs a shared secret key using Diffie-Hellman key agreement - please refer [SEC 1] section 3.3.1
