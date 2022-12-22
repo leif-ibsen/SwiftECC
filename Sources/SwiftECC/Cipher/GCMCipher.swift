@@ -254,7 +254,7 @@ struct Block {
         }
     }
 
-    mutating func shiftRigth() {
+    mutating func shiftRight() {
         let bit0 = self.a0 & 1 == 1
         self.a0 >>= 1
         self.a1 >>= 1
@@ -289,10 +289,10 @@ struct Block {
             }
             mask0 >>= 1
             if v.a1 & 1 == 1 {
-                v.shiftRigth()
+                v.shiftRight()
                 v.add(Block.R)
             } else {
-                v.shiftRigth()
+                v.shiftRight()
             }
         }
         var mask1: Limb = 0x8000000000000000
@@ -302,10 +302,10 @@ struct Block {
             }
             mask1 >>= 1
             if v.a1 & 1 == 1 {
-                v.shiftRigth()
+                v.shiftRight()
                 v.add(Block.R)
             } else {
-                v.shiftRigth()
+                v.shiftRight()
             }
         }
         self.a0 = z.a0
