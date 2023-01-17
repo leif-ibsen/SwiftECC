@@ -49,7 +49,7 @@ public struct Point: CustomStringConvertible, Equatable {
     public let x: BInt
     /// The y coordinate
     public let y: BInt
-    /// Is *true* iff *self* is the point at inifinity
+    /// Is *true* iff *self* is the point at infinity
     public let infinity: Bool
     
     

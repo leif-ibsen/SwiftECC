@@ -343,7 +343,7 @@ Nonce = bytes 32 ..< 44</br>
 
 <h2 id="basic6"><b>Signing and Verifying</b></h2>
 Signing data and verifying signatures is performed using the ECDSA algorithm. It is possible to generate
-deterministic signatures as specificed in [RFC-6979] by setting the <i>deterministic</i> parameter to <i>true</i> in the sign operation.
+deterministic signatures as specified in [RFC-6979] by setting the <i>deterministic</i> parameter to <i>true</i> in the sign operation.
 
 The message digest used in the process is determined from the domain field size as follows:
 <ul>
