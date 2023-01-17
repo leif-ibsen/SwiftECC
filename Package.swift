@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftECC",
-    platforms: [.macOS(.v10_15), .iOS(.v13)], // Due to the use of the CryptoKit framework
+    platforms: [.macOS(.v10_15), .iOS(.v13), .watchOS(.v8)], // Due to the use of the CryptoKit framework
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(

@@ -32,10 +32,11 @@ This encompasses:
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.5.1"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.5.2"),
 	  ]
 SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 bit types.
-SwiftECC uses Apple's CryptoKit framework. Therefore, for macOS the version must be at least 10.15, and for iOS the version must be at least 13.0.
+SwiftECC uses Apple's CryptoKit framework. Therefore, for macOS the version must be at least 10.15,
+for iOS the version must be at least 13, and for watchOS the version must be at least 8.
 
 <h2 id="basic"><b>Basics</b></h2>
 The basic concept in SwiftECC is the Elliptic Curve Domain, represented by the Domain class.
