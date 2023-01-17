@@ -25,7 +25,7 @@ public class ECPublicKey: CustomStringConvertible {
     /// - Parameters:
     ///   - domain: The domain
     ///   - w: The curve point
-    /// - Throws: A *publicKeyParameter* exception if *w* is not on the curve or is inifinity
+    /// - Throws: A *publicKeyParameter* exception if *w* is not on the curve or is infinity
     public init(domain: Domain, w: Point) throws {
         if !domain.contains(w) || w.infinity {
             throw ECException.publicKeyParameter

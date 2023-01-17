@@ -420,7 +420,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///
     /// - Parameters:
     ///   - p: The point to encode
-    ///   - compress: If *true* use compresssed encoding, if *false* use uncompressed encoding - *false* is default
+    ///   - compress: If *true* use compressed encoding, if *false* use uncompressed encoding - *false* is default
     /// - Returns: Encoding of p
     /// - Throws: An *encodePoint* exception if *p* is not on the curve
     public func encodePoint(_ p: Point, _ compress: Bool = false) throws -> Bytes {
@@ -448,7 +448,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///
     /// - Parameters:
     ///   - p: The point to encode
-    ///   - compress: If *true* use compresssed encoding, if *false* use uncompressed encoding - *false* is default
+    ///   - compress: If *true* use compressed encoding, if *false* use uncompressed encoding - *false* is default
     /// - Returns: ASN1 encoding of p
     /// - Throws: An *encodePoint* exception if *p* does not lie on the curve
     public func asn1EncodePoint(_ p: Point, _ compress: Bool = false) throws -> ASN1 {

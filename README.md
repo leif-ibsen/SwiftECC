@@ -32,7 +32,7 @@ This encompasses:
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.5.2"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.5.3"),
 	  ]
 SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 bit types.
 SwiftECC uses Apple's CryptoKit framework. Therefore, for macOS the version must be at least 10.15,
@@ -343,7 +343,7 @@ Nonce = bytes 32 ..< 44</br>
 
 <h2 id="basic6"><b>Signing and Verifying</b></h2>
 Signing data and verifying signatures is performed using the ECDSA algorithm. It is possible to generate
-deterministic signatures as specificed in [RFC-6979] by setting the <i>deterministic</i> parameter to <i>true</i> in the sign operation.
+deterministic signatures as specified in [RFC-6979] by setting the <i>deterministic</i> parameter to <i>true</i> in the sign operation.
 
 The message digest used in the process is determined from the domain field size as follows:
 <ul>
