@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Structures  Reference</title>
+    <title>Enumerations  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,11 +13,11 @@
     <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
-    <a title="Structures  Reference"></a>
+    <a name="//apple_ref/swift/Section/Enumerations" class="dashAnchor"></a>
+    <a title="Enumerations  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (100% documented)</p>
+        <p><a href="index.html">SwiftECC Docs</a> (100% documented)</p>
         <div class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -27,9 +27,9 @@
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
-        <a href="index.html"> Reference</a>
+        <a href="index.html">SwiftECC Reference</a>
         <img id="carat" src="img/carat.png" alt=""/>
-        Structures  Reference
+        Enumerations  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -102,8 +102,8 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Structures</h1>
-            <p>The following structures are available globally.</p>
+            <h1>Enumerations</h1>
+            <p>The following enumerations are available globally.</p>
 
           </section>
           <section class="section task-group-section">
@@ -112,9 +112,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC6Base64V"></a>
-                    <a name="//apple_ref/swift/Struct/Base64" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC6Base64V">Base64</a>
+                    <a name="/s:8SwiftECC9AESCipherO"></a>
+                    <a name="//apple_ref/swift/Enum/AESCipher" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC9AESCipherO">AESCipher</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -122,16 +122,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>There is no Base64 instances.
-Base64 exists to provide a namespace. It contains static functions for Base64 encoding and decoding.</p>
+                        <p>AES block ciphers available for encryption</p>
 
-                        <a href="Structs/Base64.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/AESCipher.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Base64</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">AESCipher</span> <span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
 
                         </div>
                       </div>
@@ -141,9 +140,9 @@ Base64 exists to provide a namespace. It contains static functions for Base64 en
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC5PointV"></a>
-                    <a name="//apple_ref/swift/Struct/Point" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC5PointV">Point</a>
+                    <a name="/s:8SwiftECC9BlockModeO"></a>
+                    <a name="//apple_ref/swift/Enum/BlockMode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC9BlockModeO">BlockMode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -151,20 +150,15 @@ Base64 exists to provide a namespace. It contains static functions for Base64 en
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Point instances contain elliptic curve points.</p>
+                        <p>Available block cipher modes</p>
 
-<p>For points in a prime characteristic domain, the x-coordinate and y-coordinate are non-negative integers.</p>
-
-<p>For points in a characteristic 2 domain, the x-coordinate and y-coordinate are binary polynomials
-where the coefficients (0 or 1) are the bits of the x and y values.</p>
-
-                        <a href="Structs/Point.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/BlockMode.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Point</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">BlockMode</span> <span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
 
                         </div>
                       </div>
@@ -174,9 +168,9 @@ where the coefficients (0 or 1) are the bits of the x and y values.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC2RPV"></a>
-                    <a name="//apple_ref/swift/Struct/RP" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC2RPV">RP</a>
+                    <a name="/s:8SwiftECC22MessageDigestAlgorithmO"></a>
+                    <a name="//apple_ref/swift/Enum/MessageDigestAlgorithm" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC22MessageDigestAlgorithmO">MessageDigestAlgorithm</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -184,17 +178,71 @@ where the coefficients (0 or 1) are the bits of the x and y values.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>RP instances contain reduction polynomials like
-x^m + x^k3 + x^k2 + x^k1 + 1 where m &gt; k3 &gt; k2 &gt; k1 &gt; 0
-or x^m + x^k1 + 1 where m &gt; k1 &gt; 0</p>
+                        <p>Message digest algorithms</p>
 
-                        <a href="Structs/RP.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/MessageDigestAlgorithm.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RP</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MessageDigestAlgorithm</span> <span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC7ECCurveO"></a>
+                    <a name="//apple_ref/swift/Enum/ECCurve" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC7ECCurveO">ECCurve</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Built-in elliptic curves</p>
+
+                        <a href="Enums/ECCurve.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ECCurve</span> <span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECExceptionO"></a>
+                    <a name="//apple_ref/swift/Enum/ECException" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECExceptionO">ECException</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Elliptic curve exceptions</p>
+
+                        <a href="Enums/ECException.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ECException</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                         </div>
                       </div>
@@ -206,7 +254,7 @@ or x^m + x^k1 + 1 where m &gt; k1 &gt; 0</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-01-17)</p>
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-04-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

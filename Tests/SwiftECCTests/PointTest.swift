@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SwiftECC
 import BigInt
 
 // Test point encoding and decoding

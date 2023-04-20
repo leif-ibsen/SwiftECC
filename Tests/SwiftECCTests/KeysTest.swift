@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SwiftECC
 import ASN1
 
 class KeysTest: XCTestCase {

@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SwiftECC
 import CryptoKit
 
 // Test compatibility with Swift CryptoKit

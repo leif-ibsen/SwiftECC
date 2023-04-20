@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SwiftECC
 
 final class EciesAESGCMTest: XCTestCase {
 

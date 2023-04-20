@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SwiftECC
 
 /*
  Test compatibility with IBM's BlueECC product.
