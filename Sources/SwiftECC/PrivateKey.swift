@@ -531,5 +531,52 @@ public class ECPrivateKey: CustomStringConvertible {
         }
         return Bytes(k[0 ..< length])
     }
+    
+    
+    /// Constructs a shared secret key using Diffie-Hellman key agreement - please refer [SEC 1] section 3.3.1
+    /// This method coresponds to standard methods used for generating shared secret without hash or any added data.
+    /// ECDH.computeSecret in NodeJs or KeyAgreement.generateSecret in Java
+    ///
+    ///
+    /// - Parameters:
+    ///   - pubKey: The other party's public key
+    ///   - length: The required length of the shared secret TODO: length should be calculated automatically.
+    /// - Returns: A byte array which is the shared secret key
+    /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* is negative
+    public func keyAgreement(pubKey: ECPublicKey, length: Int) throws -> Bytes {
+        if self.domain != pubKey.domain {
+            throw ECException.keyAgreementParameter
+        }
+        
+        if length < 0 {
+            throw ECException.keyAgreementParameter
+        }
+        
+        var Z = try self.domain.multiplyPoint(pubKey.w, self.s).x.asMagnitudeBytes()
+        Z = self.domain.align(Z)
+        
+        // [SEC 1] - section 3.6.1
+        // Directly concatenate Z, counter, and sharedInfo to get k, without hashing
+
+        var k: Bytes = []
+        var counter: Bytes = [0, 0, 0, 1]
+        let n = length == 0 ? 0 : (length - 1) / Z.count + 1
+        for _ in 0 ..< n {
+            k += Z
+            k += counter
+            counter[3] &+= 1
+            if counter[3] == 0 {
+                counter[2] &+= 1
+                if counter[2] == 0 {
+                    counter[1] &+= 1
+                    if counter[1] == 0 {
+                        counter[0] &+= 1
+                    }
+                }
+            }
+        }
+        return Bytes(k[0 ..< length])
+    }
+
 
 }
