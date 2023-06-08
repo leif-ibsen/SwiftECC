@@ -141,7 +141,7 @@ This encompasses:</p>
 
 <p>In your project Package.swift file add a dependency like<br/></p>
 <pre class="highlight plaintext"><code>  dependencies: [
-  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.6.0"),
+  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.7.0"),
   ]
 </code></pre>
 
@@ -282,7 +282,7 @@ print(privKey)
 <h2 id="basic5"><b>Encryption and Decryption</b></h2>
 
 <p>Encryption and decryption is done using the ECIES algorithm based on the AES block cipher using one of
-AES-128, AES-192 or AES-256 ciphers, depending on your choice.</br>
+AES-128, AES-192 or AES-256 ciphers, depending on your choice.<br/>
 The following cipher block modes are supported:</p>
 
 <ul>
@@ -319,43 +319,43 @@ Six cases are considered:</p>
 
 <p>KDF generates 32 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 16</br>
-Nonce = bytes 16 ..&lt; 32</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 16<br/>
+Nonce = bytes 16 ..&lt; 32<br/></p>
 
 <h3><b>AES-192/GCM block mode</b></h3>
 
 <p>KDF generates 40 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 24</br>
-Nonce = bytes 24 ..&lt; 40</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 24<br/>
+Nonce = bytes 24 ..&lt; 40<br/></p>
 
 <h3><b>AES-256/GCM block mode</b></h3>
 
 <p>KDF generates 48 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 32</br>
-Nonce = bytes 32 ..&lt; 48</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 32<br/>
+Nonce = bytes 32 ..&lt; 48<br/></p>
 
 <h3><b>AES-128/Non-GCM block mode</b></h3>
 
 <p>KDF generates 48 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 16</br>
-HMAC key = bytes 16 ..&lt; 48</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 16<br/>
+HMAC key = bytes 16 ..&lt; 48<br/></p>
 
 <h3><b>AES-192/Non-GCM block mode</b></h3>
 
 <p>KDF generates 56 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 24</br>
-HMAC key = bytes 24 ..&lt; 56</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 24<br/>
+HMAC key = bytes 24 ..&lt; 56<br/></p>
 
 <h3><b>AES-256/Non-GCM block mode</b></h3>
 
 <p>KDF generates 64 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 32</br>
-HMAC key = bytes 32 ..&lt; 64</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 32<br/>
+HMAC key = bytes 32 ..&lt; 64<br/></p>
 
 <p>The AES key and HMAC key can be retrieved with the ECPrivateKey method &lsquo;getKeyAndMac&rsquo;.</p>
 
@@ -457,29 +457,29 @@ Four cases are considered:</p>
 
 <p>KDF generates 44 bytes.</p>
 
-<p>Encryption/decryption key = bytes 0 ..&lt; 32</br>
-Nonce = bytes 32 ..&lt; 44</br></p>
+<p>Encryption/decryption key = bytes 0 ..&lt; 32<br/>
+Nonce = bytes 32 ..&lt; 44<br/></p>
 
 <h3><b>AES-128/GCM</b></h3>
 
 <p>KDF generates 28 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 16</br>
-Nonce = bytes 16 ..&lt; 28</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 16<br/>
+Nonce = bytes 16 ..&lt; 28<br/></p>
 
 <h3><b>AES-192/GCM</b></h3>
 
 <p>KDF generates 36 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 24</br>
-Nonce = bytes 24 ..&lt; 36</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 24<br/>
+Nonce = bytes 24 ..&lt; 36<br/></p>
 
 <h3><b>AES-256/GCM</b></h3>
 
 <p>KDF generates 44 bytes.</p>
 
-<p>AES encryption/decryption key = bytes 0 ..&lt; 32</br>
-Nonce = bytes 32 ..&lt; 44</br></p>
+<p>AES encryption/decryption key = bytes 0 ..&lt; 32<br/>
+Nonce = bytes 32 ..&lt; 44<br/></p>
 
 <h2 id="basic6"><b>Signing and Verifying</b></h2>
 
@@ -556,9 +556,15 @@ Signature is good
 <h2 id="basic7"><b>Secret Key Agreement</b></h2>
 
 <p>Given your own private key and another party&rsquo;s public key, you can generate a byte array that can be used as a symmetric encryption key.
-The other party can generate the same byte array by using his own private key and your public key.</p>
+The other party can generate the same byte array by using his own private key and your public key.<br/>
+SwiftECC supports two mechanisms:</p>
 
-<h3><b>Example</b></h3>
+<ul>
+<li>The X9.63 version specified in [SEC 1] section 3.6.1</li>
+<li>The HKDF version specified in [RFC-5869]</li>
+</ul>
+
+<h3><b>X9.63 Example</b></h3>
 <pre class="highlight plaintext"><code>import SwiftECC
 
 do {
@@ -571,8 +577,8 @@ do {
     let (pubB, privB) = domain.makeKeyPair()
 
     let info: Bytes = [1, 2, 3]
-    let secretA = try privA.keyAgreement(pubKey: pubB, length: 16, md: .SHA2_256, sharedInfo: info)
-    let secretB = try privB.keyAgreement(pubKey: pubA, length: 16, md: .SHA2_256, sharedInfo: info)
+    let secretA = try privA.x963KeyAgreement(pubKey: pubB, length: 16, md: .SHA2_256, sharedInfo: info)
+    let secretB = try privB.x963KeyAgreement(pubKey: pubA, length: 16, md: .SHA2_256, sharedInfo: info)
     print(secretA)
     print(secretB)
 } catch {
@@ -580,26 +586,63 @@ do {
 }
 </code></pre>
 
-<p>giving (for example):</br></p>
+<p>giving (for example):<br/></p>
 <pre class="highlight plaintext"><code>[92, 161, 137, 44, 47, 30, 6, 26, 43, 183, 199, 130, 19, 254, 232, 106]
 [92, 161, 137, 44, 47, 30, 6, 26, 43, 183, 199, 130, 19, 254, 232, 106]
 </code></pre>
 
-<p>For the key agreement to work, the two parties must agree on which domain to use, which message digest to use
-and which shared information (possibly none) to use.</p>
+<p>For the key agreement to work, the two parties must agree on which domain, which message digest and which shared information (possibly none) to use.</p>
+
+<h3><b>HKDF Example</b></h3>
+<pre class="highlight plaintext"><code>import SwiftECC
+
+do {
+    let domain = Domain.instance(curve: .EC256r1)
+
+    // Party A's keys
+    let (pubA, privA) = domain.makeKeyPair()
+
+    // Party B's keys
+    let (pubB, privB) = domain.makeKeyPair()
+
+    let info: Bytes = [1, 2, 3]
+    let salt: Bytes = [4, 5, 6]
+    let secretA = try privA.hkdfKeyAgreement(pubKey: pubB, length: 16, md: .SHA2_256, sharedInfo: info, salt: salt)
+    let secretB = try privB.hkdfKeyAgreement(pubKey: pubA, length: 16, md: .SHA2_256, sharedInfo: info, salt: salt)
+    print(secretA)
+    print(secretB)
+} catch {
+    print("Exception: \(error)")
+}
+</code></pre>
+
+<p>giving (for example):<br/></p>
+<pre class="highlight plaintext"><code>[202, 36, 31, 96, 207, 220, 135, 77, 130, 41, 214, 139, 214, 30, 106, 180]
+[202, 36, 31, 96, 207, 220, 135, 77, 130, 41, 214, 139, 214, 30, 106, 180]
+</code></pre>
+
+<p>For the key agreement to work, the two parties must agree on which domain, which message digest,
+which shared information (possibly none) and which salt (possibly none) to use.</p>
 
 <h3><b>CryptoKit Compatibility</b></h3>
 
 <p>SwiftECC key agreement is compatible with Swift CryptoKit key agreement
 in that the EC256r1, EC384r1 and EC521r1 domains correspond to CryptoKit&rsquo;s P256, P384 and P521 curves,
-and the SHA2_256, SHA2_384 and SHA2_512 message digests correspond to CryptoKit&rsquo;s SHA256, SHA384 and SHA512 message digests.</p>
+and the SHA2_256, SHA2_384 and SHA2_512 message digests correspond to CryptoKit&rsquo;s SHA256, SHA384 and SHA512 message digests.<br/></p>
 
-<p>To convert a CryptoKit public key - e.g. &lsquo;ckPubKey&rsquo; - to the corresponding SwiftECC public key:</br></p>
-<pre class="highlight plaintext"><code>let eccPubKey = try ECPublickey(pem: ckPubKey.pemRepresentation)
+<ul>
+<li>The <i>x963KeyAgreement</i> method corresponds to the CryptoKit method <i>x963DerivedSymmetricKey</i></li>
+<li>The <i>hkdfKeyAgreement</i> method corresponds to the CryptoKit method <i>hkdfDerivedSymmetricKey</i></li>
+</ul>
+
+<p>To convert CryptoKit keys - e.g. <i>ckPubKey</i>, <i>ckPrivKey</i> - to the corresponding SwiftECC keys:<br/></p>
+<pre class="highlight plaintext"><code>let eccPubKey = try ECPublicKey(pem: ckPubKey.pemRepresentation)
+let eccPrivKey = try ECPrivateKey(pem: ckPrivKey.pemRepresentation)
 </code></pre>
 
-<p>To convert a SwiftECC public key - e.g. &lsquo;eccPubKey&rsquo; - to the corresponding CryptoKit public key:</br></p>
+<p>To convert SwiftECC keys - e.g. <i>eccPubKey</i>, <i>eccPrivKey</i> - to the corresponding CryptoKit keys:<br/></p>
 <pre class="highlight plaintext"><code>let ckPubKey = try P256.KeyAgreement.PublicKey(pemRepresentation: eccPubKey.pem)
+let ckPrivKey = try P256.KeyAgreement.PrivateKey(pemRepresentation: eccPrivKey.pem)
 </code></pre>
 
 <h2 id="basic8"><b>Creating New Domains</b></h2>
@@ -764,6 +807,7 @@ There are references in the source code where appropriate.</p>
 <li>[KNUTH] - Donald E. Knuth: Seminumerical Algorithms. Addison-Wesley 1971</li>
 <li>[NIST] - NIST Special Publication 800-38D, November 2007</li>
 <li>[PKCS#5] - Password-Based Cryptography Specification - Version 2.0, September 2000</li>
+<li>[RFC-5869] - HMAC-based Extract-and-Expand Key Derivation Function (HKDF), May 2010</li>
 <li>[RFC-6979] - Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA), August 2013</li>
 <li>[SAVACS] - E. Savacs, C.K. Koc: The Montgomery Modular Inverse - Revisited, July 2000</li>
 <li>[SEC 1] - Standards for Efficient Cryptography 1 (SEC 1), Certicom Corp. 2009</li>
@@ -774,12 +818,12 @@ There are references in the source code where appropriate.</p>
 
 <h2 id="ack"><b>Acknowledgement</b></h2>
 
-<p>The AES block cipher implementation is essentially a translation to Swift of the Go Language implementation of AES.</br></p>
+<p>The AES block cipher implementation is essentially a translation to Swift of the Go Language implementation of AES.<br/></p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-04-19)</p>
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-06-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

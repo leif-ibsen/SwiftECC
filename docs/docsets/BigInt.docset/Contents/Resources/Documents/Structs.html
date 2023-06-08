@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structures  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
+    <a title="Structures  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">BigInt Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">BigInt Reference</a>
+        <img id="carat" src="img/carat.png" alt=""/>
+        Structures  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/BFraction.html">BFraction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BInt.html">BInt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CRT.html">CRT</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:6BigInt4Bytea">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:6BigInt5Bytesa">Bytes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:6BigInt4Limba">Limb</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:6BigInt5Limbsa">Limbs</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6BigInt9BFractionV"></a>
+                    <a name="//apple_ref/swift/Struct/BFraction" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6BigInt9BFractionV">BFraction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A signed fraction with numerator and denominator of unbounded size.
+A BFraction value is represented by a BInt numerator and a BInt denominator.
+The representation is normalized, so that numerator and denominator has no common divisors except 1.
+The denominator is always positive, 0 has the representation 0/1</p>
+
+                        <a href="Structs/BFraction.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BFraction</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt">Comparable</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6BigInt4BIntV"></a>
+                    <a name="//apple_ref/swift/Struct/BInt" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6BigInt4BIntV">BInt</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A signed integer of unbounded size.
+A BInt value is represented with magnitude and sign.
+The magnitude is an array of unsigned 64 bit integers (a.k.a. Limbs).
+The sign is a boolean value, <em>true</em> means value &lt; 0, <em>false</em> means value &gt;= 0
+The representation is little-endian, least significant Limb has index 0.
+The representation is minimal, there is no leading zero Limbs.
+The exception is that the value 0 is represented as a single 64 bit zero Limb and sign <em>false</em></p>
+
+                        <a href="Structs/BInt.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BInt</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt">Comparable</span><span class="p">,</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6BigInt3CRTV"></a>
+                    <a name="//apple_ref/swift/Struct/CRT" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6BigInt3CRTV">CRT</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>CRT instances implement the Chinese Remainder Theorem</p>
+
+<p>Create an instance from a given set of moduli which fullfill the following conditions:</p>
+
+<ul>
+<li>at least two moduli</li>
+<li>all moduli are positive</li>
+<li>the moduli are pairwise coprime</li>
+</ul>
+
+<p>Then use the <em>compute</em> method to compute the CRT value for a given set of residues.
+The same CRT instance can be used for different inputs, as long as the moduli are the same.</p>
+
+                        <a href="Structs/CRT.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CRT</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-06-02)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

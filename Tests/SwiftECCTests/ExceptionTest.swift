@@ -242,7 +242,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         let (pub2, _) = domain2.makeKeyPair()
         do {
             // Different domains
-            let _ = try priv1.keyAgreement(pubKey: pub2, length: 20, md: .SHA2_256, sharedInfo: [])
+            let _ = try priv1.x963KeyAgreement(pubKey: pub2, length: 20, md: .SHA2_256, sharedInfo: [])
             XCTFail("Expected ECException.keyAgreementParameter")
         } catch ECException.keyAgreementParameter {
         } catch {
@@ -250,7 +250,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         }
         do {
             // Length is negative
-            let _ = try priv1.keyAgreement(pubKey: pub1, length: -20, md: .SHA2_256, sharedInfo: [])
+            let _ = try priv1.x963KeyAgreement(pubKey: pub1, length: -20, md: .SHA2_256, sharedInfo: [])
             XCTFail("Expected ECException.keyAgreementParameter")
         } catch ECException.keyAgreementParameter {
         } catch {
@@ -258,7 +258,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         }
         do {
             // Length is too large
-            let _ = try priv1.keyAgreement(pubKey: pub1, length: 32 * 0xffffffff, md: .SHA2_256, sharedInfo: [])
+            let _ = try priv1.x963KeyAgreement(pubKey: pub1, length: 32 * 0xffffffff, md: .SHA2_256, sharedInfo: [])
             XCTFail("Expected ECException.keyAgreementParameter")
         } catch ECException.keyAgreementParameter {
         } catch {

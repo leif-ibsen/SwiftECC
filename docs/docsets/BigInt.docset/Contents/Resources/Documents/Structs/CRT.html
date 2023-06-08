@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CRT Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/CRT" class="dashAnchor"></a>
+    <a title="CRT Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">BigInt Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">BigInt Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        CRT Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/BFraction.html">BFraction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BInt.html">BInt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CRT.html">CRT</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6BigInt4Bytea">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6BigInt5Bytesa">Bytes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6BigInt4Limba">Limb</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6BigInt5Limbsa">Limbs</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CRT</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CRT</span></code></pre>
+
+                </div>
+              </div>
+            <p>CRT instances implement the Chinese Remainder Theorem</p>
+
+<p>Create an instance from a given set of moduli which fullfill the following conditions:</p>
+
+<ul>
+<li>at least two moduli</li>
+<li>all moduli are positive</li>
+<li>the moduli are pairwise coprime</li>
+</ul>
+
+<p>Then use the <em>compute</em> method to compute the CRT value for a given set of residues.
+The same CRT instance can be used for different inputs, as long as the moduli are the same.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initializers"></a>
+                  <h3 class="section-name"><span>Initializers</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6BigInt3CRTVyACSgSayAA4BIntVGcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6BigInt3CRTVyACSgSayAA4BIntVGcfc">init(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Constructs a CRT instance from the moduli - BInt version</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="n">_</span> <span class="nv">m</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/BInt.html">BInt</a></span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>m</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The moduli</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The CRT instance for the moduli, <em>nil</em> if they do not fullfill the conditions</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6BigInt3CRTVyACSgSaySiGcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6BigInt3CRTVyACSgSaySiGcfc">init(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Constructs a CRT instance from the moduli - Int version</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="n">_</span> <span class="nv">m</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>m</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The moduli</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The CRT instance for the moduli, <em>nil</em> if they do not fullfill the conditions</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20methods"></a>
+                <a name="//apple_ref/swift/Section/Instance methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20methods"></a>
+                  <h3 class="section-name"><span>Instance methods</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6BigInt3CRTV7computeyAA4BIntVSayAFGF"></a>
+                    <a name="//apple_ref/swift/Method/compute(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6BigInt3CRTV7computeyAA4BIntVSayAFGF">compute(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute the CRT value - BInt version</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    r.count = number of moduli
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">compute</span><span class="p">(</span><span class="n">_</span> <span class="nv">r</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/BInt.html">BInt</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/BInt.html">BInt</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>r</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The residues</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The CRT value</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6BigInt3CRTV7computeyAA4BIntVSaySiGF"></a>
+                    <a name="//apple_ref/swift/Method/compute(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6BigInt3CRTV7computeyAA4BIntVSaySiGF">compute(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute the CRT value - Int version</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    r.count = number of moduli
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">compute</span><span class="p">(</span><span class="n">_</span> <span class="nv">r</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/BInt.html">BInt</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>r</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The residues</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The CRT value</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-06-02)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

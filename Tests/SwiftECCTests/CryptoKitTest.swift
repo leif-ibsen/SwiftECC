@@ -77,7 +77,7 @@ class CryptoKitTest: XCTestCase {
         XCTAssertTrue(ckPubKey.isValidSignature(ckSignature, for: CryptoKitTest.message))
     }
 
-    func doECDH256(_ info: Bytes, _ length: Int) throws {
+    func doECDH256(_ salt: Bytes, _ info: Bytes, _ length: Int) throws {
         let domain = Domain.instance(curve: .EC256r1)
         let (eccPubKey, eccPrivKey) = domain.makeKeyPair()
         let ckPrivKey = P256.KeyAgreement.PrivateKey()
@@ -93,11 +93,18 @@ class CryptoKitTest: XCTestCase {
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA256.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-       let secret2 = try eccPrivKey.keyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_256, sharedInfo: info)
+        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_256, sharedInfo: info)
         XCTAssertEqual(secret1, secret2)
+        
+        // Secret computed with CryptoKit keys
+        let secret3 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).hkdfDerivedSymmetricKey(using: SHA256.self, salt: salt, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
+
+        // Secret computed with SwiftECC keys
+        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_256, sharedInfo: info, salt: salt)
+        XCTAssertEqual(secret3, secret4)
     }
 
-    func doECDH384(_ info: Bytes, _ length: Int) throws {
+    func doECDH384(_ salt: Bytes, _ info: Bytes, _ length: Int) throws {
         let domain = Domain.instance(curve: .EC384r1)
         let (eccPubKey, eccPrivKey) = domain.makeKeyPair()
         let ckPrivKey = P384.KeyAgreement.PrivateKey()
@@ -113,11 +120,18 @@ class CryptoKitTest: XCTestCase {
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA384.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-       let secret2 = try eccPrivKey.keyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_384, sharedInfo: info)
+        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_384, sharedInfo: info)
         XCTAssertEqual(secret1, secret2)
+        
+        // Secret computed with CryptoKit keys
+        let secret3 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).hkdfDerivedSymmetricKey(using: SHA384.self, salt: salt, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
+
+        // Secret computed with SwiftECC keys
+        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_384, sharedInfo: info, salt: salt)
+        XCTAssertEqual(secret3, secret4)
     }
 
-    func doECDH521(_ info: Bytes, _ length: Int) throws {
+    func doECDH521(_ salt: Bytes, _ info: Bytes, _ length: Int) throws {
         let domain = Domain.instance(curve: .EC521r1)
         let (eccPubKey, eccPrivKey) = domain.makeKeyPair()
         let ckPrivKey = P521.KeyAgreement.PrivateKey()
@@ -133,29 +147,33 @@ class CryptoKitTest: XCTestCase {
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA512.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-       let secret2 = try eccPrivKey.keyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_512, sharedInfo: info)
+        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_512, sharedInfo: info)
         XCTAssertEqual(secret1, secret2)
+        
+        // Secret computed with CryptoKit keys
+        let secret3 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).hkdfDerivedSymmetricKey(using: SHA512.self, salt: salt, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
+
+        // Secret computed with SwiftECC keys
+        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_512, sharedInfo: info, salt: salt)
+        XCTAssertEqual(secret3, secret4)
     }
 
-    func doECDH(_ info: Bytes, _ length: Int) throws {
-        try doECDH256(info, length)
-        try doECDH384(info, length)
-        try doECDH521(info, length)
+    func doECDH(_ salt: Bytes, _ info: Bytes, _ length: Int) throws {
+        try doECDH256(salt, info, length)
+        try doECDH384(salt, info, length)
+        try doECDH521(salt, info, length)
     }
 
     func testECDH() throws {
-        try doECDH([], 1000)
-        try doECDH([], 32)
-        try doECDH([], 1)
-        try doECDH([], 0)
-        try doECDH([1, 2, 3], 1000)
-        try doECDH([1, 2, 3], 32)
-        try doECDH([1, 2, 3], 1)
-        try doECDH([1, 2, 3], 0)
-        try doECDH(Bytes(repeating: 1, count: 1000), 1000)
-        try doECDH(Bytes(repeating: 1, count: 1000), 32)
-        try doECDH(Bytes(repeating: 1, count: 1000), 1)
-        try doECDH(Bytes(repeating: 1, count: 1000), 0)
+        try doECDH([1], [], 1000)
+        try doECDH([1], [], 32)
+        try doECDH([1], [], 1)
+        try doECDH([1], [1, 2, 3], 1000)
+        try doECDH([1], [1, 2, 3], 32)
+        try doECDH([1], [1, 2, 3], 1)
+        try doECDH([1], Bytes(repeating: 1, count: 1000), 1000)
+        try doECDH([1], Bytes(repeating: 1, count: 1000), 32)
+        try doECDH([1], Bytes(repeating: 1, count: 1000), 1)
     }
 
     func testSignature() throws {

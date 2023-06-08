@@ -487,7 +487,9 @@ public class ECPrivateKey: CustomStringConvertible {
         return try Data(self.decryptAESGCM(msg: Bytes(msg), cipher: cipher, aad: Bytes(aad)))
     }
 
-    /// Constructs a shared secret key using Diffie-Hellman key agreement - please refer [SEC 1] section 3.3.1
+    /// Constructs a shared secret key using Diffie-Hellman key agreement<br/>
+    /// This is the ANS X9.63 version from [SEC 1] section 3.6.1<br/>
+    /// The method is compatible with the Apple CryptoKit method *x963DerivedSymmetricKey*
     ///
     /// - Parameters:
     ///   - pubKey: The other party's public key
@@ -497,17 +499,13 @@ public class ECPrivateKey: CustomStringConvertible {
     ///   - cofactor: Use cofactor version - *false* is default
     /// - Returns: A byte array which is the shared secret key
     /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* is negative
-    public func keyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
-        if self.domain != pubKey.domain {
-            throw ECException.keyAgreementParameter
-        }
+    public func x963KeyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
+        let Z = try self.sharedSecret(pubKey, cofactor)
         let mda = MessageDigest(md)
         if length >= mda.digestLength * 0xffffffff || length < 0 {
             throw ECException.keyAgreementParameter
         }
-        var Z = try self.domain.multiplyPoint(pubKey.w, (cofactor ? self.domain.cofactor : 1) * self.s).x.asMagnitudeBytes()
-        Z = self.domain.align(Z)
-        
+
         // [SEC 1] - section 3.6.1
 
         var k: Bytes = []
@@ -531,5 +529,59 @@ public class ECPrivateKey: CustomStringConvertible {
         }
         return Bytes(k[0 ..< length])
     }
+    
+    /// Deprecated - use *x963KeyAgreement* instead
+    @available(*, deprecated, renamed: "x963KeyAgreement")
+    public func keyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
+        return try x963KeyAgreement(pubKey: pubKey, length: length, md: md, sharedInfo: sharedInfo, cofactor: cofactor)
+    }
 
+    /// Constructs a shared secret key using Diffie-Hellman key agreement<br/>
+    /// This is the HKDF version from [RFC-5869]<br/>
+    /// The method is compatible with the Apple CryptoKit method *hkdfDerivedSymmetricKey*
+    ///
+    /// - Parameters:
+    ///   - pubKey: The other party's public key
+    ///   - length: The required length of the shared secret - a positive number
+    ///   - md: The message digest algorithm to use
+    ///   - sharedInfo: Information shared with the other party - possibly empty
+    ///   - salt: The salt to use - possibly empty
+    ///   - cofactor: Use cofactor version - *false* is default
+    /// - Returns: A byte array which is the shared secret key
+    /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* has wrong size
+    public func hkdfKeyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, salt: Bytes, cofactor: Bool = false) throws -> Bytes {
+        let Z = try self.sharedSecret(pubKey, cofactor)
+        return try ECPrivateKey.HKDF(Z, length, md, sharedInfo, salt)
+    }
+
+    func sharedSecret(_ pubKey: ECPublicKey, _ cofactor: Bool) throws -> Bytes {
+        guard self.domain == pubKey.domain else {
+            throw ECException.keyAgreementParameter
+        }
+        let Z = try self.domain.multiplyPoint(pubKey.w, (cofactor ? self.domain.cofactor : 1) * self.s).x.asMagnitudeBytes()
+        return self.domain.align(Z)
+    }
+
+    static func HKDF(_ IKM: Bytes, _ length: Int, _ md: MessageDigestAlgorithm, _ sharedInfo: Bytes, _ salt: Bytes) throws -> Bytes {
+        let mda = MessageDigest(md)
+        let len = mda.digestLength
+        guard length > 0 && length <= 255 * len else {
+            throw ECException.keyAgreementParameter
+        }
+        var hMac = HMac(mda, salt)
+        let PRK = hMac.doFinal(IKM)
+        let N = (length + len) / len
+        hMac = HMac(mda, PRK)
+        var T = Bytes()
+        var bytes = Bytes()
+        for i in 1 ... N {
+            bytes += sharedInfo
+            bytes += [Byte(i)]
+            let t = hMac.doFinal(bytes)
+            T += t
+            bytes = t
+            hMac.reset()
+        }
+        return Bytes(T[0 ..< length])
+    }
 }

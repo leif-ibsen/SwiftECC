@@ -32,7 +32,7 @@ This encompasses:
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.6.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.7.0"),
 	  ]
 SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 bit types.
 SwiftECC uses Apple's CryptoKit framework. Therefore, for macOS the version must be at least 10.15,
@@ -166,7 +166,7 @@ SwiftECC can read encrypted private key files provided they were encrypted with 
 
 <h2 id="basic5"><b>Encryption and Decryption</b></h2>
 Encryption and decryption is done using the ECIES algorithm based on the AES block cipher using one of
-AES-128, AES-192 or AES-256 ciphers, depending on your choice.</br>
+AES-128, AES-192 or AES-256 ciphers, depending on your choice.<br/>
 The following cipher block modes are supported:
 <ul>
 <li>GCM - Galois Counter mode. This is the default mode</li>
@@ -196,38 +196,38 @@ Six cases are considered:
 <h3><b>AES-128/GCM block mode</b></h3>
 KDF generates 32 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 16</br>
-Nonce = bytes 16 ..< 32</br>
+AES encryption/decryption key = bytes 0 ..< 16<br/>
+Nonce = bytes 16 ..< 32<br/>
 
 <h3><b>AES-192/GCM block mode</b></h3>
 KDF generates 40 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 24</br>
-Nonce = bytes 24 ..< 40</br>
+AES encryption/decryption key = bytes 0 ..< 24<br/>
+Nonce = bytes 24 ..< 40<br/>
 
 <h3><b>AES-256/GCM block mode</b></h3>
 KDF generates 48 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 32</br>
-Nonce = bytes 32 ..< 48</br>
+AES encryption/decryption key = bytes 0 ..< 32<br/>
+Nonce = bytes 32 ..< 48<br/>
 
 <h3><b>AES-128/Non-GCM block mode</b></h3>
 KDF generates 48 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 16</br>
-HMAC key = bytes 16 ..< 48</br>
+AES encryption/decryption key = bytes 0 ..< 16<br/>
+HMAC key = bytes 16 ..< 48<br/>
 
 <h3><b>AES-192/Non-GCM block mode</b></h3>
 KDF generates 56 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 24</br>
-HMAC key = bytes 24 ..< 56</br>
+AES encryption/decryption key = bytes 0 ..< 24<br/>
+HMAC key = bytes 24 ..< 56<br/>
 
 <h3><b>AES-256/Non-GCM block mode</b></h3>
 KDF generates 64 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 32</br>
-HMAC key = bytes 32 ..< 64</br>
+AES encryption/decryption key = bytes 0 ..< 32<br/>
+HMAC key = bytes 32 ..< 64<br/>
 
 The AES key and HMAC key can be retrieved with the ECPrivateKey method 'getKeyAndMac'.
 
@@ -320,26 +320,26 @@ Four cases are considered:
 <h3><b>ChaCha20/Poly1305</b></h3>
 KDF generates 44 bytes.
 
-Encryption/decryption key = bytes 0 ..< 32</br>
-Nonce = bytes 32 ..< 44</br>
+Encryption/decryption key = bytes 0 ..< 32<br/>
+Nonce = bytes 32 ..< 44<br/>
 
 <h3><b>AES-128/GCM</b></h3>
 KDF generates 28 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 16</br>
-Nonce = bytes 16 ..< 28</br>
+AES encryption/decryption key = bytes 0 ..< 16<br/>
+Nonce = bytes 16 ..< 28<br/>
 
 <h3><b>AES-192/GCM</b></h3>
 KDF generates 36 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 24</br>
-Nonce = bytes 24 ..< 36</br>
+AES encryption/decryption key = bytes 0 ..< 24<br/>
+Nonce = bytes 24 ..< 36<br/>
 
 <h3><b>AES-256/GCM</b></h3>
 KDF generates 44 bytes.
 
-AES encryption/decryption key = bytes 0 ..< 32</br>
-Nonce = bytes 32 ..< 44</br>
+AES encryption/decryption key = bytes 0 ..< 32<br/>
+Nonce = bytes 32 ..< 44<br/>
 
 <h2 id="basic6"><b>Signing and Verifying</b></h2>
 Signing data and verifying signatures is performed using the ECDSA algorithm. It is possible to generate
@@ -408,8 +408,13 @@ giving (for example):<br/>
 
 <h2 id="basic7"><b>Secret Key Agreement</b></h2>
 Given your own private key and another party's public key, you can generate a byte array that can be used as a symmetric encryption key.
-The other party can generate the same byte array by using his own private key and your public key.
-<h3><b>Example</b></h3>
+The other party can generate the same byte array by using his own private key and your public key.<br/>
+SwiftECC supports two mechanisms:
+<ul>
+<li>The X9.63 version specified in [SEC 1] section 3.6.1</li>
+<li>The HKDF version specified in [RFC-5869]</li>
+</ul>
+<h3><b>X9.63 Example</b></h3>
 
 	import SwiftECC
 	
@@ -423,33 +428,68 @@ The other party can generate the same byte array by using his own private key an
 		let (pubB, privB) = domain.makeKeyPair()
 	
 		let info: Bytes = [1, 2, 3]
-		let secretA = try privA.keyAgreement(pubKey: pubB, length: 16, md: .SHA2_256, sharedInfo: info)
-		let secretB = try privB.keyAgreement(pubKey: pubA, length: 16, md: .SHA2_256, sharedInfo: info)
+		let secretA = try privA.x963KeyAgreement(pubKey: pubB, length: 16, md: .SHA2_256, sharedInfo: info)
+		let secretB = try privB.x963KeyAgreement(pubKey: pubA, length: 16, md: .SHA2_256, sharedInfo: info)
 		print(secretA)
 		print(secretB)
 	} catch {
 		print("Exception: \(error)")
 	}
 
-giving (for example):</br>
+giving (for example):<br/>
 
 	[92, 161, 137, 44, 47, 30, 6, 26, 43, 183, 199, 130, 19, 254, 232, 106]
 	[92, 161, 137, 44, 47, 30, 6, 26, 43, 183, 199, 130, 19, 254, 232, 106]
 
-For the key agreement to work, the two parties must agree on which domain to use, which message digest to use
-and which shared information (possibly none) to use.
+For the key agreement to work, the two parties must agree on which domain, which message digest and which shared information (possibly none) to use.
+<h3><b>HKDF Example</b></h3>
+
+	import SwiftECC
+	
+	do {
+		let domain = Domain.instance(curve: .EC256r1)
+	
+		// Party A's keys
+		let (pubA, privA) = domain.makeKeyPair()
+	
+		// Party B's keys
+		let (pubB, privB) = domain.makeKeyPair()
+	
+		let info: Bytes = [1, 2, 3]
+		let salt: Bytes = [4, 5, 6]
+		let secretA = try privA.hkdfKeyAgreement(pubKey: pubB, length: 16, md: .SHA2_256, sharedInfo: info, salt: salt)
+		let secretB = try privB.hkdfKeyAgreement(pubKey: pubA, length: 16, md: .SHA2_256, sharedInfo: info, salt: salt)
+		print(secretA)
+		print(secretB)
+	} catch {
+		print("Exception: \(error)")
+	}
+
+giving (for example):<br/>
+
+	[202, 36, 31, 96, 207, 220, 135, 77, 130, 41, 214, 139, 214, 30, 106, 180]
+	[202, 36, 31, 96, 207, 220, 135, 77, 130, 41, 214, 139, 214, 30, 106, 180]
+
+For the key agreement to work, the two parties must agree on which domain, which message digest,
+which shared information (possibly none) and which salt (possibly none) to use.
 <h3><b>CryptoKit Compatibility</b></h3>
 SwiftECC key agreement is compatible with Swift CryptoKit key agreement
 in that the EC256r1, EC384r1 and EC521r1 domains correspond to CryptoKit's P256, P384 and P521 curves,
-and the SHA2_256, SHA2_384 and SHA2_512 message digests correspond to CryptoKit's SHA256, SHA384 and SHA512 message digests.
+and the SHA2_256, SHA2_384 and SHA2_512 message digests correspond to CryptoKit's SHA256, SHA384 and SHA512 message digests.<br/>
+<ul>
+<li>The <i>x963KeyAgreement</i> method corresponds to the CryptoKit method <i>x963DerivedSymmetricKey</i></li>
+<li>The <i>hkdfKeyAgreement</i> method corresponds to the CryptoKit method <i>hkdfDerivedSymmetricKey</i></li>
+</ul>
 
-To convert a CryptoKit public key - e.g. 'ckPubKey' - to the corresponding SwiftECC public key:</br>
+To convert CryptoKit keys - e.g. <i>ckPubKey</i>, <i>ckPrivKey</i> - to the corresponding SwiftECC keys:<br/>
 
-	let eccPubKey = try ECPublickey(pem: ckPubKey.pemRepresentation)
+	let eccPubKey = try ECPublicKey(pem: ckPubKey.pemRepresentation)
+	let eccPrivKey = try ECPrivateKey(pem: ckPrivKey.pemRepresentation)
 
-To convert a SwiftECC public key - e.g. 'eccPubKey' - to the corresponding CryptoKit public key:</br>
+To convert SwiftECC keys - e.g. <i>eccPubKey</i>, <i>eccPrivKey</i> - to the corresponding CryptoKit keys:<br/>
 
 	let ckPubKey = try P256.KeyAgreement.PublicKey(pemRepresentation: eccPubKey.pem)
+	let ckPrivKey = try P256.KeyAgreement.PrivateKey(pemRepresentation: eccPrivKey.pem)
 
 <h2 id="basic8"><b>Creating New Domains</b></h2>
 You can create your own domains as illustrated by the two examples below.
@@ -606,6 +646,7 @@ There are references in the source code where appropriate.
 <li>[KNUTH] - Donald E. Knuth: Seminumerical Algorithms. Addison-Wesley 1971</li>
 <li>[NIST] - NIST Special Publication 800-38D, November 2007</li>
 <li>[PKCS#5] - Password-Based Cryptography Specification - Version 2.0, September 2000</li>
+<li>[RFC-5869] - HMAC-based Extract-and-Expand Key Derivation Function (HKDF), May 2010</li>
 <li>[RFC-6979] - Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA), August 2013</li>
 <li>[SAVACS] - E. Savacs, C.K. Koc: The Montgomery Modular Inverse - Revisited, July 2000</li>
 <li>[SEC 1] - Standards for Efficient Cryptography 1 (SEC 1), Certicom Corp. 2009</li>
@@ -614,4 +655,4 @@ There are references in the source code where appropriate.
 <li>[X9.62] - X9.62 - Public Key Cryptography For The Financial Services Industry, 1998</li>
 </ul>
 <h2 id="ack"><b>Acknowledgement</b></h2>
-The AES block cipher implementation is essentially a translation to Swift of the Go Language implementation of AES.</br>
+The AES block cipher implementation is essentially a translation to Swift of the Go Language implementation of AES.<br/>

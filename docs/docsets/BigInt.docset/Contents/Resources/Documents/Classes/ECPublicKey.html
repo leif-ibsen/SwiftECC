@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ECPublicKey Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ECPublicKey" class="dashAnchor"></a>
+    <a title="ECPublicKey Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftECC Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftECC Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        ECPublicKey Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Domain.html">Domain</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECPrivateKey.html">ECPrivateKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECPublicKey.html">ECPublicKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECSignature.html">ECSignature</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AESCipher.html">AESCipher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BlockMode.html">BlockMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ECCurve.html">ECCurve</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ECException.html">ECException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MessageDigestAlgorithm.html">MessageDigestAlgorithm</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Base64.html">Base64</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Point.html">Point</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RP.html">RP</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8SwiftECC4Bytea">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ECPublicKey</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ECPublicKey</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                </div>
+              </div>
+            <p>An Elliptic Curve public key</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initializers"></a>
+                  <h3 class="section-name"><span>Initializers</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC6domain1wAcA6DomainC_AA5PointVtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(domain:w:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC6domain1wAcA6DomainC_AA5PointVtKcfc">init(domain:<wbr>w:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a public key from its domain and curve point</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    A <em>publicKeyParameter</em> exception if <em>w</em> is not on the curve or is infinity
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">domain</span><span class="p">:</span> <span class="kt"><a href="../Classes/Domain.html">Domain</a></span><span class="p">,</span> <span class="nv">w</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>domain</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The domain</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>w</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The curve point</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC3derACSays5UInt8VG_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(der:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC3derACSays5UInt8VG_tKcfc">init(der:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a public key from its DER encoding</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if the DER encoding is wrong
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">der</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>der</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The DER encoding of the key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC3pemACSS_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(pem:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC3pemACSS_tKcfc">init(pem:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a public key from its PEM encoding</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if the PEM encoding is wrong
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">pem</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The PEM encoding of the key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC07privateD0AcA09ECPrivateD0C_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(privateKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC07privateD0AcA09ECPrivateD0C_tcfc">init(privateKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a public key from the corresponding private key</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPrivateKey.html">ECPrivateKey</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The corresponding private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Stored%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Stored Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Stored%20Properties"></a>
+                  <h3 class="section-name"><span>Stored Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC6domainAA6DomainCvp"></a>
+                    <a name="//apple_ref/swift/Property/domain" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC6domainAA6DomainCvp">domain</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The domain the key belongs to</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">domain</span><span class="p">:</span> <span class="kt"><a href="../Classes/Domain.html">Domain</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC1wAA5PointVvp"></a>
+                    <a name="//apple_ref/swift/Property/w" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC1wAA5PointVvp">w</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The public value - a curve point</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">w</span><span class="p">:</span> <span class="kt"><a href="../Structs/Point.html">Point</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Computed%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Computed Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Computed%20Properties"></a>
+                  <h3 class="section-name"><span>Computed Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC4asn14ASN1AECvp"></a>
+                    <a name="//apple_ref/swift/Property/asn1" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC4asn14ASN1AECvp">asn1</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The ASN1 encoding of <em>self</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">asn1</span><span class="p">:</span> <span class="kt">ASN1</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC3derSays5UInt8VGvp"></a>
+                    <a name="//apple_ref/swift/Property/der" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC3derSays5UInt8VGvp">der</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The DER encoding of <em>self</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">der</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC3pemSSvp"></a>
+                    <a name="//apple_ref/swift/Property/pem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC3pemSSvp">pem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The PEM encoding of <em>self</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">pem</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A textual representation of the ASN1 encoding of <em>self</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods"></a>
+                  <h3 class="section-name"><span>Instance Methods</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC6verify9signature3msg2bwSbAA11ECSignatureC_Says5UInt8VGSiSgtF"></a>
+                    <a name="//apple_ref/swift/Method/verify(signature:msg:bw:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC6verify9signature3msg2bwSbAA11ECSignatureC_Says5UInt8VGSiSgtF">verify(signature:<wbr>msg:<wbr>bw:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Verifies a signature with ECDSA</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">verify</span><span class="p">(</span><span class="nv">signature</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECSignature.html">ECSignature</a></span><span class="p">,</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">bw</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>signature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The signature to verify</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The message to verify <em>signature</em> for</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bw</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional bitwidth used to select the proper message digest. By default the domain field size is used</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><em>true</em> iff the signature is verified</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC6verify9signature3msg2bwSbAA11ECSignatureC_10Foundation4DataVSiSgtF"></a>
+                    <a name="//apple_ref/swift/Method/verify(signature:msg:bw:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC6verify9signature3msg2bwSbAA11ECSignatureC_10Foundation4DataVSiSgtF">verify(signature:<wbr>msg:<wbr>bw:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Verifies a signature with ECDSA</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">verify</span><span class="p">(</span><span class="nv">signature</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECSignature.html">ECSignature</a></span><span class="p">,</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">bw</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>signature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The signature to verify</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The message to verify <em>signature</em> for</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bw</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional bitwidth used to select the proper message digest. By default the domain field size is used</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><em>true</em> iff the signature is verified</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC7encrypt3msg6cipher4modeSays5UInt8VGAJ_AA9AESCipherOAA9BlockModeOtF"></a>
+                    <a name="//apple_ref/swift/Method/encrypt(msg:cipher:mode:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC7encrypt3msg6cipher4modeSays5UInt8VGAJ_AA9AESCipherOAA9BlockModeOtF">encrypt(msg:<wbr>cipher:<wbr>mode:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encrypts a byte array with ECIES using the AES cipher<br/>
+Using this method with block mode GCM is deprecated. Use <em>encryptAESGCM</em> instead for much better performance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encrypt</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cipher</span><span class="p">:</span> <span class="kt"><a href="../Enums/AESCipher.html">AESCipher</a></span><span class="p">,</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Enums/BlockMode.html">BlockMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">GCM</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The bytes to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cipher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AES cipher to use</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block mode to use - GCM is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encrypted message</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC7encrypt3msg6cipher4mode10Foundation4DataVAJ_AA9AESCipherOAA9BlockModeOtF"></a>
+                    <a name="//apple_ref/swift/Method/encrypt(msg:cipher:mode:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC7encrypt3msg6cipher4mode10Foundation4DataVAJ_AA9AESCipherOAA9BlockModeOtF">encrypt(msg:<wbr>cipher:<wbr>mode:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encrypts a Data structure with ECIES using the AES cipher<br/>
+Using this method with block mode GCM is deprecated. Use <em>encryptAESGCM</em> instead for much better performance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encrypt</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">cipher</span><span class="p">:</span> <span class="kt"><a href="../Enums/AESCipher.html">AESCipher</a></span><span class="p">,</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Enums/BlockMode.html">BlockMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="kt">GCM</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cipher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AES cipher to use</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block mode to use - GCM is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encrypted message</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC010encryptChaF03msg3aadSays5UInt8VGAI_AItF"></a>
+                    <a name="//apple_ref/swift/Method/encryptChaCha(msg:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC010encryptChaF03msg3aadSays5UInt8VGAI_AItF">encryptChaCha(msg:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encrypts a byte array with ECIES using the ChaCha20/Poly1305 algorithm - possibly with additional authenticated data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encryptChaCha</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The bytes to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Additional authenticated data - an empty array is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encrypted message and tag</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC010encryptChaF03msg3aad10Foundation4DataVAI_AItF"></a>
+                    <a name="//apple_ref/swift/Method/encryptChaCha(msg:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC010encryptChaF03msg3aad10Foundation4DataVAI_AItF">encryptChaCha(msg:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encrypts a byte array with ECIES using the ChaCha20/Poly1305 algorithm - possibly with additional authenticated data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encryptChaCha</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt">Data</span> <span class="o">=</span> <span class="kt">Data</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Additional authenticated data - empty data is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encrypted message and tag</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC13encryptAESGCM3msg6cipher3aadSays5UInt8VGAJ_AA9AESCipherOAJtF"></a>
+                    <a name="//apple_ref/swift/Method/encryptAESGCM(msg:cipher:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC13encryptAESGCM3msg6cipher3aadSays5UInt8VGAJ_AA9AESCipherOAJtF">encryptAESGCM(msg:<wbr>cipher:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encrypts a byte array with ECIES using the AES/GCM algorithm - possibly with additional authenticated data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encryptAESGCM</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cipher</span><span class="p">:</span> <span class="kt"><a href="../Enums/AESCipher.html">AESCipher</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The bytes to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cipher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AES cipher to use</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Additional authenticated data - an empty array is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encrypted message and tag</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11ECPublicKeyC13encryptAESGCM3msg6cipher3aad10Foundation4DataVAJ_AA9AESCipherOAJtF"></a>
+                    <a name="//apple_ref/swift/Method/encryptAESGCM(msg:cipher:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11ECPublicKeyC13encryptAESGCM3msg6cipher3aad10Foundation4DataVAJ_AA9AESCipherOAJtF">encryptAESGCM(msg:<wbr>cipher:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encrypts a Data structure with ECIES using the AES/GCM algorithm - possibly with additional authenticated data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encryptAESGCM</span><span class="p">(</span><span class="nv">msg</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">cipher</span><span class="p">:</span> <span class="kt"><a href="../Enums/AESCipher.html">AESCipher</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt">Data</span> <span class="o">=</span> <span class="kt">Data</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>msg</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cipher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AES cipher to use</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Additional authenticated data - empty data is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encrypted message and tag</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-04-19)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
