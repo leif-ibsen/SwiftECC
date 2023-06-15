@@ -1551,6 +1551,74 @@ Using this method with block mode GCM is deprecated. Use <em>decryptAESGCM</em> 
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC12sharedSecret03pubD08cofactorSays5UInt8VGAA08ECPublicD0C_SbtKF"></a>
+                    <a name="//apple_ref/swift/Method/sharedSecret(pubKey:cofactor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC12sharedSecret03pubD08cofactorSays5UInt8VGAA08ECPublicD0C_SbtKF">sharedSecret(pubKey:<wbr>cofactor:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Computes a shared secret using the Diffie-Hellman key agreement primitive<br/>
+The method is compatible with the Apple CryptoKit method <em>sharedSecretFromKeyAgreement</em></p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if <em>this</em> and <em>pubKey</em> do not belong to the same domain
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sharedSecret</span><span class="p">(</span><span class="nv">pubKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPublicKey.html">ECPublicKey</a></span><span class="p">,</span> <span class="nv">cofactor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pubKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The other party&rsquo;s public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cofactor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Use cofactor version - <em>false</em> is default</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The shared secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC04x963D9Agreement03pubD06length2md10sharedInfo8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOALSbtKF"></a>
                     <a name="//apple_ref/swift/Method/x963KeyAgreement(pubKey:length:md:sharedInfo:cofactor:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC04x963D9Agreement03pubD06length2md10sharedInfo8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOALSbtKF">x963KeyAgreement(pubKey:<wbr>length:<wbr>md:<wbr>sharedInfo:<wbr>cofactor:<wbr>)</a>
@@ -1561,7 +1629,7 @@ Using this method with block mode GCM is deprecated. Use <em>decryptAESGCM</em> 
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Constructs a shared secret key using Diffie-Hellman key agreement<br/>
+                        <p>Computes a shared secret key using Diffie-Hellman key agreement<br/>
 This is the ANS X9.63 version from [SEC 1] section 3.6.1<br/>
 The method is compatible with the Apple CryptoKit method <em>x963DerivedSymmetricKey</em></p>
 <div class="aside aside-throws">
@@ -1656,34 +1724,6 @@ The method is compatible with the Apple CryptoKit method <em>x963DerivedSymmetri
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC12ECPrivateKeyC12keyAgreement03pubD06length2md10sharedInfo8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOALSbtKF"></a>
-                    <a name="//apple_ref/swift/Method/keyAgreement(pubKey:length:md:sharedInfo:cofactor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC12keyAgreement03pubD06length2md10sharedInfo8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOALSbtKF">keyAgreement(pubKey:<wbr>length:<wbr>md:<wbr>sharedInfo:<wbr>cofactor:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Deprecated - use <em>x963KeyAgreement</em> instead</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">renamed</span><span class="p">:</span> <span class="s">"x963KeyAgreement"</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">keyAgreement</span><span class="p">(</span><span class="nv">pubKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPublicKey.html">ECPublicKey</a></span><span class="p">,</span> <span class="nv">length</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">md</span><span class="p">:</span> <span class="kt"><a href="../Enums/MessageDigestAlgorithm.html">MessageDigestAlgorithm</a></span><span class="p">,</span> <span class="nv">sharedInfo</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cofactor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:8SwiftECC12ECPrivateKeyC04hkdfD9Agreement03pubD06length2md10sharedInfo4salt8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOA2MSbtKF"></a>
                     <a name="//apple_ref/swift/Method/hkdfKeyAgreement(pubKey:length:md:sharedInfo:salt:cofactor:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC04hkdfD9Agreement03pubD06length2md10sharedInfo4salt8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOA2MSbtKF">hkdfKeyAgreement(pubKey:<wbr>length:<wbr>md:<wbr>sharedInfo:<wbr>salt:<wbr>cofactor:<wbr>)</a>
@@ -1694,7 +1734,7 @@ The method is compatible with the Apple CryptoKit method <em>x963DerivedSymmetri
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Constructs a shared secret key using Diffie-Hellman key agreement<br/>
+                        <p>Computes a shared secret key using Diffie-Hellman key agreement<br/>
 This is the HKDF version from [RFC-5869]<br/>
 The method is compatible with the Apple CryptoKit method <em>hkdfDerivedSymmetricKey</em></p>
 <div class="aside aside-throws">
@@ -1803,7 +1843,7 @@ The method is compatible with the Apple CryptoKit method <em>hkdfDerivedSymmetri
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-06-08)</p>
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-06-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

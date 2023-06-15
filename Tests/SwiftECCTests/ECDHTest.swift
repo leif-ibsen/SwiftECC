@@ -172,11 +172,11 @@ class ECDHTest: XCTestCase {
             let domain = Domain.instance(curve: c)
             let (pubA, privA) = domain.makeKeyPair()
             let (pubB, privB) = domain.makeKeyPair()
-            var secret1 = try privA.sharedSecret(pubB, false)
-            var secret2 = try privB.sharedSecret(pubA, false)
+            var secret1 = try privA.sharedSecret(pubKey: pubB, cofactor: false)
+            var secret2 = try privB.sharedSecret(pubKey: pubA, cofactor: false)
             XCTAssertEqual(secret1, secret2)
-            secret1 = try privA.sharedSecret(pubB, true)
-            secret2 = try privB.sharedSecret(pubA, true)
+            secret1 = try privA.sharedSecret(pubKey: pubB, cofactor: true)
+            secret2 = try privB.sharedSecret(pubKey: pubA, cofactor: true)
             XCTAssertEqual(secret1, secret2)
         }
     }

@@ -32,7 +32,7 @@ This encompasses:
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.7.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.8.0"),
 	  ]
 SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 bit types.
 SwiftECC uses Apple's CryptoKit framework. Therefore, for macOS the version must be at least 10.15,
@@ -409,11 +409,38 @@ giving (for example):<br/>
 <h2 id="basic7"><b>Secret Key Agreement</b></h2>
 Given your own private key and another party's public key, you can generate a byte array that can be used as a symmetric encryption key.
 The other party can generate the same byte array by using his own private key and your public key.<br/>
-SwiftECC supports two mechanisms:
+SwiftECC supports three mechanisms:
 <ul>
+<li>The basic Diffie-Hellman primitive</li>
 <li>The X9.63 version specified in [SEC 1] section 3.6.1</li>
 <li>The HKDF version specified in [RFC-5869]</li>
 </ul>
+<h3><b>Basic Diffie-Hellman Example</b></h3>
+
+	import SwiftECC
+	
+	do {
+		let domain = Domain.instance(curve: .EC256r1)
+	
+		// Party A's keys
+		let (pubA, privA) = domain.makeKeyPair()
+	
+		// Party B's keys
+		let (pubB, privB) = domain.makeKeyPair()
+	
+		let secretA = try privA.sharedSecret(pubKey: pubB)
+		let secretB = try privB.sharedSecret(pubKey: pubA)
+		print(secretA)
+		print(secretB)
+	} catch {
+		print("Exception: \(error)")
+	}
+
+giving (for example):<br/>
+
+	[44, 218, 188, 109, 139, 24, 227, 22, 116, 197, 147, 194, 138, 107, 105, 11, 236, 67, 236, 110, 42, 26, 250, 151, 111, 236, 60, 98, 210, 121, 243, 44]
+	[44, 218, 188, 109, 139, 24, 227, 22, 116, 197, 147, 194, 138, 107, 105, 11, 236, 67, 236, 110, 42, 26, 250, 151, 111, 236, 60, 98, 210, 121, 243, 44]
+
 <h3><b>X9.63 Example</b></h3>
 
 	import SwiftECC
@@ -477,6 +504,7 @@ SwiftECC key agreement is compatible with Swift CryptoKit key agreement
 in that the EC256r1, EC384r1 and EC521r1 domains correspond to CryptoKit's P256, P384 and P521 curves,
 and the SHA2_256, SHA2_384 and SHA2_512 message digests correspond to CryptoKit's SHA256, SHA384 and SHA512 message digests.<br/>
 <ul>
+<li>The <i>sharedSecret</i> method corresponds to the CryptoKit method <i>sharedSecretFromKeyAgreement</i></li>
 <li>The <i>x963KeyAgreement</i> method corresponds to the CryptoKit method <i>x963DerivedSymmetricKey</i></li>
 <li>The <i>hkdfKeyAgreement</i> method corresponds to the CryptoKit method <i>hkdfDerivedSymmetricKey</i></li>
 </ul>

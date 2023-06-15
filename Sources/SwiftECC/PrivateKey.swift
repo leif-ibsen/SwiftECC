@@ -486,8 +486,24 @@ public class ECPrivateKey: CustomStringConvertible {
     public func decryptAESGCM(msg: Data, cipher: AESCipher, aad: Data = Data()) throws -> Data {
         return try Data(self.decryptAESGCM(msg: Bytes(msg), cipher: cipher, aad: Bytes(aad)))
     }
+    
+    /// Computes a shared secret using the Diffie-Hellman key agreement primitive<br/>
+    /// The method is compatible with the Apple CryptoKit method *sharedSecretFromKeyAgreement*
+    ///
+    /// - Parameters:
+    ///   - pubKey: The other party's public key
+    ///   - cofactor: Use cofactor version - *false* is default
+    /// - Returns: The shared secret
+    /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain
+    public func sharedSecret(pubKey: ECPublicKey, cofactor: Bool = false) throws -> Bytes {
+        guard self.domain == pubKey.domain else {
+            throw ECException.keyAgreementParameter
+        }
+        let Z = try self.domain.multiplyPoint(pubKey.w, (cofactor ? self.domain.cofactor : 1) * self.s).x.asMagnitudeBytes()
+        return self.domain.align(Z)
+    }
 
-    /// Constructs a shared secret key using Diffie-Hellman key agreement<br/>
+    /// Computes a shared secret key using Diffie-Hellman key agreement<br/>
     /// This is the ANS X9.63 version from [SEC 1] section 3.6.1<br/>
     /// The method is compatible with the Apple CryptoKit method *x963DerivedSymmetricKey*
     ///
@@ -500,7 +516,7 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Returns: A byte array which is the shared secret key
     /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* is negative
     public func x963KeyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
-        let Z = try self.sharedSecret(pubKey, cofactor)
+        let Z = try self.sharedSecret(pubKey: pubKey, cofactor: cofactor)
         let mda = MessageDigest(md)
         if length >= mda.digestLength * 0xffffffff || length < 0 {
             throw ECException.keyAgreementParameter
@@ -530,13 +546,7 @@ public class ECPrivateKey: CustomStringConvertible {
         return Bytes(k[0 ..< length])
     }
     
-    /// Deprecated - use *x963KeyAgreement* instead
-    @available(*, deprecated, renamed: "x963KeyAgreement")
-    public func keyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
-        return try x963KeyAgreement(pubKey: pubKey, length: length, md: md, sharedInfo: sharedInfo, cofactor: cofactor)
-    }
-
-    /// Constructs a shared secret key using Diffie-Hellman key agreement<br/>
+    /// Computes a shared secret key using Diffie-Hellman key agreement<br/>
     /// This is the HKDF version from [RFC-5869]<br/>
     /// The method is compatible with the Apple CryptoKit method *hkdfDerivedSymmetricKey*
     ///
@@ -550,16 +560,8 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Returns: A byte array which is the shared secret key
     /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* has wrong size
     public func hkdfKeyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, salt: Bytes, cofactor: Bool = false) throws -> Bytes {
-        let Z = try self.sharedSecret(pubKey, cofactor)
+        let Z = try self.sharedSecret(pubKey: pubKey, cofactor: cofactor)
         return try ECPrivateKey.HKDF(Z, length, md, sharedInfo, salt)
-    }
-
-    func sharedSecret(_ pubKey: ECPublicKey, _ cofactor: Bool) throws -> Bytes {
-        guard self.domain == pubKey.domain else {
-            throw ECException.keyAgreementParameter
-        }
-        let Z = try self.domain.multiplyPoint(pubKey.w, (cofactor ? self.domain.cofactor : 1) * self.s).x.asMagnitudeBytes()
-        return self.domain.align(Z)
     }
 
     static func HKDF(_ IKM: Bytes, _ length: Int, _ md: MessageDigestAlgorithm, _ sharedInfo: Bytes, _ salt: Bytes) throws -> Bytes {
