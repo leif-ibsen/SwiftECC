@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HPKEPrivateKey Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/HPKEPrivateKey" class="dashAnchor"></a>
+    <a title="HPKEPrivateKey Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftECC Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftECC Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        HPKEPrivateKey Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/CipherSuite.html">CipherSuite</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Domain.html">Domain</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECPrivateKey.html">ECPrivateKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECPublicKey.html">ECPublicKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECSignature.html">ECSignature</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Recipient.html">Recipient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Sender.html">Sender</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AEAD.html">AEAD</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AESCipher.html">AESCipher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BlockMode.html">BlockMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ECCurve.html">ECCurve</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ECException.html">ECException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HPKEException.html">HPKEException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KDF.html">KDF</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KEM.html">KEM</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MessageDigestAlgorithm.html">MessageDigestAlgorithm</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Base64.html">Base64</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Point.html">Point</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RP.html">RP</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8SwiftECC4Bytea">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>HPKEPrivateKey</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">HPKEPrivateKey</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                </div>
+              </div>
+            <p>A HPKE private key. There are five different private keys types corresponding to the five KEM&rsquo;s</p>
+
+<ul>
+<li>P256 - the key is a 32 byte value corresponding to curve EC256r1 private key</li>
+<li>P384 - the key is a 48 byte value corresponding to curve EC384r1 private key</li>
+<li>P521 - the key is a 66 byte value corresponding to curve EC521r1 private key</li>
+<li>X25519 - the key is a 32 byte value corresponding to curve X25519 private key</li>
+<li>X448 - the key is a 56 byte value corresponding to curve X448 private key</li>
+</ul>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initializers"></a>
+                  <h3 class="section-name"><span>Initializers</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC14HPKEPrivateKeyC02ecD0AcA09ECPrivateD0C_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(ecKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC14HPKEPrivateKeyC02ecD0AcA09ECPrivateD0C_tKcfc">init(ecKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a HPKEPrivateKey corresponding to an ECPrivateKey which must be of type EC256r1, EC384r1 or EC521r1</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if <em>ecKey</em> has wrong type
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">ecKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPrivateKey.html">ECPrivateKey</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ecKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ECPrivateKey</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC14HPKEPrivateKeyC3kem5bytesAcA3KEMO_Says5UInt8VGtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(kem:bytes:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC14HPKEPrivateKeyC3kem5bytesAcA3KEMO_Says5UInt8VGtKcfc">init(kem:<wbr>bytes:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a HPKEPrivateKey from its type and key bytes</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if <em>bytes</em> has wrong size for the key type
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">kem</span><span class="p">:</span> <span class="kt"><a href="../Enums/KEM.html">KEM</a></span><span class="p">,</span> <span class="nv">bytes</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key type</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bytes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key bytes</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Stored%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Stored Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Stored%20Properties"></a>
+                  <h3 class="section-name"><span>Stored Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC14HPKEPrivateKeyC5bytesSays5UInt8VGvp"></a>
+                    <a name="//apple_ref/swift/Property/bytes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC14HPKEPrivateKeyC5bytesSays5UInt8VGvp">bytes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The serialized key bytes</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">bytes</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC14HPKEPrivateKeyC02ecD0AA09ECPrivateD0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/ecKey" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC14HPKEPrivateKeyC02ecD0AA09ECPrivateD0CSgvp">ecKey</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The equivalent ECPrivateKey if the key type is P256, P384 or P521, else <em>nil</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">ecKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPrivateKey.html">ECPrivateKey</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC14HPKEPrivateKeyC06publicD0AA010HPKEPublicD0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/publicKey" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC14HPKEPrivateKeyC06publicD0AA010HPKEPublicD0Cvp">publicKey</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The corresponding public key</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Computed%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Computed Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Computed%20Properties"></a>
+                  <h3 class="section-name"><span>Computed Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC14HPKEPrivateKeyC11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC14HPKEPrivateKeyC11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A textual representation of <em>self</em><br/>
+For P256, P384 and P521 the ASN1 representation<br/>
+For X25519 32 hexadecimal bytes<br/>
+For X448 56 hexadecimal bytes<br/></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-07-24)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

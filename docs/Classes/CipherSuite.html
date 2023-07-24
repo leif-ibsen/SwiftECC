@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CipherSuite Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/CipherSuite" class="dashAnchor"></a>
+    <a title="CipherSuite Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftECC Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftECC Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        CipherSuite Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/CipherSuite.html">CipherSuite</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Domain.html">Domain</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECPrivateKey.html">ECPrivateKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECPublicKey.html">ECPublicKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ECSignature.html">ECSignature</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Recipient.html">Recipient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Sender.html">Sender</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AEAD.html">AEAD</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AESCipher.html">AESCipher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BlockMode.html">BlockMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ECCurve.html">ECCurve</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ECException.html">ECException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HPKEException.html">HPKEException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KDF.html">KDF</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KEM.html">KEM</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MessageDigestAlgorithm.html">MessageDigestAlgorithm</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Base64.html">Base64</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Point.html">Point</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RP.html">RP</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8SwiftECC4Bytea">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CipherSuite</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CipherSuite</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                </div>
+              </div>
+            <p>A CipherSuite instance is a HPKE element consisting of a <em>Key Encapsulation Mechanism</em> (KEM), a <em>Key Derivation Function</em> (KDF)
+ and a <em>AEAD Encryption Algorithm</em> (AEAD).
+ It can encrypt or decrypt a single message in one of four modes:</p>
+
+<ul>
+<li>Base mode</li>
+<li>Preshared key mode</li>
+<li>Authenticated mode</li>
+<li>Authenticated, preshared key mode</li>
+</ul>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initializers"></a>
+                  <h3 class="section-name"><span>Initializers</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC3kem3kdf4aeadAcA3KEMO_AA3KDFOAA4AEADOtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(kem:kdf:aead:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC3kem3kdf4aeadAcA3KEMO_AA3KDFOAA4AEADOtcfc">init(kem:<wbr>kdf:<wbr>aead:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a CipherSuite instance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">kem</span><span class="p">:</span> <span class="kt"><a href="../Enums/KEM.html">KEM</a></span><span class="p">,</span> <span class="nv">kdf</span><span class="p">:</span> <span class="kt"><a href="../Enums/KDF.html">KDF</a></span><span class="p">,</span> <span class="nv">aead</span><span class="p">:</span> <span class="kt"><a href="../Enums/AEAD.html">AEAD</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key encapsulation mechanism</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kdf</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key derivation function</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aead</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The AEAD encryption algorithm</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Stored%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Stored Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Stored%20Properties"></a>
+                  <h3 class="section-name"><span>Stored Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC3kemAA3KEMOvp"></a>
+                    <a name="//apple_ref/swift/Property/kem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC3kemAA3KEMOvp">kem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The key encapsulation mechanism</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">kem</span><span class="p">:</span> <span class="kt"><a href="../Enums/KEM.html">KEM</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC3kdfAA3KDFOvp"></a>
+                    <a name="//apple_ref/swift/Property/kdf" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC3kdfAA3KDFOvp">kdf</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The key derivation function</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">kdf</span><span class="p">:</span> <span class="kt"><a href="../Enums/KDF.html">KDF</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4aeadAA4AEADOvp"></a>
+                    <a name="//apple_ref/swift/Property/aead" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4aeadAA4AEADOvp">aead</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The AEAD encryption algorithm</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">aead</span><span class="p">:</span> <span class="kt"><a href="../Enums/AEAD.html">AEAD</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Computed%20properties"></a>
+                <a name="//apple_ref/swift/Section/Computed properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Computed%20properties"></a>
+                  <h3 class="section-name"><span>Computed properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A textual representation of <em>self</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods"></a>
+                  <h3 class="section-name"><span>Instance Methods</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC13deriveKeyPair3ikmAA010HPKEPublicF0C_AA011HPKEPrivateF0CtSays5UInt8VG_tKF"></a>
+                    <a name="//apple_ref/swift/Method/deriveKeyPair(ikm:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC13deriveKeyPair3ikmAA010HPKEPublicF0C_AA011HPKEPrivateF0CtSays5UInt8VG_tKF">deriveKeyPair(ikm:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Derives a public- and private HPKE key pair for <em>self</em> based on keying material</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    A <em>derivedKeyError</em> exception in extremely rare cases
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">deriveKeyPair</span><span class="p">(</span><span class="nv">ikm</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ikm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The keying material</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The public key and private key pair</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC11makeKeyPairAA010HPKEPublicF0C_AA011HPKEPrivateF0CtyKF"></a>
+                    <a name="//apple_ref/swift/Method/makeKeyPair()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC11makeKeyPairAA010HPKEPublicF0C_AA011HPKEPrivateF0CtyKF">makeKeyPair()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generates a public- and private HPKE key pair for <em>self</em></p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    A <em>derivedKeyError</em> exception in extremely rare cases
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeKeyPair</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The public key and private key pair</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods%20-%20base%20mode"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods - base mode" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods%20-%20base%20mode"></a>
+                  <h3 class="section-name"><span>Instance Methods - base mode</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4seal9publicKey4info2pt3aadSays5UInt8VG5encap_AK2cttAA010HPKEPublicG0C_A3KtKF"></a>
+                    <a name="//apple_ref/swift/Method/seal(publicKey:info:pt:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4seal9publicKey4info2pt3aadSays5UInt8VG5encap_AK2cttAA010HPKEPublicG0C_A3KtKF">seal(publicKey:<wbr>info:<wbr>pt:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-shot encryption</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if <em>publicKey</em> does not match <em>self</em> or the encryption fails or <em>self.aead</em> is EXPORTONLY
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">seal</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pt</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">ct</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The plain text to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated data</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encapsulated key and cipher text</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4open10privateKey4info2ct3aad5encapSays5UInt8VGAA011HPKEPrivateG0C_A4LtKF"></a>
+                    <a name="//apple_ref/swift/Method/open(privateKey:info:ct:aad:encap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4open10privateKey4info2ct3aad5encapSays5UInt8VGAA011HPKEPrivateG0C_A4LtKF">open(privateKey:<wbr>info:<wbr>ct:<wbr>aad:<wbr>encap:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-shot decryption</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the decryption fails or <em>self.aead</em> is EXPORTONLY
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">open</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">ct</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ct</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cipher text to decrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encap</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encapsulated key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The plain text</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC12exportSecret9publicKey4info7context1LSays5UInt8VG012encapsulatedH0_AK6secrettAA010HPKEPublicH0C_A2KSitKF"></a>
+                    <a name="//apple_ref/swift/Method/exportSecret(publicKey:info:context:L:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC12exportSecret9publicKey4info7context1LSays5UInt8VG012encapsulatedH0_AK6secrettAA010HPKEPublicH0C_A2KSitKF">exportSecret(publicKey:<wbr>info:<wbr>context:<wbr>L:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute a sender export secret</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if <em>publicKey</em> does not match <em>self</em> or L is negative or too large
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">exportSecret</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="kt">L</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">encapsulatedKey</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The export context</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>L</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The length of the export secret</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encapsulated key and export secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC12exportSecret10privateKey4info7context1L5encapSays5UInt8VGAA011HPKEPrivateH0C_A2LSiALtKF"></a>
+                    <a name="//apple_ref/swift/Method/exportSecret(privateKey:info:context:L:encap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC12exportSecret10privateKey4info7context1L5encapSays5UInt8VGAA011HPKEPrivateH0C_A2LSiALtKF">exportSecret(privateKey:<wbr>info:<wbr>context:<wbr>L:<wbr>encap:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute a recipient export secret</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or L is negative or too large
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">exportSecret</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="kt">L</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The export context</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>L</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The length of the export secret</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encap</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encapsulated key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The export secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods%20-%20preshared%20key%20mode"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods - preshared key mode" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods%20-%20preshared%20key%20mode"></a>
+                  <h3 class="section-name"><span>Instance Methods - preshared key mode</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4seal9publicKey4info3psk0I2Id2pt3aadSays5UInt8VG5encap_AM2cttAA010HPKEPublicG0C_A5MtKF"></a>
+                    <a name="//apple_ref/swift/Method/seal(publicKey:info:psk:pskId:pt:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4seal9publicKey4info3psk0I2Id2pt3aadSays5UInt8VG5encap_AM2cttAA010HPKEPublicG0C_A5MtKF">seal(publicKey:<wbr>info:<wbr>psk:<wbr>pskId:<wbr>pt:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-shot encryption</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if <em>publicKey</em> does not match <em>self</em> or the encryption fails or the <em>psk</em> parameters are inconsistent or <em>self.aead</em> is EXPORTONLY
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">seal</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">psk</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pskId</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pt</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">ct</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The plain text to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated data</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encapsulted key and cipher text</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4open10privateKey4info3psk0I2Id2ct3aad5encapSays5UInt8VGAA011HPKEPrivateG0C_A6NtKF"></a>
+                    <a name="//apple_ref/swift/Method/open(privateKey:info:psk:pskId:ct:aad:encap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4open10privateKey4info3psk0I2Id2ct3aad5encapSays5UInt8VGAA011HPKEPrivateG0C_A6NtKF">open(privateKey:<wbr>info:<wbr>psk:<wbr>pskId:<wbr>ct:<wbr>aad:<wbr>encap:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-shot decryption</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the decryption fails or the <em>psk</em> parameters are inconsistent or <em>self.aead</em> is EXPORTONLY
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">open</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">psk</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pskId</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">ct</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ct</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cipher text to decrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encap</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encapsulated key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The plain text</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC12exportSecret9publicKey4info7context1L3psk0K2IdSays5UInt8VG012encapsulatedH0_AM6secrettAA010HPKEPublicH0C_A2MSiA2MtKF"></a>
+                    <a name="//apple_ref/swift/Method/exportSecret(publicKey:info:context:L:psk:pskId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC12exportSecret9publicKey4info7context1L3psk0K2IdSays5UInt8VG012encapsulatedH0_AM6secrettAA010HPKEPublicH0C_A2MSiA2MtKF">exportSecret(publicKey:<wbr>info:<wbr>context:<wbr>L:<wbr>psk:<wbr>pskId:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute a sender export secret</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if <em>publicKey</em> does not match <em>self</em> or the <em>psk</em> parameters are inconsistent or L is negative or too large
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">exportSecret</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="kt">L</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">psk</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pskId</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">encapsulatedKey</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The export context</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>L</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The length of the export secret</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encapsulated key and export secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC12exportSecret10privateKey4info7context1L3psk0K2Id5encapSays5UInt8VGAA011HPKEPrivateH0C_A2NSiA3NtKF"></a>
+                    <a name="//apple_ref/swift/Method/exportSecret(privateKey:info:context:L:psk:pskId:encap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC12exportSecret10privateKey4info7context1L3psk0K2Id5encapSays5UInt8VGAA011HPKEPrivateH0C_A2NSiA3NtKF">exportSecret(privateKey:<wbr>info:<wbr>context:<wbr>L:<wbr>psk:<wbr>pskId:<wbr>encap:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute a recipient export secret</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the <em>psk</em> parameters are inconsistent or L is negative or too large
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">exportSecret</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="kt">L</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">psk</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pskId</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The export context</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>L</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The length of the export secret</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encap</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encapsulated key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The export secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods%20-%20authenticated%20mode"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods - authenticated mode" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods%20-%20authenticated%20mode"></a>
+                  <h3 class="section-name"><span>Instance Methods - authenticated mode</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4seal9publicKey4info14authentication2pt3aadSays5UInt8VG5encap_AL2cttAA010HPKEPublicG0C_AlA011HPKEPrivateG0CA2LtKF"></a>
+                    <a name="//apple_ref/swift/Method/seal(publicKey:info:authentication:pt:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4seal9publicKey4info14authentication2pt3aadSays5UInt8VG5encap_AL2cttAA010HPKEPublicG0C_AlA011HPKEPrivateG0CA2LtKF">seal(publicKey:<wbr>info:<wbr>authentication:<wbr>pt:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-shot encryption</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the encryption fails or <em>self.aead</em> is EXPORTONLY
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">seal</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">authentication</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">pt</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">ct</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authentication</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sender private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The plain text to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated data</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encapsulted key and cipher text</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4open10privateKey4info14authentication2ct3aad5encapSays5UInt8VGAA011HPKEPrivateG0C_AmA010HPKEPublicG0CA3MtKF"></a>
+                    <a name="//apple_ref/swift/Method/open(privateKey:info:authentication:ct:aad:encap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4open10privateKey4info14authentication2ct3aad5encapSays5UInt8VGAA011HPKEPrivateG0C_AmA010HPKEPublicG0CA3MtKF">open(privateKey:<wbr>info:<wbr>authentication:<wbr>ct:<wbr>aad:<wbr>encap:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-shot decryption</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the decryption fails or <em>self.aead</em> is EXPORTONLY
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">open</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">authentication</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">ct</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authentication</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sender public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ct</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cipher text to decrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encap</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encapsulated key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The plain text</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC12exportSecret9publicKey4info7context1L14authenticationSays5UInt8VG012encapsulatedH0_AL6secrettAA010HPKEPublicH0C_A2LSiAA011HPKEPrivateH0CtKF"></a>
+                    <a name="//apple_ref/swift/Method/exportSecret(publicKey:info:context:L:authentication:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC12exportSecret9publicKey4info7context1L14authenticationSays5UInt8VG012encapsulatedH0_AL6secrettAA010HPKEPublicH0C_A2LSiAA011HPKEPrivateH0CtKF">exportSecret(publicKey:<wbr>info:<wbr>context:<wbr>L:<wbr>authentication:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute a sender export secret</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or L is negative or too large
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">exportSecret</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="kt">L</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">authentication</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">encapsulatedKey</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The export context</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>L</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The length of the export secret</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authentication</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sender private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encapsulated key and export secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC12exportSecret10privateKey4info7context1L14authentication5encapSays5UInt8VGAA011HPKEPrivateH0C_A2MSiAA010HPKEPublicH0CAMtKF"></a>
+                    <a name="//apple_ref/swift/Method/exportSecret(privateKey:info:context:L:authentication:encap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC12exportSecret10privateKey4info7context1L14authentication5encapSays5UInt8VGAA011HPKEPrivateH0C_A2MSiAA010HPKEPublicH0CAMtKF">exportSecret(privateKey:<wbr>info:<wbr>context:<wbr>L:<wbr>authentication:<wbr>encap:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute a recipient export secret</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or L is negative or too large
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">exportSecret</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="kt">L</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">authentication</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The export context</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>L</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The length of the export secret</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authentication</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sender public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encap</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encapsulated key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The export secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods%20-%20authenticated%2C%20preshared%20key%20mode"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods - authenticated, preshared key mode" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods%20-%20authenticated%2C%20preshared%20key%20mode"></a>
+                  <h3 class="section-name"><span>Instance Methods - authenticated, preshared key mode</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4seal9publicKey4info14authentication3psk0J2Id2pt3aadSays5UInt8VG5encap_AN2cttAA010HPKEPublicG0C_AnA011HPKEPrivateG0CA4NtKF"></a>
+                    <a name="//apple_ref/swift/Method/seal(publicKey:info:authentication:psk:pskId:pt:aad:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4seal9publicKey4info14authentication3psk0J2Id2pt3aadSays5UInt8VG5encap_AN2cttAA010HPKEPublicG0C_AnA011HPKEPrivateG0CA4NtKF">seal(publicKey:<wbr>info:<wbr>authentication:<wbr>psk:<wbr>pskId:<wbr>pt:<wbr>aad:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-shot encryption</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the encryption fails or the <em>psk</em> parameters are inconsistent or <em>self.aead</em> is EXPORTONLY
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">seal</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">authentication</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">psk</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pskId</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pt</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">ct</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authentication</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sender private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The plain text to encrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated data</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encapsulted key and cipher text</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC4open10privateKey4info14authentication3psk0J2Id2ct3aad5encapSays5UInt8VGAA011HPKEPrivateG0C_AoA010HPKEPublicG0CA5OtKF"></a>
+                    <a name="//apple_ref/swift/Method/open(privateKey:info:authentication:psk:pskId:ct:aad:encap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC4open10privateKey4info14authentication3psk0J2Id2ct3aad5encapSays5UInt8VGAA011HPKEPrivateG0C_AoA010HPKEPublicG0CA5OtKF">open(privateKey:<wbr>info:<wbr>authentication:<wbr>psk:<wbr>pskId:<wbr>ct:<wbr>aad:<wbr>encap:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-shot decryption</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the decryption fails or the <em>psk</em> parameters are inconsistent or <em>self.aead</em> is EXPORTONLY
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">open</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">authentication</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">psk</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pskId</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">ct</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">aad</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authentication</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sender public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ct</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cipher text to decrypt</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aad</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The associated data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encap</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encapsulated key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The plain text</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC12exportSecret9publicKey4info7context1L14authentication3psk0L2IdSays5UInt8VG012encapsulatedH0_AN6secrettAA010HPKEPublicH0C_A2NSiAA011HPKEPrivateH0CA2NtKF"></a>
+                    <a name="//apple_ref/swift/Method/exportSecret(publicKey:info:context:L:authentication:psk:pskId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC12exportSecret9publicKey4info7context1L14authentication3psk0L2IdSays5UInt8VG012encapsulatedH0_AN6secrettAA010HPKEPublicH0C_A2NSiAA011HPKEPrivateH0CA2NtKF">exportSecret(publicKey:<wbr>info:<wbr>context:<wbr>L:<wbr>authentication:<wbr>psk:<wbr>pskId:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute a sender export secret</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the <em>psk</em> parameters are inconsistent or L is negative or too large
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">exportSecret</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="kt">L</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">authentication</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">psk</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pskId</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">encapsulatedKey</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The export context</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>L</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The length of the export secret</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authentication</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sender private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encapsulated key and export secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftECC11CipherSuiteC12exportSecret10privateKey4info7context1L14authentication3psk0L2Id5encapSays5UInt8VGAA011HPKEPrivateH0C_A2OSiAA010HPKEPublicH0CA3OtKF"></a>
+                    <a name="//apple_ref/swift/Method/exportSecret(privateKey:info:context:L:authentication:psk:pskId:encap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC11CipherSuiteC12exportSecret10privateKey4info7context1L14authentication3psk0L2Id5encapSays5UInt8VGAA011HPKEPrivateH0C_A2OSiAA010HPKEPublicH0CA3OtKF">exportSecret(privateKey:<wbr>info:<wbr>context:<wbr>L:<wbr>authentication:<wbr>psk:<wbr>pskId:<wbr>encap:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute a recipient export secret</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An exception if one of the keys does not match <em>self</em> or the <em>psk</em> parameters are inconsistent or L is negative or too large
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">exportSecret</span><span class="p">(</span><span class="nv">privateKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPrivateKey.html">HPKEPrivateKey</a></span><span class="p">,</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="kt">L</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">authentication</span><span class="p">:</span> <span class="kt"><a href="../Classes/HPKEPublicKey.html">HPKEPublicKey</a></span><span class="p">,</span> <span class="nv">psk</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">pskId</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">encap</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>privateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The recipient private key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>info</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The export context</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>L</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The length of the export secret</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authentication</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sender public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>psk</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pskId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The preshared key id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encap</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encapsulated key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The export secret</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-07-24)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

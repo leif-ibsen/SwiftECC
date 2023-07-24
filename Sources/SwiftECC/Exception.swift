@@ -68,6 +68,9 @@ public enum ECException: Error, CustomStringConvertible {
     /// Not enough input to decrypt
     case notEnoughInput
 
+    /// Point not on curve
+    case notOnCurve
+
     /// Padding is wrong
     case padding
     
@@ -83,7 +86,4 @@ public enum ECException: Error, CustomStringConvertible {
     /// Unknown domain OID
     case unknownOid
     
-    /// Point not on curve
-    case notOnCurve
-
 }
