@@ -8,7 +8,6 @@
 <li><a href="#basic3">Encrypted Private Keys</a></li>
 <li><a href="#basic4">Encryption and Decryption</a></li>
 <li><a href="#basic5">AEAD Encryption and Decryption</a></li>
-<li><a href="#basic6">HPKE Encryption and Decryption</a></li>
 <li><a href="#basic7">Signing and Verifying</a></li>
 <li><a href="#basic8">Secret Key Agreement</a></li>
 <li><a href="#basic9">Creating New Domains</a></li>
@@ -24,7 +23,6 @@ This encompasses:
 <li>Creating, loading and storing public and private keys</li>
 <li>Encryption and decryption using the ECIES algorithm based on the AES block cipher and six different block modes</li>
 <li>AEAD (Authenticated Encryption with Associated Data) encryption and decryption using the ECIES algorithm with the ChaCha20/Poly1305 or the AES/GCM cipher</li>
-<li>HPKE (Hybrid Public Key Encryption) encryption and decryption according to RFC 9180</li>
 <li>Signature signing and verifying using the ECDSA algorithm, including the option of deterministic signatures</li>
 <li>Secret key agreement using the Diffie-Hellman key agreement algorithm - ECDH</li>
 <li>Ability to create your own domains</li>
@@ -34,7 +32,7 @@ This encompasses:
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "3.9.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "4.0.0"),
 	  ]
 SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 bit types.
 SwiftECC uses Apple's CryptoKit framework. Therefore, for macOS the version must be at least 10.15,
@@ -342,73 +340,6 @@ KDF generates 44 bytes.
 
 AES encryption/decryption key = bytes 0 ..< 32<br/>
 Nonce = bytes 32 ..< 44<br/>
-<h2 id="basic6"><b>HPKE Encryption and Decryption</b></h2>
-SwiftECC contains an implementation of the new Hybrid Public Key Encryption (HPKE) standard defined in RFC 9180.
-It operates with the concepts of a sender and a recipient. A sender encrypts (or seals) cleartext messages intended for a given recipient,
-and a recipient decrypts (or opens) the resulting ciphertext messages. A sender is represented by the Sender class,
-and a recipient is represented by the Recipient class. Using them, you can:
-<ul>
-<li>Create a CipherSuite consisting of a Key Encapsulation Mechanism (KEM), a Key Derivation Function (KDF) and a AEAD Encryption Algorithm (AEAD)</li>
-<li>The CipherSuite can encrypt a single plain text message or decrypt a single ciphertext</li>
-<li>You can create a Sender instance based on a CipherSuite and use it to encrypt a sequence of plaintext messages</li>
-<li>You can create a Recipient instance based on a CipherSuite and use it to decrypt a sequence of ciphertexts</li>
-</ul>
-<h3><b>Example 1</b></h3>
-
-    // Encryption and decryption of a single message in base mode
-    
-    import SwiftECC
-
-    do {
-      let plainText = Bytes("Hi, there".utf8)
-      let suite1 = CipherSuite(kem: .X448, kdf: .KDF512, aead: .AESGCM256)
-      let (recipientPub, recipientPriv) = try suite1.makeKeyPair()
-      let (encapsulatedKey, cipherText) = try suite1.seal(publicKey: recipientPub, info: [1, 2, 3], pt: plainText, aad: [4, 5, 6])
-      let decrypted = try suite1.open(privateKey: recipientPriv, info: [1, 2, 3], ct: cipherText, aad: [4, 5, 6], encap: encapsulatedKey)
-      print(String(bytes: decrypted, encoding: .utf8)!)
-    } catch {
-      print("Exception: \(error)")
-    }
-
-giving:
-
-    Hi, there
-
-<h3><b>Example 2</b></h3>
-
-    // Encryption and decryption of several messages in authenticated mode
-    
-    import SwiftECC
-    
-    do {
-      let plainText1 = Bytes("Hi, there 1".utf8)
-      let plainText2 = Bytes("Hi, there 2".utf8)
-      let plainText3 = Bytes("Hi, there 3".utf8)
-      let suite2 = CipherSuite(kem: .P384, kdf: .KDF384, aead: .CHACHAPOLY)
-      let (senderPub, senderPriv) = try suite2.makeKeyPair()
-      let (recipientPub, recipientPriv) = try suite2.makeKeyPair()
-      let sender = try Sender(suite: suite2, publicKey: recipientPub, info: [1, 2, 3], authentication: senderPriv)
-      let cipherText1 = try sender.seal(pt: plainText1, aad: [4, 5])
-      let cipherText2 = try sender.seal(pt: plainText2, aad: [6, 7])
-      let cipherText3 = try sender.seal(pt: plainText3, aad: [])
-
-      let recipient = try Recipient(suite: suite2, privateKey: recipientPriv, info: [1, 2, 3], authentication: senderPub, encap: sender.encapsulatedKey)
-      let decrypted1 = try recipient.open(ct: cipherText1, aad: [4, 5])
-      let decrypted2 = try recipient.open(ct: cipherText2, aad: [6, 7])
-      let decrypted3 = try recipient.open(ct: cipherText3, aad: [])
-      print(String(bytes: decrypted1, encoding: .utf8)!)
-      print(String(bytes: decrypted2, encoding: .utf8)!)
-      print(String(bytes: decrypted3, encoding: .utf8)!)
-    } catch {
-      print("Exception: \(error)")
-    }
-
-giving:
-
-    Hi, there 1
-    Hi, there 2
-    Hi, there 3
-
 <h2 id="basic7"><b>Signing and Verifying</b></h2>
 Signing data and verifying signatures is performed using the ECDSA algorithm. It is possible to generate
 deterministic signatures as specified in [RFC-6979] by setting the <i>deterministic</i> parameter to <i>true</i> in the sign operation.
@@ -744,7 +675,6 @@ There are references in the source code where appropriate.
 <li>[PKCS#5] - Password-Based Cryptography Specification - Version 2.0, September 2000</li>
 <li>[RFC-5869] - HMAC-based Extract-and-Expand Key Derivation Function (HKDF), May 2010</li>
 <li>[RFC-6979] - Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA), August 2013</li>
-<li>[RFC-9180] - Hybrid Public Key Encryption, February 2022</li>
 <li>[SAVACS] - E. Savacs, C.K. Koc: The Montgomery Modular Inverse - Revisited, July 2000</li>
 <li>[SEC 1] - Standards for Efficient Cryptography 1 (SEC 1), Certicom Corp. 2009</li>
 <li>[SEC 2] - Standards for Efficient Cryptography 2 (SEC 2), Certicom Corp. 2010</li>
