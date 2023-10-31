@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import SwiftECC
+import BigInt // for SecRandomCopyBytes
 
 final class EciesAESGCMTest: XCTestCase {
 
