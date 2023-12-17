@@ -9,6 +9,7 @@ import Foundation
 import CryptoKit
 import ASN1
 import BigInt
+import Digest
 
 ///
 /// An Elliptic Curve private key
@@ -24,7 +25,7 @@ public class ECPrivateKey: CustomStringConvertible {
 
     static let iterations = 2048
     static let saltLength = 8
-    static let mda: MessageDigestAlgorithm = .SHA1
+    static let kind: MessageDigest.Kind = .SHA1
 
 
     // MARK: Initializers
@@ -200,7 +201,7 @@ public class ECPrivateKey: CustomStringConvertible {
         guard let octets = seq1.get(1) as? ASN1OctetString else {
             throw ECException.asn1Structure
         }
-        let pbe = PBE(MessageDigest(ECPrivateKey.mda), password)
+        let pbe = PBE(ECPrivateKey.kind, password)
         let key = pbe.kdf2(salt.value, iterations.value.asInt()!, keySize)
         
         var c = octets.value
@@ -276,7 +277,7 @@ public class ECPrivateKey: CustomStringConvertible {
         guard SecRandomCopyBytes(kSecRandomDefault, salt.count, &salt) == errSecSuccess else {
             fatalError("randomLimbs failed")
         }
-        let pbe = PBE(MessageDigest(ECPrivateKey.mda), password)
+        let pbe = PBE(ECPrivateKey.kind, password)
         let key = pbe.kdf2(salt, ECPrivateKey.iterations, keySize)
         var iv = Bytes(repeating: 0, count: AES.blockSize)
         guard SecRandomCopyBytes(kSecRandomDefault, iv.count, &iv) == errSecSuccess else {
@@ -312,11 +313,12 @@ public class ECPrivateKey: CustomStringConvertible {
     ///   - deterministic: If *true* generate a deterministic signature according to RFC-6979, if *false* generate a non-deterministic signature - *false* is default
     /// - Returns: The signature
     public func sign(msg: Bytes, deterministic: Bool = false) -> ECSignature {
-        let md = MessageDigest.instance(self.domain)
+        let mdKind = ECPrivateKey.getMDKind(self.domain)
+        let md = MessageDigest(mdKind)
         md.update(msg)
         let digest = md.digest()
         let order = self.domain.order
-        let k = deterministic ? DeterministicK(md, order, self.s).makeK(digest) : (order - BInt.ONE).randomLessThan() + BInt.ONE
+        let k = deterministic ? DeterministicK(mdKind, order, self.s).makeK(digest) : (order - BInt.ONE).randomLessThan() + BInt.ONE
         let R = self.domain.multiplyG(k)
         var h = BInt(magnitude: digest)
         let d = digest.count * 8 - order.bitWidth
@@ -510,40 +512,17 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Parameters:
     ///   - pubKey: The other party's public key
     ///   - length: The required length of the shared secret
-    ///   - md: The message digest algorithm to use
+    ///   - kind: The message digest kind to use
     ///   - sharedInfo: Information shared with the other party
     ///   - cofactor: Use cofactor version - *false* is default
     /// - Returns: A byte array which is the shared secret key
     /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* is negative
-    public func x963KeyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
+    public func x963KeyAgreement(pubKey: ECPublicKey, length: Int, kind: MessageDigest.Kind, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
         let Z = try self.sharedSecret(pubKey: pubKey, cofactor: cofactor)
-        let mda = MessageDigest(md)
-        if length >= mda.digestLength * 0xffffffff || length < 0 {
+        if length >= ECPrivateKey.digestLength(kind) * 0xffffffff || length < 0 {
             throw ECException.keyAgreementParameter
         }
-
-        // [SEC 1] - section 3.6.1
-
-        var k: Bytes = []
-        var counter: Bytes = [0, 0, 0, 1]
-        let n = length == 0 ? 0 : (length - 1) / mda.digestLength + 1
-        for _ in 0 ..< n {
-            mda.update(Z)
-            mda.update(counter)
-            mda.update(sharedInfo)
-            k += mda.digest()
-            counter[3] &+= 1
-            if counter[3] == 0 {
-                counter[2] &+= 1
-                if counter[2] == 0 {
-                    counter[1] &+= 1
-                    if counter[1] == 0 {
-                        counter[0] &+= 1
-                    }
-                }
-            }
-        }
-        return Bytes(k[0 ..< length])
+        return KDF.X963KDF(kind, Z, length, sharedInfo)
     }
     
     /// Computes a shared secret key using Diffie-Hellman key agreement<br/>
@@ -553,37 +532,54 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Parameters:
     ///   - pubKey: The other party's public key
     ///   - length: The required length of the shared secret - a positive number
-    ///   - md: The message digest algorithm to use
+    ///   - kind: The message digest kind to use
     ///   - sharedInfo: Information shared with the other party - possibly empty
     ///   - salt: The salt to use - possibly empty
     ///   - cofactor: Use cofactor version - *false* is default
     /// - Returns: A byte array which is the shared secret key
     /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* has wrong size
-    public func hkdfKeyAgreement(pubKey: ECPublicKey, length: Int, md: MessageDigestAlgorithm, sharedInfo: Bytes, salt: Bytes, cofactor: Bool = false) throws -> Bytes {
+    public func hkdfKeyAgreement(pubKey: ECPublicKey, length: Int, kind: MessageDigest.Kind, sharedInfo: Bytes, salt: Bytes, cofactor: Bool = false) throws -> Bytes {
         let Z = try self.sharedSecret(pubKey: pubKey, cofactor: cofactor)
-        return try ECPrivateKey.HKDF(Z, length, md, sharedInfo, salt)
+        return KDF.HKDF(kind, Z, length, sharedInfo, salt)
     }
 
-    static func HKDF(_ IKM: Bytes, _ length: Int, _ md: MessageDigestAlgorithm, _ sharedInfo: Bytes, _ salt: Bytes) throws -> Bytes {
-        let mda = MessageDigest(md)
-        let len = mda.digestLength
-        guard length > 0 && length <= 255 * len else {
-            throw ECException.keyAgreementParameter
-        }
-        var hMac = HMac(mda, salt)
-        let PRK = hMac.doFinal(IKM)
-        let N = (length + len) / len
-        hMac = HMac(mda, PRK)
-        var T = Bytes()
-        var bytes = Bytes()
-        for i in 1 ... N {
-            bytes += sharedInfo
-            bytes += [Byte(i)]
-            let t = hMac.doFinal(bytes)
-            T += t
-            bytes = t
-            hMac.reset()
-        }
-        return Bytes(T[0 ..< length])
+    static func getMDKind(_ domain: Domain) -> MessageDigest.Kind {
+        return getMDKind(domain.p.bitWidth)
     }
+    
+    static func getMDKind(_ bw: Int) -> MessageDigest.Kind {
+        if bw > 384 {
+            return .SHA2_512
+        } else if bw > 256 {
+            return .SHA2_384
+        } else if bw > 224 {
+            return .SHA2_256
+        } else {
+            return .SHA2_224
+        }
+    }
+
+    static func digestLength(_ kind: MessageDigest.Kind) -> Int {
+        switch kind {
+        case .SHA1:
+            return 20
+        case .SHA2_224:
+            return 28
+        case .SHA2_256:
+            return 32
+        case .SHA2_384:
+            return 48
+        case .SHA2_512:
+            return 64
+        case .SHA3_224:
+            return 28
+        case .SHA3_256:
+            return 32
+        case .SHA3_384:
+            return 48
+        case .SHA3_512:
+            return 64
+        }
+    }
+
 }

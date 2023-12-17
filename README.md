@@ -654,11 +654,12 @@ was measured on an iMac 2021, Apple M1 chip. The results are shown in the table 
 
 <h2 id="dep"><b>Dependencies</b></h2>
 
-The SwiftECC package depends on the ASN1 and BigInt packages
+The SwiftECC package depends on the ASN1, BigInt and Digest packages
 
     dependencies: [
-        .package(url: "https://github.com/leif-ibsen/ASN1", from: "2.1.0"),
-        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.13.0"),
+        .package(url: "https://github.com/leif-ibsen/ASN1", from: "2.2.0"),
+        .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.14.0"),
+        .package(url: "https://github.com/leif-ibsen/Digest", from: "1.1.0"),
     ],
 
 <h2 id="ref"><b>References</b></h2>

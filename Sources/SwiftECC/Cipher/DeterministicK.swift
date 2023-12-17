@@ -6,23 +6,24 @@
 //
 
 import BigInt
+import Digest
 
 // Generate a deterministic K value for a signature - please refer [RFC-6979]
 class DeterministicK {
     
-    let md: MessageDigest
+    let kind: MessageDigest.Kind
     let q: BInt
     let len: Int
     let qlen: Int
     let hlen: Int
     var x: Bytes
     
-    init(_ md: MessageDigest, _ q: BInt, _ privKey: BInt) {
-        self.md = md
+    init(_ kind: MessageDigest.Kind, _ q: BInt, _ privKey: BInt) {
+        self.kind = kind
         self.q = q
         self.qlen = q.bitWidth
         self.len = (self.qlen + 7) >> 3
-        self.hlen = md.digestLength
+        self.hlen = ECPrivateKey.digestLength(kind)
         self.x = privKey.asMagnitudeBytes()
         while x.count < self.len {
             x.insert(0, at: 0)
@@ -32,28 +33,28 @@ class DeterministicK {
     func makeK(_ digest: Bytes) -> BInt {
         var V = Bytes(repeating: 0x01, count: hlen)
         var K = Bytes(repeating: 0x00, count: hlen)
-        let mac = HMac(self.md, K)
+        var mac = HMAC(self.kind, K)
         mac.update(V)
         mac.update([0x00])
         mac.update(self.x)
         mac.update(bits2octets(digest))
-        K = mac.doFinal()
-        mac.initialize(K)
-        V = mac.doFinal(V)
+        K = mac.compute()
+        mac = HMAC(self.kind, K)
+        V = mac.compute(V)
         mac.reset()
         mac.update(V)
         mac.update([0x01])
         mac.update(self.x)
         mac.update(bits2octets(digest))
-        K = mac.doFinal()
-        mac.initialize(K)
-        V = mac.doFinal(V)
+        K = mac.compute()
+        mac = HMAC(self.kind, K)
+        V = mac.compute(V)
 
         while true {
             var T: Bytes = []
             while T.count * 8 < self.qlen {
                 mac.reset()
-                V = mac.doFinal(V)
+                V = mac.compute(V)
                 T.append(contentsOf: V)
             }
             let k = bits2int(T)
@@ -63,9 +64,9 @@ class DeterministicK {
             mac.reset()
             mac.update(V)
             mac.update([0x00])
-            K = mac.doFinal()
-            mac.initialize(K)
-            V = mac.doFinal(V)
+            K = mac.compute()
+            mac = HMAC(self.kind, K)
+            V = mac.compute(V)
         }
     }
     

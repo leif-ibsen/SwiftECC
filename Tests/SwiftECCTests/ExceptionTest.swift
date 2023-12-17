@@ -9,6 +9,7 @@ import XCTest
 @testable import SwiftECC
 import ASN1
 import BigInt
+import Digest
 
 class ExceptionTest: XCTestCase {
 
@@ -188,7 +189,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
             XCTFail("Expected ECException.unknownOid")
         }
     }
-    
+
     func testNotOnCurve() {
         let domain = Domain.instance(curve: .BP160r1)
         let p1 = Point(BInt.ONE, BInt.ONE)
@@ -234,7 +235,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
             XCTFail("Expected ECException.notOnCurve")
         }
     }
-    
+
     func testECDHParameter() {
         let domain1 = Domain.instance(curve: .BP256r1)
         let domain2 = Domain.instance(curve: .EC256r1)
@@ -242,7 +243,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         let (pub2, _) = domain2.makeKeyPair()
         do {
             // Different domains
-            let _ = try priv1.x963KeyAgreement(pubKey: pub2, length: 20, md: .SHA2_256, sharedInfo: [])
+            let _ = try priv1.x963KeyAgreement(pubKey: pub2, length: 20, kind: .SHA2_256, sharedInfo: [])
             XCTFail("Expected ECException.keyAgreementParameter")
         } catch ECException.keyAgreementParameter {
         } catch {
@@ -250,7 +251,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         }
         do {
             // Length is negative
-            let _ = try priv1.x963KeyAgreement(pubKey: pub1, length: -20, md: .SHA2_256, sharedInfo: [])
+            let _ = try priv1.x963KeyAgreement(pubKey: pub1, length: -20, kind: .SHA2_256, sharedInfo: [])
             XCTFail("Expected ECException.keyAgreementParameter")
         } catch ECException.keyAgreementParameter {
         } catch {
@@ -258,7 +259,7 @@ jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
         }
         do {
             // Length is too large
-            let _ = try priv1.x963KeyAgreement(pubKey: pub1, length: 32 * 0xffffffff, md: .SHA2_256, sharedInfo: [])
+            let _ = try priv1.x963KeyAgreement(pubKey: pub1, length: 32 * 0xffffffff, kind: .SHA2_256, sharedInfo: [])
             XCTFail("Expected ECException.keyAgreementParameter")
         } catch ECException.keyAgreementParameter {
         } catch {

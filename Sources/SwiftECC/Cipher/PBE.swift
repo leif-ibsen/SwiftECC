@@ -5,16 +5,18 @@
 //  Created by Leif Ibsen on 21/03/2022.
 //
 
+import Digest
+
 // Password based encryption according to [PKCS#5]
 class PBE {
 
-    let hmac: HMac
+    let hmac: HMAC
     let hLen: Int
     let password: Bytes
     
-    init(_ md: MessageDigest, _ password: Bytes) {
-        self.hmac = HMac(md, password)
-        self.hLen = md.digestLength
+    init(_ kind: MessageDigest.Kind, _ password: Bytes) {
+        self.hmac = HMAC(kind, password)
+        self.hLen = ECPrivateKey.digestLength(kind)
         self.password = password
     }
     
@@ -27,7 +29,7 @@ class PBE {
         U.append(Byte((i >> 0) & 0xff))
         for _ in 0 ..< c {
             self.hmac.reset()
-            U = self.hmac.doFinal(U)
+            U = self.hmac.compute(U)
             for j in 0 ..< self.hLen {
                 F[j] ^= U[j]
             }

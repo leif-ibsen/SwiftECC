@@ -67,9 +67,6 @@
               <li class="nav-group-task">
                 <a href="../Enums/ECException.html">ECException</a>
               </li>
-              <li class="nav-group-task">
-                <a href="../Enums/MessageDigestAlgorithm.html">MessageDigestAlgorithm</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -1619,9 +1616,9 @@ The method is compatible with the Apple CryptoKit method <em>sharedSecretFromKey
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC12ECPrivateKeyC04x963D9Agreement03pubD06length2md10sharedInfo8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOALSbtKF"></a>
-                    <a name="//apple_ref/swift/Method/x963KeyAgreement(pubKey:length:md:sharedInfo:cofactor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC04x963D9Agreement03pubD06length2md10sharedInfo8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOALSbtKF">x963KeyAgreement(pubKey:<wbr>length:<wbr>md:<wbr>sharedInfo:<wbr>cofactor:<wbr>)</a>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC04x963D9Agreement03pubD06length4kind10sharedInfo8cofactorSays5UInt8VGAA08ECPublicD0C_Si6Digest07MessageO0C4KindOALSbtKF"></a>
+                    <a name="//apple_ref/swift/Method/x963KeyAgreement(pubKey:length:kind:sharedInfo:cofactor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC04x963D9Agreement03pubD06length4kind10sharedInfo8cofactorSays5UInt8VGAA08ECPublicD0C_Si6Digest07MessageO0C4KindOALSbtKF">x963KeyAgreement(pubKey:<wbr>length:<wbr>kind:<wbr>sharedInfo:<wbr>cofactor:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1643,7 +1640,7 @@ The method is compatible with the Apple CryptoKit method <em>x963DerivedSymmetri
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">x963KeyAgreement</span><span class="p">(</span><span class="nv">pubKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPublicKey.html">ECPublicKey</a></span><span class="p">,</span> <span class="nv">length</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">md</span><span class="p">:</span> <span class="kt"><a href="../Enums/MessageDigestAlgorithm.html">MessageDigestAlgorithm</a></span><span class="p">,</span> <span class="nv">sharedInfo</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cofactor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">x963KeyAgreement</span><span class="p">(</span><span class="nv">pubKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPublicKey.html">ECPublicKey</a></span><span class="p">,</span> <span class="nv">length</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">MessageDigest</span><span class="o">.</span><span class="kt">Kind</span><span class="p">,</span> <span class="nv">sharedInfo</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cofactor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1678,12 +1675,12 @@ The method is compatible with the Apple CryptoKit method <em>x963DerivedSymmetri
                             <tr>
                               <td>
                                 <code>
-                                <em>md</em>
+                                <em>kind</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The message digest algorithm to use</p>
+                                  <p>The message digest kind to use</p>
                                 </div>
                               </td>
                             </tr>
@@ -1724,9 +1721,9 @@ The method is compatible with the Apple CryptoKit method <em>x963DerivedSymmetri
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8SwiftECC12ECPrivateKeyC04hkdfD9Agreement03pubD06length2md10sharedInfo4salt8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOA2MSbtKF"></a>
-                    <a name="//apple_ref/swift/Method/hkdfKeyAgreement(pubKey:length:md:sharedInfo:salt:cofactor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC04hkdfD9Agreement03pubD06length2md10sharedInfo4salt8cofactorSays5UInt8VGAA08ECPublicD0C_SiAA22MessageDigestAlgorithmOA2MSbtKF">hkdfKeyAgreement(pubKey:<wbr>length:<wbr>md:<wbr>sharedInfo:<wbr>salt:<wbr>cofactor:<wbr>)</a>
+                    <a name="/s:8SwiftECC12ECPrivateKeyC04hkdfD9Agreement03pubD06length4kind10sharedInfo4salt8cofactorSays5UInt8VGAA08ECPublicD0C_Si6Digest07MessageP0C4KindOA2MSbtKF"></a>
+                    <a name="//apple_ref/swift/Method/hkdfKeyAgreement(pubKey:length:kind:sharedInfo:salt:cofactor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftECC12ECPrivateKeyC04hkdfD9Agreement03pubD06length4kind10sharedInfo4salt8cofactorSays5UInt8VGAA08ECPublicD0C_Si6Digest07MessageP0C4KindOA2MSbtKF">hkdfKeyAgreement(pubKey:<wbr>length:<wbr>kind:<wbr>sharedInfo:<wbr>salt:<wbr>cofactor:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1748,7 +1745,7 @@ The method is compatible with the Apple CryptoKit method <em>hkdfDerivedSymmetri
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hkdfKeyAgreement</span><span class="p">(</span><span class="nv">pubKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPublicKey.html">ECPublicKey</a></span><span class="p">,</span> <span class="nv">length</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">md</span><span class="p">:</span> <span class="kt"><a href="../Enums/MessageDigestAlgorithm.html">MessageDigestAlgorithm</a></span><span class="p">,</span> <span class="nv">sharedInfo</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">salt</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cofactor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hkdfKeyAgreement</span><span class="p">(</span><span class="nv">pubKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/ECPublicKey.html">ECPublicKey</a></span><span class="p">,</span> <span class="nv">length</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">MessageDigest</span><span class="o">.</span><span class="kt">Kind</span><span class="p">,</span> <span class="nv">sharedInfo</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">salt</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span><span class="p">,</span> <span class="nv">cofactor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8SwiftECC5Bytesa">Bytes</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1783,12 +1780,12 @@ The method is compatible with the Apple CryptoKit method <em>hkdfDerivedSymmetri
                             <tr>
                               <td>
                                 <code>
-                                <em>md</em>
+                                <em>kind</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The message digest algorithm to use</p>
+                                  <p>The message digest kind to use</p>
                                 </div>
                               </td>
                             </tr>
@@ -1843,8 +1840,8 @@ The method is compatible with the Apple CryptoKit method <em>hkdfDerivedSymmetri
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-08-17)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2023 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-12-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>

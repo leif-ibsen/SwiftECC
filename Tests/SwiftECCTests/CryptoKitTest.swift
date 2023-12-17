@@ -93,14 +93,14 @@ class CryptoKitTest: XCTestCase {
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA256.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_256, sharedInfo: info)
+        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, kind: .SHA2_256, sharedInfo: info)
         XCTAssertEqual(secret1, secret2)
         
         // Secret computed with CryptoKit keys
         let secret3 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).hkdfDerivedSymmetricKey(using: SHA256.self, salt: salt, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_256, sharedInfo: info, salt: salt)
+        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, kind: .SHA2_256, sharedInfo: info, salt: salt)
         XCTAssertEqual(secret3, secret4)
     }
 
@@ -120,14 +120,14 @@ class CryptoKitTest: XCTestCase {
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA384.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_384, sharedInfo: info)
+        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, kind: .SHA2_384, sharedInfo: info)
         XCTAssertEqual(secret1, secret2)
         
         // Secret computed with CryptoKit keys
         let secret3 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).hkdfDerivedSymmetricKey(using: SHA384.self, salt: salt, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_384, sharedInfo: info, salt: salt)
+        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, kind: .SHA2_384, sharedInfo: info, salt: salt)
         XCTAssertEqual(secret3, secret4)
     }
 
@@ -147,14 +147,14 @@ class CryptoKitTest: XCTestCase {
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA512.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_512, sharedInfo: info)
+        let secret2 = try eccPrivKey.x963KeyAgreement(pubKey: eccPubKey2, length: length, kind: .SHA2_512, sharedInfo: info)
         XCTAssertEqual(secret1, secret2)
         
         // Secret computed with CryptoKit keys
         let secret3 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).hkdfDerivedSymmetricKey(using: SHA512.self, salt: salt, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
 
         // Secret computed with SwiftECC keys
-        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, md: .SHA2_512, sharedInfo: info, salt: salt)
+        let secret4 = try eccPrivKey.hkdfKeyAgreement(pubKey: eccPubKey2, length: length, kind: .SHA2_512, sharedInfo: info, salt: salt)
         XCTAssertEqual(secret3, secret4)
     }
 

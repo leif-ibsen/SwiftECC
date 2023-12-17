@@ -6,6 +6,12 @@
 //
 
 import BigInt
+import Digest
+
+typealias Word = UInt32
+typealias Words = [Word]
+typealias Limb = UInt64
+typealias Limbs = [Limb]
 
 ///
 /// AES block ciphers available for encryption
@@ -39,7 +45,7 @@ public enum BlockMode: CaseIterable {
 
 class Cipher {
 
-    static let MD = MessageDigestAlgorithm.SHA2_256
+    static let MD = MessageDigest.Kind.SHA2_256
 
     // All zero initialization vector
     static let iv = Bytes(repeating: 0, count: AES.blockSize)
@@ -118,9 +124,9 @@ class Cipher {
             while remaining >= 0 {
                 try processBuffer(&input, &index, &remaining)
             }
-            let hMac = HMac(MessageDigest(Cipher.MD), self.macKey)
+            let hMac = HMAC(Cipher.MD, self.macKey)
             hMac.update(input)
-            return hMac.doFinal()
+            return hMac.compute()
         } catch {
             fatalError("Cipher.encrypt inconsistency")
         }
@@ -128,9 +134,9 @@ class Cipher {
 
     func decrypt(_ input: inout Bytes) throws -> Bytes {
         self.encrypt = false
-        let hMac = HMac(MessageDigest(Cipher.MD), self.macKey)
+        let hMac = HMAC(Cipher.MD, self.macKey)
         hMac.update(input)
-        let tag = hMac.doFinal()
+        let tag = hMac.compute()
         var remaining = input.count
         var index = 0
         while remaining >= 0 {

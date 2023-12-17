@@ -9,6 +9,8 @@ import Foundation
 import CryptoKit
 import ASN1
 import BigInt
+import Digest
+
 ///
 /// An Elliptic Curve public key
 ///
@@ -140,7 +142,7 @@ public class ECPublicKey: CustomStringConvertible {
         guard s > BInt.ZERO && s < order else {
             return false
         }
-        let md = bw == nil ? MessageDigest.instance(self.domain) : MessageDigest.instance(bw!)
+        let md = MessageDigest(bw == nil ? ECPrivateKey.getMDKind(self.domain) : ECPrivateKey.getMDKind(bw!))
         md.update(msg)
         let digest = md.digest()
         var e = BInt(magnitude: digest)
