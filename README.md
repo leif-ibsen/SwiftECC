@@ -32,7 +32,7 @@ This encompasses:
 In your project Package.swift file add a dependency like<br/>
 
 	  dependencies: [
-	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "4.0.0"),
+	  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "5.0.0"),
 	  ]
 SwiftECC requires Swift 5.0. It also requires that the Int and UInt types be 64 bit types.
 SwiftECC uses Apple's CryptoKit framework. Therefore, for macOS the version must be at least 10.15,
