@@ -12,7 +12,7 @@ import BigInt
 import Digest
 
 ///
-/// An Elliptic Curve private key
+/// An elliptic curve private key
 ///
 public class ECPrivateKey: CustomStringConvertible {
     
@@ -30,7 +30,7 @@ public class ECPrivateKey: CustomStringConvertible {
 
     // MARK: Initializers
     
-    /// Creates a private key
+    /// Creates a private key from its domain and secret value
     ///
     /// - Parameters:
     ///   - domain: The domain the key belongs to
@@ -101,8 +101,9 @@ public class ECPrivateKey: CustomStringConvertible {
     }
     
     /// Creates a private key from its PEM encoding.
-    /// The PEM type is either 'PRIVATE KEY' meaning the format is PKCS#8,
-    /// or it is 'EC PRIVATE KEY' meaning the format is not PKCS#8
+    ///
+    /// The PEM type is either `PRIVATE KEY` meaning the format is PKCS#8,
+    /// or it is `EC PRIVATE KEY` meaning the format is not PKCS#8
     ///
     /// - Parameters:
     ///   - pem: The PEM encoding of the key
@@ -115,7 +116,8 @@ public class ECPrivateKey: CustomStringConvertible {
         }
     }
 
-    /// Creates a private key from its encrypted DER encoding.<br/>
+    /// Creates a private key from its encrypted DER encoding.
+    ///
     /// The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.
     ///
     /// - Parameters:
@@ -210,9 +212,10 @@ public class ECPrivateKey: CustomStringConvertible {
         try self.init(der: c, pkcs8: true)
     }
 
-    /// Creates a private key from its encrypted PEM encoding.<br/>
-    /// The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.<br/>
-    /// The PEM type is 'ENCRYPTED PRIVATE KEY'
+    /// Creates a private key from its encrypted PEM encoding.
+    ///
+    /// The key must have been encrypted with one of the ciphers AES-128, AES-192 or AES-256 in CBC mode.
+    /// The PEM type is `ENCRYPTED PRIVATE KEY`
     ///
     /// - Parameters:
     ///   - pem: The PEM encoding of the encrypted key
@@ -252,7 +255,7 @@ public class ECPrivateKey: CustomStringConvertible {
 
     // MARK: Instance Methods
     
-    /// Computes the password based encrypted encoding of *self* in DER format,<br/>
+    /// Computes the password based encrypted encoding of *self* in DER format,
     /// using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes
     ///
     /// - Parameters:
@@ -295,7 +298,7 @@ public class ECPrivateKey: CustomStringConvertible {
         return seq1.encode()
     }
 
-    /// Computes the password based encrypted encoding of *self* in PEM format,<br/>
+    /// Computes the password based encrypted encoding of *self* in PEM format,
     /// using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes
     ///
     /// - Parameters:
@@ -353,8 +356,9 @@ public class ECPrivateKey: CustomStringConvertible {
         return (bwl, R, S)
     }
 
-    /// Decrypts a byte array message with ECIES using the AES cipher<br/>
-    /// Using this method with block mode GCM is deprecated. Use *decryptAESGCM* instead for much better performance
+    /// Decrypts a byte array message with ECIES using the AES cipher
+    ///
+    /// Using this method with block mode GCM is deprecated. Use `decryptAESGCM` instead for much better performance.
     ///
     /// - Parameters:
     ///   - msg: The bytes to decrypt
@@ -376,8 +380,9 @@ public class ECPrivateKey: CustomStringConvertible {
         throw ECException.authentication
     }
 
-    /// Decrypts a Data message with ECIES using the AES cipher<br/>
-    /// Using this method with block mode GCM is deprecated. Use *decryptAESGCM* instead for much better performance
+    /// Decrypts a Data message with ECIES using the AES cipher
+    ///
+    /// Using this method with block mode GCM is deprecated. Use `decryptAESGCM` instead for much better performance.
     ///
     /// - Parameters:
     ///   - msg: The data to decrypt
@@ -489,8 +494,9 @@ public class ECPrivateKey: CustomStringConvertible {
         return try Data(self.decryptAESGCM(msg: Bytes(msg), cipher: cipher, aad: Bytes(aad)))
     }
     
-    /// Computes a shared secret using the Diffie-Hellman key agreement primitive<br/>
-    /// The method is compatible with the Apple CryptoKit method *sharedSecretFromKeyAgreement*
+    /// Computes a shared secret using the Diffie-Hellman key agreement primitive
+    ///
+    /// The method is compatible with the CryptoKit method `sharedSecretFromKeyAgreement`.
     ///
     /// - Parameters:
     ///   - pubKey: The other party's public key
@@ -505,9 +511,10 @@ public class ECPrivateKey: CustomStringConvertible {
         return self.domain.align(Z)
     }
 
-    /// Computes a shared secret key using Diffie-Hellman key agreement<br/>
-    /// This is the ANS X9.63 version from [SEC 1] section 3.6.1<br/>
-    /// The method is compatible with the Apple CryptoKit method *x963DerivedSymmetricKey*
+    /// Computes a shared secret key using Diffie-Hellman key agreement
+    ///
+    /// This is the ANS X9.63 version from [SEC 1] section 3.6.1.
+    /// The method is compatible with the CryptoKit method `x963DerivedSymmetricKey`.
     ///
     /// - Parameters:
     ///   - pubKey: The other party's public key
@@ -525,9 +532,10 @@ public class ECPrivateKey: CustomStringConvertible {
         return KDF.X963KDF(kind, Z, length, sharedInfo)
     }
     
-    /// Computes a shared secret key using Diffie-Hellman key agreement<br/>
-    /// This is the HKDF version from [RFC-5869]<br/>
-    /// The method is compatible with the Apple CryptoKit method *hkdfDerivedSymmetricKey*
+    /// Computes a shared secret key using Diffie-Hellman key agreement
+    ///
+    /// This is the HKDF version from [RFC-5869].
+    /// The method is compatible with the CryptoKit method `hkdfDerivedSymmetricKey`.
     ///
     /// - Parameters:
     ///   - pubKey: The other party's public key

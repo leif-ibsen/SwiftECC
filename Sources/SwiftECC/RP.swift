@@ -7,11 +7,6 @@
 
 import BigInt
 
-///
-/// RP instances contain reduction polynomials like
-/// x^m + x^k3 + x^k2 + x^k1 + 1 where m > k3 > k2 > k1 > 0
-/// or x^m + x^k1 + 1 where m > k1 > 0
-///
 public struct RP: CustomStringConvertible, Equatable {
     
     
@@ -78,7 +73,7 @@ public struct RP: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - rp1: First reduction polynomial
     ///   - rp2: Second reduction polynomial
-    /// - Returns: *true* iff rp1 = rp2
+    /// - Returns: *true* if rp1 = rp2. else *false*
     public static func == (rp1: RP, rp2: RP) -> Bool {
         return rp1.m == rp2.m && rp1.k3 == rp2.k3 && rp1.k2 == rp2.k2 && rp1.k1 == rp2.k1
     }

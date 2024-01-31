@@ -5,10 +5,6 @@
 //  Created by Leif Ibsen on 06/01/2020.
 //
 
-///
-/// There is no Base64 instances.
-/// Base64 exists to provide a namespace. It contains static functions for Base64 encoding and decoding.
-///
 public struct Base64 {
 
     static let base64chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
@@ -23,7 +19,7 @@ public struct Base64 {
 
     // MARK: Static Methods
 
-    /// PEM encodes a byte array
+    /// PEM encode a byte array
     ///
     /// - Parameters:
     ///   - input: Bytes to encode
@@ -33,7 +29,7 @@ public struct Base64 {
         return "-----BEGIN " + pem + "-----\n" + encode(input, 64) + "\n-----END " + pem + "-----"
     }
 
-    /// PEM decodes a string
+    /// PEM decode a string
     ///
     /// - Parameters:
     ///   - input: String to decode
@@ -51,7 +47,7 @@ public struct Base64 {
         return try decode(parts[2])
     }
 
-    /// Base64 encodes a byte array
+    /// Base64 encode a byte array
     ///
     /// - Parameters:
     ///   - input: Bytes to encode
@@ -95,7 +91,7 @@ public struct Base64 {
         return base64
     }
 
-    /// Base64 decodes a string
+    /// Base64 decode a string
     ///
     /// - Parameters:
     ///   - input: String to decode

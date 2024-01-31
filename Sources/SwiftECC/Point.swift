@@ -7,14 +7,6 @@
 
 import BigInt
 
-///
-/// Point instances contain elliptic curve points.
-///
-/// For points in a prime characteristic domain, the x-coordinate and y-coordinate are non-negative integers.
-///
-/// For points in a characteristic 2 domain, the x-coordinate and y-coordinate are binary polynomials
-/// where the coefficients (0 or 1) are the bits of the x and y values.
-///
 public struct Point: CustomStringConvertible, Equatable {
     
     // MARK: Constants
@@ -49,7 +41,7 @@ public struct Point: CustomStringConvertible, Equatable {
     public let x: BInt
     /// The y coordinate
     public let y: BInt
-    /// Is *true* iff *self* is the point at infinity
+    /// Is *true* if *self* is the point at infinity, else *false*
     public let infinity: Bool
     
     
@@ -68,7 +60,7 @@ public struct Point: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - p1: First point
     ///   - p2: Second point
-    /// - Returns: *true* iff p1 = p2
+    /// - Returns: *true* if p1 = p2, else *false*
     public static func == (p1: Point, p2: Point) -> Bool {
         return p1.x == p2.x && p1.y == p2.y && p1.infinity == p2.infinity
     }

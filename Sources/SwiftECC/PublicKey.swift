@@ -12,7 +12,7 @@ import BigInt
 import Digest
 
 ///
-/// An Elliptic Curve public key
+/// An elliptic curve public key
 ///
 public class ECPublicKey: CustomStringConvertible {
 
@@ -125,7 +125,7 @@ public class ECPublicKey: CustomStringConvertible {
     ///   - signature: The signature to verify
     ///   - msg: The message to verify *signature* for
     ///   - bw: Optional bitwidth used to select the proper message digest. By default the domain field size is used
-    /// - Returns: *true* iff the signature is verified
+    /// - Returns: *true* if the signature is verified, else *false*
     public func verify(signature: ECSignature, msg: Bytes, bw: Int? = nil) -> Bool {
         if self.domain != signature.domain {
             return false
@@ -173,13 +173,14 @@ public class ECPublicKey: CustomStringConvertible {
     ///   - signature: The signature to verify
     ///   - msg: The message to verify *signature* for
     ///   - bw: Optional bitwidth used to select the proper message digest. By default the domain field size is used
-    /// - Returns: *true* iff the signature is verified
+    /// - Returns: *true* if the signature is verified, else *false*
     public func verify(signature: ECSignature, msg: Data, bw: Int? = nil) -> Bool {
         return self.verify(signature: signature, msg: Bytes(msg), bw: bw)
     }
 
-    /// Encrypts a byte array with ECIES using the AES cipher<br/>
-    /// Using this method with block mode GCM is deprecated. Use *encryptAESGCM* instead for much better performance
+    /// Encrypts a byte array with ECIES using the AES cipher
+    ///
+    /// Using this method with block mode GCM is deprecated. Use `encryptAESGCM` instead for much better performance.
     ///
     /// - Parameters:
     ///   - msg: The bytes to encrypt
@@ -195,8 +196,9 @@ public class ECPublicKey: CustomStringConvertible {
         return R + result + tag
     }
 
-    /// Encrypts a Data structure with ECIES using the AES cipher<br/>
-    /// Using this method with block mode GCM is deprecated. Use *encryptAESGCM* instead for much better performance
+    /// Encrypts a Data structure with ECIES using the AES cipher
+    /// 
+    /// Using this method with block mode GCM is deprecated. Use `encryptAESGCM` instead for much better performance.
     ///
     /// - Parameters:
     ///   - msg: The data to encrypt
@@ -226,7 +228,7 @@ public class ECPublicKey: CustomStringConvertible {
         }
     }
     
-    /// Encrypts a byte array with ECIES using the ChaCha20/Poly1305 algorithm - possibly with additional authenticated data
+    /// Encrypts a Data structure with ECIES using the ChaCha20/Poly1305 algorithm - possibly with additional authenticated data
     ///
     /// - Parameters:
     ///   - msg: The data to encrypt

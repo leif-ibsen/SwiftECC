@@ -9,13 +9,13 @@ import ASN1
 import BigInt
 
 ///
-/// ECSignature instances contain an ECDSA signature which consists of two byte arrays named *r* and *s*
+/// An elliptic curve signature
 ///
 public class ECSignature {
 
     // MARK: Initializers
 
-    /// Creates a signature from its *r* and *s* components
+    /// Creates a signature from its components
     ///
     /// - Parameters:
     ///   - domain: The domain of the signature
@@ -52,11 +52,11 @@ public class ECSignature {
 
     // MARK: Stored Properties
     
-    /// The domain of the signature
+    /// The `domain` component of the signature
     public let domain: Domain
-    /// The *r* component of the signature
+    /// The `r` component of the signature
     public let r: Bytes
-    /// The *s* component of the signature
+    /// The `s` component of the signature
     public let s: Bytes
 
     

@@ -15,11 +15,10 @@ public typealias Byte = UInt8
 ///
 /// An array of 8-bit unsigned integers
 ///
-public typealias Bytes = [Byte]
+public typealias Bytes = [UInt8]
 
 ///
-/// A Domain instance contains an elliptic curve domain - either with characteristic 2 or characteristic an odd prime.
-/// Please refer [SEC 1] section 3.1.
+/// An elliptic curve domain
 ///
 public class Domain: CustomStringConvertible, Equatable {
     
@@ -64,7 +63,7 @@ public class Domain: CustomStringConvertible, Equatable {
     
     // MARK: Static Methods
     
-    /// Returns a predefined domain from its curve
+    /// Returns a predefined domain given its curve
     ///
     /// - Parameters:
     ///   - curve: The domain curve
@@ -138,7 +137,7 @@ public class Domain: CustomStringConvertible, Equatable {
         }
     }
     
-    /// Returns a predefined domain from its OID
+    /// Returns a predefined domain given its OID
     ///
     /// - Parameters:
     ///   - oid: The domain OID
@@ -313,9 +312,9 @@ public class Domain: CustomStringConvertible, Equatable {
     
     // MARK: Instance Methods
     
-    /// Generates a private- and public key pair for *self*
+    /// Generates a public- and private key pair for *self*
     ///
-    /// - Returns: (ECPublicKey, ECPrivateKey)
+    /// - Returns: The public key and private key pair
     public func makeKeyPair() -> (ECPublicKey, ECPrivateKey) {
         let s = (self.order - BInt.ONE).randomLessThan() + BInt.ONE
         do {
@@ -411,7 +410,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///
     /// - Parameters:
     ///   - p: The point
-    /// - Returns: *true* iff p is on the domain curve
+    /// - Returns: *true* if p is on the domain curve, else *false*
     public func contains(_ p: Point) -> Bool {
         return self.characteristic2 ? self.domain2!.contains(Point2.fromPoint(domain2!.rp, p)) : self.domainP!.contains(p)
     }
@@ -450,7 +449,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///   - p: The point to encode
     ///   - compress: If *true* use compressed encoding, if *false* use uncompressed encoding - *false* is default
     /// - Returns: ASN1 encoding of p
-    /// - Throws: An *encodePoint* exception if *p* does not lie on the curve
+    /// - Throws: An *encodePoint* exception if *p* is not on the curve
     public func asn1EncodePoint(_ p: Point, _ compress: Bool = false) throws -> ASN1 {
         return try ASN1OctetString(encodePoint(p, compress))
     }
@@ -478,7 +477,8 @@ public class Domain: CustomStringConvertible, Equatable {
         return try decodePoint(asn1.bits)
     }
     
-    /// Explicit ASN1 encoding of *self* - please refer [SEC 1] appendix C.2<br/>
+    /// Explicit ASN1 encoding of *self* - please refer [SEC 1] appendix C.2
+    /// 
     /// All domain components are included in the encoding - not just the domain OID
     ///
     /// - Returns: Explicit ASN1 encoding of *self*
