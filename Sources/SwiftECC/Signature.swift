@@ -64,7 +64,7 @@ public class ECSignature {
     
     /// The ASN1 encoding of the signature
     public var asn1: ASN1 { get { return ASN1Sequence().add(ASN1Integer(BInt(magnitude: self.r))).add(ASN1Integer(BInt(magnitude: self.s))) } }
-    /// Textual description of *self*
+    /// Textual description of `self`
     public var description: String { get { return self.asn1.description } }
 
 }

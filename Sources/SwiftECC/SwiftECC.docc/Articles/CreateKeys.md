@@ -1,15 +1,18 @@
 # Create new Keys
 
 ## 
-For a given domain it is possible to generate a public/private key pair.
+
+For a given domain it is possible to generate a public / private key pair.
 
 ### Example
+
 ```swift
 let domain = Domain.instance(curve: .EC384r1)
 let (pubKey, privKey) = domain.generateKeyPair()
 ```
 The private key is simply a random positive integer less than the domain order.
 The public key is the domain generator point multiplied by the private key.
+
 Given a private key, say `privKey`, you can generate the corresponding public key, like
 ```swift
 let pubKey = ECPublicKey(privateKey: privKey)

@@ -8,18 +8,13 @@
 import ASN1
 import BigInt
 
-///
-/// An 8-bit unsigned integer
-///
+/// Unsigned 8 bit value
 public typealias Byte = UInt8
-///
-/// An array of 8-bit unsigned integers
-///
+
+/// Array of unsigned 8 bit values
 public typealias Bytes = [UInt8]
 
-///
 /// An elliptic curve domain
-///
 public class Domain: CustomStringConvertible, Equatable {
     
     init(_ domainP: DomainP) {
@@ -142,7 +137,7 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - oid: The domain OID
     /// - Returns: The corresponding domain
-    /// - Throws: An *unknownOid* exception if *oid* does not match any domain
+    /// - Throws: An `unknownOid` exception if `oid` does not match any domain
     public static func instance(oid: ASN1ObjectIdentifier) throws -> Domain {
         if oid == BP160r1.oid {
             return Domain(BP160r1())
@@ -236,7 +231,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///   - cofactor: The cofactor
     ///   - oid: An optional domain OID
     /// - Returns: The domain
-    /// - Throws: A *domainParameter* exception if 4 * a^3 + 27 * b^2 = 0 or the generator point is not on the curve
+    /// - Throws: A `domainParameter` exception if 4 * a^3 + 27 * b^2 = 0 or the generator point is not on the curve
     public static func instance(name: String, p: BInt, a: BInt, b: BInt, gx: BInt, gy: BInt, order: BInt, cofactor: Int, oid: ASN1ObjectIdentifier? = nil) throws -> Domain {
         if (4 * a * a * a + 27 * b * b) % p == BInt.ZERO {
             throw ECException.domainParameter
@@ -262,7 +257,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///   - cofactor: The cofactor
     ///   - oid: An optional domain OID
     /// - Returns: The domain
-    /// - Throws: A *domainParameter* exception if b = 0 or the generator point is not on the curve
+    /// - Throws: A `domainParameter` exception if b = 0 or the generator point is not on the curve
     public static func instance(name: String, rp: RP, a: BInt, b: BInt, gx: BInt, gy: BInt, order: BInt, cofactor: Int, oid: ASN1ObjectIdentifier? = nil) throws -> Domain {
         if b.isZero {
             throw ECException.domainParameter
@@ -281,9 +276,9 @@ public class Domain: CustomStringConvertible, Equatable {
     public let name: String
     /// The modulus
     public let p: BInt
-    /// The curve *a* coefficient
+    /// The curve `a` coefficient
     public let a: BInt
-    /// The curve *b* coefficient
+    /// The curve `b` coefficient
     public let b: BInt
     /// The generator point
     public let g: Point
@@ -293,7 +288,7 @@ public class Domain: CustomStringConvertible, Equatable {
     public let cofactor: Int
     /// An optional domain OID
     public let oid: ASN1ObjectIdentifier?
-    /// Is *true* if *self* has characteristic 2, *false* if it has an odd prime characteristic
+    /// Is `true` if `self` has characteristic 2, `false` if it has an odd prime characteristic
     public let characteristic2: Bool
 
     let domainP: DomainP?
@@ -302,17 +297,17 @@ public class Domain: CustomStringConvertible, Equatable {
 
     // MARK: Computed Properties
 
-    /// The ASN1 encoding of *self*
+    /// The ASN1 encoding of `self`
     public var asn1: ASN1 { get { return self.characteristic2 ? self.domain2!.asn1(false) : self.domainP!.asn1(false) } }
-    /// The PEM encoding of *self*
+    /// The PEM encoding of `self`
     public var pem: String { get { return Base64.pemEncode(self.asn1.encode(), "EC PARAMETERS") } }
-    /// A textual representation of the ASN1 encoding of *self*
+    /// A textual representation of the ASN1 encoding of `self`
     public var description: String { get { return self.asn1.description } }
 
     
     // MARK: Instance Methods
     
-    /// Generates a public- and private key pair for *self*
+    /// Generates a public- and private key pair for `self`
     ///
     /// - Returns: The public key and private key pair
     public func makeKeyPair() -> (ECPublicKey, ECPrivateKey) {
@@ -329,7 +324,7 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - d1: a Domain instance
     ///   - d2: a Domain instance
-    /// - Returns: *true* if d1 and d2 are equal, *false* otherwise
+    /// - Returns: `true` if d1 and d2 are equal, `false` otherwise
     public static func == (d1: Domain, d2: Domain) -> Bool {
         if d1.characteristic2 != d2.characteristic2 {
             return false
@@ -342,7 +337,7 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - p: A curve point
     /// - Returns: p + p
-    /// - Throws: A *notOnCurve* exception if *p* is not on the curve
+    /// - Throws: A `notOnCurve` exception if `p` is not on the curve
     public func doublePoint(_ p: Point) throws -> Point {
         guard self.contains(p) else {
             throw ECException.notOnCurve
@@ -356,7 +351,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///   - p1: The first curve point
     ///   - p2: The second curve point
     /// - Returns: p1 + p2
-    /// - Throws: A *notOnCurve* exception if *p1* or *p2* is not on the curve
+    /// - Throws: A `notOnCurve` exception if `p1` or `p2` is not on the curve
     public func addPoints(_ p1: Point, _ p2: Point) throws -> Point {
         guard self.contains(p1) && self.contains(p2) else {
             throw ECException.notOnCurve
@@ -370,7 +365,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///   - p1: The first curve point
     ///   - p2: The second curve point
     /// - Returns: p1 - p2
-    /// - Throws: A *notOnCurve* exception if *p1* or *p2* is not on the curve
+    /// - Throws: A `notOnCurve` exception if `p1` or `p2` is not on the curve
     public func subtractPoints(_ p1: Point, _ p2: Point) throws -> Point {
         guard self.contains(p1) && self.contains(p2) else {
             throw ECException.notOnCurve
@@ -383,7 +378,7 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - p: A curve point
     /// - Returns: -p
-    /// - Throws: A *notOnCurve* exception if *p* is not on the curve
+    /// - Throws: A `notOnCurve` exception if `p` is not on the curve
     public func negatePoint(_ p: Point) throws -> Point {
         guard self.contains(p) else {
             throw ECException.notOnCurve
@@ -396,8 +391,8 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - p: The curve point to multiply
     ///   - n: The integer to multiply with
-    /// - Returns: n * p
-    /// - Throws: A *notOnCurve* exception if *p* is not on the curve
+    /// - Returns: n \* p
+    /// - Throws: A `notOnCurve` exception if `p` is not on the curve
     public func multiplyPoint(_ p: Point, _ n: BInt) throws -> Point {
         guard self.contains(p) else {
             throw ECException.notOnCurve
@@ -410,7 +405,7 @@ public class Domain: CustomStringConvertible, Equatable {
     ///
     /// - Parameters:
     ///   - p: The point
-    /// - Returns: *true* if p is on the domain curve, else *false*
+    /// - Returns: `true` if p is on the domain curve, else `false`
     public func contains(_ p: Point) -> Bool {
         return self.characteristic2 ? self.domain2!.contains(Point2.fromPoint(domain2!.rp, p)) : self.domainP!.contains(p)
     }
@@ -419,9 +414,9 @@ public class Domain: CustomStringConvertible, Equatable {
     ///
     /// - Parameters:
     ///   - p: The point to encode
-    ///   - compress: If *true* use compressed encoding, if *false* use uncompressed encoding - *false* is default
+    ///   - compress: If `true` use compressed encoding, if `false` use uncompressed encoding - `false` is default
     /// - Returns: Encoding of p
-    /// - Throws: An *encodePoint* exception if *p* is not on the curve
+    /// - Throws: An `encodePoint` exception if `p` is not on the curve
     public func encodePoint(_ p: Point, _ compress: Bool = false) throws -> Bytes {
         if !self.contains(p) {
             throw ECException.encodePoint
@@ -434,7 +429,7 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - bytes: The byte array to decode
     ///   - Returns: The point
-    /// - Throws: An *decodePoint* exception if *bytes* contains invalid data
+    /// - Throws: An `decodePoint` exception if `bytes` contains invalid data
     public func decodePoint(_ bytes: Bytes) throws -> Point {
         let p = try self.characteristic2 ? self.domain2!.decodePoint(bytes) : self.domainP!.decodePoint(bytes)
         if !self.contains(p) {
@@ -447,9 +442,9 @@ public class Domain: CustomStringConvertible, Equatable {
     ///
     /// - Parameters:
     ///   - p: The point to encode
-    ///   - compress: If *true* use compressed encoding, if *false* use uncompressed encoding - *false* is default
+    ///   - compress: If `true` use compressed encoding, if `false` use uncompressed encoding - `false` is default
     /// - Returns: ASN1 encoding of p
-    /// - Throws: An *encodePoint* exception if *p* is not on the curve
+    /// - Throws: An `encodePoint` exception if `p` is not on the curve
     public func asn1EncodePoint(_ p: Point, _ compress: Bool = false) throws -> ASN1 {
         return try ASN1OctetString(encodePoint(p, compress))
     }
@@ -459,7 +454,7 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - asn1: The ASN1 octet string to decode
     /// - Returns: The point
-    /// - Throws: An *decodePoint* exception if the octet string contains invalid data
+    /// - Throws: An `decodePoint` exception if the octet string contains invalid data
     public func asn1DecodePoint(_ asn1: ASN1OctetString) throws -> Point {
         return try decodePoint(asn1.value)
     }
@@ -469,7 +464,7 @@ public class Domain: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - asn1: The ASN1 bit string to decode
     /// - Returns: The point
-    /// - Throws: An *decodePoint* exception if the bit string contains invalid data
+    /// - Throws: An `decodePoint` exception if the bit string contains invalid data
     public func asn1DecodePoint(_ asn1: ASN1BitString) throws -> Point {
         if asn1.unused > 0 {
             throw ECException.decodePoint
@@ -477,11 +472,11 @@ public class Domain: CustomStringConvertible, Equatable {
         return try decodePoint(asn1.bits)
     }
     
-    /// Explicit ASN1 encoding of *self* - please refer [SEC 1] appendix C.2
-    /// 
+    /// Explicit ASN1 encoding of `self` - please refer [SEC 1] appendix C.2
+    ///
     /// All domain components are included in the encoding - not just the domain OID
     ///
-    /// - Returns: Explicit ASN1 encoding of *self*
+    /// - Returns: Explicit ASN1 encoding of `self`
     public func asn1Explicit() -> ASN1 {
         return self.characteristic2 ? self.domain2!.asn1(true) : self.domainP!.asn1(true)
     }

@@ -1,6 +1,7 @@
 # Secret Key Agreement
 
 ## 
+
 Given your own private key and another party's public key, you can generate a byte array that can be used as a symmetric encryption key.
 
 The other party can generate the same byte array by using his own private key and your public key.
@@ -9,7 +10,7 @@ SwiftECC supports three mechanisms:
 
 * The basic Diffie-Hellman primitive
 * The X9.63 version specified in [SEC 1] section 3.6.1
-* The HKDF version specified in [RFC-5869]
+* The HKDF version specified in [RFC 5869]
 
 ### Basic Diffie-Hellman Example
 ```swift
@@ -105,12 +106,12 @@ and the SHA2_256, SHA2_384 and SHA2_512 message digests correspond to CryptoKit'
 * The `x963KeyAgreement` method corresponds to the CryptoKit method `x963DerivedSymmetricKey`
 * The `hkdfKeyAgreement` method corresponds to the CryptoKit method `hkdfDerivedSymmetricKey`
 
-To convert CryptoKit keys - e.g. `ckPubKey`, `ckPrivKey` - to the corresponding SwiftECC keys:
+To convert CryptoKit keys - say `ckPubKey` and `ckPrivKey` - to the corresponding SwiftECC keys:
 ```swift
 let eccPubKey = try ECPublicKey(pem: ckPubKey.pemRepresentation)
 let eccPrivKey = try ECPrivateKey(pem: ckPrivKey.pemRepresentation)
 ```
-To convert SwiftECC keys - e.g. `eccPubKey`, `eccPrivKey` - to the corresponding CryptoKit keys:
+To convert SwiftECC keys - say `eccPubKey` and `eccPrivKey` - to the corresponding CryptoKit keys:
 ```swift
 let ckPubKey = try P256.KeyAgreement.PublicKey(pemRepresentation: eccPubKey.pem)
 let ckPrivKey = try P256.KeyAgreement.PrivateKey(pemRepresentation: eccPrivKey.pem)

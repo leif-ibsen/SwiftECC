@@ -1,23 +1,24 @@
 # Encrypt and Decrypt
 
 ## 
+
 Encryption and decryption is done using the ECIES algorithm based on the AES block cipher using one of
 AES-128, AES-192 or AES-256 ciphers, depending on your choice.
 
 The following cipher block modes are supported:
 
-* GCM - Galois Counter mode. This is the default mode
-* ECB - Electronic Codebook mode with PKCS#7 padding
-* CBC - Cipher Block Chaining mode with PKCS#7 padding
-* CFB - Cipher Feedback mode
-* CTR - Counter mode
-* OFB - Output Feedback mode
+* **GCM** - Galois Counter mode. This is the default mode
+* **ECB** - Electronic Codebook mode with PKCS#7 padding
+* **CBC** - Cipher Block Chaining mode with PKCS#7 padding
+* **CFB** - Cipher Feedback mode
+* **CTR** - Counter mode
+* **OFB** - Output Feedback mode
 
 The encryption and decryption speed for domain EC256k1 (the bitcoin domain) measured on an iMac 2021, Apple M1 chip
 using AES-128 is shown below - units are Megabytes per second.
 
 | Block Mode | Encrypt      | Decrypt      |
-|------------|--------------|--------------|
+|:-----------|-------------:|-------------:|
 | GCM        | 53 MByte/Sec | 53 MByte/Sec |
 | ECB        | 30 MByte/Sec | 30 MByte/Sec |
 | CBC        | 24 MByte/Sec | 25 MByte/Sec |
@@ -26,7 +27,7 @@ using AES-128 is shown below - units are Megabytes per second.
 | OFB        | 29 MByte/Sec | 29 MByte/Sec |
 
 Unless compatibility with IBM's BlueECC product is necessary, encryption / decryption using GCM block mode is deprecated.
-Use the `encryptAESGCM` / `decryptAESGCM` methods instead. Their performance is many times better.
+Use the encryptAESGCM / decryptAESGCM methods instead. Their performance is many times better.
 
 ### Example
 ```swift
@@ -63,7 +64,7 @@ do {
   print("\(error)")
 }
 ```
-giving
+giving:
 ```swift
 The quick brown fox jumps over the lazy dog!
 ```
@@ -115,7 +116,7 @@ AES encryption/decryption key = bytes 0 ..< 32
 HMAC key = bytes 32 ..< 64
 
 ### 
-The AES key and HMAC key can be retrieved with the ECPrivateKey method `getKeyAndMac`.
+The AES key and HMAC key can be retrieved with the `ECPrivateKey` method `getKeyAndMac`.
 
 For block modes CBC, CFB, CTR, and OFB the initialization vector (IV) is 16 zero bytes.
 

@@ -24,7 +24,7 @@ public struct Base64 {
     /// - Parameters:
     ///   - input: Bytes to encode
     ///   - pem: The PEM header- and footer string
-    /// - Returns: The Base64 PEM encoding of *input*
+    /// - Returns: The Base64 PEM encoding of `input`
     public static func pemEncode(_ input: Bytes, _ pem: String) -> String {
         return "-----BEGIN " + pem + "-----\n" + encode(input, 64) + "\n-----END " + pem + "-----"
     }
@@ -34,8 +34,8 @@ public struct Base64 {
     /// - Parameters:
     ///   - input: String to decode
     ///   - pem: The expected PEM header- and footer string
-    /// - Returns: The Base64 PEM decoding of *input*
-    /// - Throws: A *base64* exception or a *pemStructure* exception if the input is malformed
+    /// - Returns: The Base64 PEM decoding of `input`
+    /// - Throws: A `base64` exception or a `pemStructure` exception if the input is malformed
     public static func pemDecode(_ input: String, _ pem: String) throws -> Bytes {
         let parts = input.components(separatedBy: "-----")
         if parts.count != 5 {
@@ -52,7 +52,7 @@ public struct Base64 {
     /// - Parameters:
     ///   - input: Bytes to encode
     ///   - linesize: Number of characters per line - 76 is default
-    /// - Returns: The Base64 encoding of *input*
+    /// - Returns: The Base64 encoding of `input`
     public static func encode(_ input: Bytes, _ linesize: Int = 76) -> String {
         var base64 = ""
         var i = 0
@@ -95,8 +95,8 @@ public struct Base64 {
     ///
     /// - Parameters:
     ///   - input: String to decode
-    /// - Returns: The Base64 decoding of *input*
-    /// - Throws: A *base64* exception if the input is malformed
+    /// - Returns: The Base64 decoding of `input`
+    /// - Throws: A `base64` exception if the input is malformed
     public static func decode(_ input: String) throws -> Bytes {
         var bytes: Bytes = []
         var eq = 0

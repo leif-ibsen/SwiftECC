@@ -33,7 +33,7 @@ public struct RP: CustomStringConvertible, Equatable {
     ///
     /// - Parameters:
     ///   - m: The m exponent
-    ///   - k1: The k3 exponent
+    ///   - k1: The k1 exponent
     public init(_ m: Int, _ k1: Int) {
         self.init(m, 0, 0, k1)
     }
@@ -41,13 +41,13 @@ public struct RP: CustomStringConvertible, Equatable {
     
     // MARK: Stored Properties
 
-    /// The *m* exponent
+    /// The `m` exponent
     public let m: Int
-    /// The *k3* exponent
+    /// The `k3` exponent
     public let k3: Int
-    /// The *k2* exponent
+    /// The `k2` exponent
     public let k2: Int
-    /// The *k1* exponent
+    /// The `k1` exponent
     public let k1: Int
     /// The reduction polynomial as a BInt
     public let p: BInt
@@ -58,7 +58,7 @@ public struct RP: CustomStringConvertible, Equatable {
 
     // MARK: Computed Properties
 
-    /// Textual description of *self*
+    /// Textual description of `self`
     public var description: String { get { return "x^" + self.m.description
         + (self.k1 == 0 ? "" : "+x^" + self.k1.description)
         + (self.k2 == 0 ? "" : "+x^" + self.k2.description)
@@ -73,7 +73,7 @@ public struct RP: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - rp1: First reduction polynomial
     ///   - rp2: Second reduction polynomial
-    /// - Returns: *true* if rp1 = rp2. else *false*
+    /// - Returns: `true` if rp1 = rp2 else `false`
     public static func == (rp1: RP, rp2: RP) -> Bool {
         return rp1.m == rp2.m && rp1.k3 == rp2.k3 && rp1.k2 == rp2.k2 && rp1.k1 == rp2.k1
     }

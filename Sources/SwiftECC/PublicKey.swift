@@ -11,9 +11,7 @@ import ASN1
 import BigInt
 import Digest
 
-///
 /// An elliptic curve public key
-///
 public class ECPublicKey: CustomStringConvertible {
 
     // Cache multiples of w to speed up signature verification
@@ -27,7 +25,7 @@ public class ECPublicKey: CustomStringConvertible {
     /// - Parameters:
     ///   - domain: The domain
     ///   - w: The curve point
-    /// - Throws: A *publicKeyParameter* exception if *w* is not on the curve or is infinity
+    /// - Throws: A `publicKeyParameter` exception if `w` is not on the curve or is infinity
     public init(domain: Domain, w: Point) throws {
         if !domain.contains(w) || w.infinity {
             throw ECException.publicKeyParameter
@@ -106,14 +104,14 @@ public class ECPublicKey: CustomStringConvertible {
     
     // MARK: Computed Properties
 
-    /// The ASN1 encoding of *self*
+    /// The ASN1 encoding of `self`
     public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1Sequence().add(Domain.OID_EC).add(self.domain.asn1))
             .add(try ASN1BitString(self.domain.encodePoint(self.w), 0)) } catch { return ASN1.NULL } } }
-    /// The DER encoding of *self*
+    /// The DER encoding of `self`
     public var der: Bytes { get { return self.asn1.encode() } }
-    /// The PEM encoding of *self*
+    /// The PEM encoding of `self`
     public var pem: String { get { return Base64.pemEncode(self.der, "PUBLIC KEY") } }
-    /// A textual representation of the ASN1 encoding of *self*
+    /// A textual representation of the ASN1 encoding of `self`
     public var description: String { get { return self.asn1.description } }
 
     
@@ -123,9 +121,9 @@ public class ECPublicKey: CustomStringConvertible {
     ///
     /// - Parameters:
     ///   - signature: The signature to verify
-    ///   - msg: The message to verify *signature* for
+    ///   - msg: The message to verify `signature` for
     ///   - bw: Optional bitwidth used to select the proper message digest. By default the domain field size is used
-    /// - Returns: *true* if the signature is verified, else *false*
+    /// - Returns: `true` if the signature is verified, else `false`
     public func verify(signature: ECSignature, msg: Bytes, bw: Int? = nil) -> Bool {
         if self.domain != signature.domain {
             return false
@@ -171,9 +169,9 @@ public class ECPublicKey: CustomStringConvertible {
     ///
     /// - Parameters:
     ///   - signature: The signature to verify
-    ///   - msg: The message to verify *signature* for
+    ///   - msg: The message to verify `signature` for
     ///   - bw: Optional bitwidth used to select the proper message digest. By default the domain field size is used
-    /// - Returns: *true* if the signature is verified, else *false*
+    /// - Returns: `true` if the signature is verified, else `false`
     public func verify(signature: ECSignature, msg: Data, bw: Int? = nil) -> Bool {
         return self.verify(signature: signature, msg: Bytes(msg), bw: bw)
     }

@@ -35,13 +35,13 @@ The encryption and decryption speed for domain EC256k1 (the bitcoin domain) meas
 Apple M1 chip is shown below - units are Megabytes per second.
 
 | Algorithm         | Encrypt        | Decrypt        |
-|-------------------|----------------|----------------|
+|------------------:|---------------:|---------------:|
 | ChaCha20/Poly1305 | 500 MByte/Sec  | 425 MByte/Sec  |
 | AES-128/GCM       | 2000 MByte/Sec | 1200 MByte/Sec |
 
 
 ### Key Derivation
-SwiftECC uses the X9.63 Key Derivation Function to derive block cipher keying materiel. Please refer [SEC 1] section 3.6.
+SwiftECC uses the X9.63 Key Derivation Function to derive block cipher keying materiel. Please refer [SEC 1] section 3.6.  
 Four cases are considered:
 
 #### ChaCha20/Poly1305

@@ -1,8 +1,9 @@
 # Sign and Verify
 
 ## 
+
 Signing data and verifying signatures is performed using the ECDSA algorithm. It is possible to generate
-deterministic signatures as specified in [RFC-6979] by setting the `deterministic` parameter to `true` in the sign operation.
+deterministic signatures as specified in [RFC 6979] by setting the `deterministic` parameter to `true` in the sign operation.
 
 The message digest used in the process is determined from the domain field size as follows:
 

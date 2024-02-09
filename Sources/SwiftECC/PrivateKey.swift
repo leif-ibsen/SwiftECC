@@ -48,7 +48,7 @@ public class ECPrivateKey: CustomStringConvertible {
     ///
     /// - Parameters:
     ///   - der: The DER encoding of the key
-    ///   - pkcs8: *true* if the encoding is in PKCS#8 format - else *false*
+    ///   - pkcs8: `true` if the encoding is in PKCS#8 format - else `false`
     /// - Throws: An exception if the DER encoding is wrong
     public convenience init(der: Bytes, pkcs8: Bool = false) throws {
         let asn1 = try ASN1.build(der)
@@ -236,26 +236,26 @@ public class ECPrivateKey: CustomStringConvertible {
     
     // MARK: Computed Properties
     
-    /// The ASN1 encoding of *self*
+    /// The ASN1 encoding of `self`
     public var asn1: ASN1 { get { do { return ASN1Sequence().add(ASN1.ONE).add(ASN1OctetString(self.domain.align(self.s.asMagnitudeBytes()))).add(ASN1Ctx(0, [self.domain.asn1])).add(ASN1Ctx(1, [try ASN1BitString(self.domain.encodePoint(self.domain.multiplyG(self.s)), 0)])) } catch { return ASN1.NULL } } }
-    /// The DER encoding of *self*
+    /// The DER encoding of `self`
     public var der: Bytes { get { return self.asn1.encode() } }
-    /// The PEM base 64 encoding of *self*
+    /// The PEM encoding of `self`
     public var pem: String { get { return Base64.pemEncode(self.der, "EC PRIVATE KEY") } }
-    /// The DER encoding of *self* in PKCS#8 format
+    /// The DER encoding of `self` in PKCS#8 format
     public var derPkcs8: Bytes { get { return ASN1Sequence()
             .add(ASN1.ZERO)
             .add(ASN1Sequence().add(Domain.OID_EC).add(self.domain.asn1))
             .add(ASN1OctetString(self.asn1.encode())).encode() } }
-    /// The PEM base 64 encoding of *self* in PKCS#8 format
+    /// The PEM encoding of `self` in PKCS#8 format
     public var pemPkcs8: String { get { return Base64.pemEncode(self.derPkcs8, "PRIVATE KEY") } }
-    /// A textual representation of the ASN1 encoding of *self*
+    /// A textual representation of the ASN1 encoding of `self`
     public var description: String { get { return self.asn1.description } }
 
 
     // MARK: Instance Methods
     
-    /// Computes the password based encrypted encoding of *self* in DER format,
+    /// Computes the password based encrypted encoding of `self` in DER format,
     /// using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes
     ///
     /// - Parameters:
@@ -298,7 +298,7 @@ public class ECPrivateKey: CustomStringConvertible {
         return seq1.encode()
     }
 
-    /// Computes the password based encrypted encoding of *self* in PEM format,
+    /// Computes the password based encrypted encoding of `self` in PEM format,
     /// using cipher block mode = CBC, iteration count = 2048 and salt = 8 random bytes
     ///
     /// - Parameters:
@@ -313,7 +313,7 @@ public class ECPrivateKey: CustomStringConvertible {
     ///
     /// - Parameters:
     ///   - msg: The message to sign
-    ///   - deterministic: If *true* generate a deterministic signature according to RFC-6979, if *false* generate a non-deterministic signature - *false* is default
+    ///   - deterministic: If `true` generate a deterministic signature according to RFC 6979, if `false` generate a non-deterministic signature - `false` is default
     /// - Returns: The signature
     public func sign(msg: Bytes, deterministic: Bool = false) -> ECSignature {
         let mdKind = ECPrivateKey.getMDKind(self.domain)
@@ -337,7 +337,7 @@ public class ECPrivateKey: CustomStringConvertible {
     ///
     /// - Parameters:
     ///   - msg: The message to sign
-    ///   - deterministic: If *true* generate a deterministic signature according to RFC-6979, if *false* generate a non-deterministic signature - *false* is default
+    ///   - deterministic: If `true` generate a deterministic signature according to RFC 6979, if `false` generate a non-deterministic signature - `false` is default
     /// - Returns: The signature
     public func sign(msg: Data, deterministic: Bool = false) -> ECSignature {
         return self.sign(msg: Bytes(msg), deterministic: deterministic)
@@ -500,9 +500,9 @@ public class ECPrivateKey: CustomStringConvertible {
     ///
     /// - Parameters:
     ///   - pubKey: The other party's public key
-    ///   - cofactor: Use cofactor version - *false* is default
+    ///   - cofactor: Use cofactor version - `false` is default
     /// - Returns: The shared secret
-    /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain
+    /// - Throws: An exception if `self` and `pubKey` do not belong to the same domain
     public func sharedSecret(pubKey: ECPublicKey, cofactor: Bool = false) throws -> Bytes {
         guard self.domain == pubKey.domain else {
             throw ECException.keyAgreementParameter
@@ -521,9 +521,9 @@ public class ECPrivateKey: CustomStringConvertible {
     ///   - length: The required length of the shared secret
     ///   - kind: The message digest kind to use
     ///   - sharedInfo: Information shared with the other party
-    ///   - cofactor: Use cofactor version - *false* is default
+    ///   - cofactor: Use cofactor version - `false` is default
     /// - Returns: A byte array which is the shared secret key
-    /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* is negative
+    /// - Throws: An exception if `self` and `pubKey` do not belong to the same domain or `length` is negative
     public func x963KeyAgreement(pubKey: ECPublicKey, length: Int, kind: MessageDigest.Kind, sharedInfo: Bytes, cofactor: Bool = false) throws -> Bytes {
         let Z = try self.sharedSecret(pubKey: pubKey, cofactor: cofactor)
         if length >= ECPrivateKey.digestLength(kind) * 0xffffffff || length < 0 {
@@ -534,7 +534,7 @@ public class ECPrivateKey: CustomStringConvertible {
     
     /// Computes a shared secret key using Diffie-Hellman key agreement
     ///
-    /// This is the HKDF version from [RFC-5869].
+    /// This is the HKDF version from [RFC 5869].
     /// The method is compatible with the CryptoKit method `hkdfDerivedSymmetricKey`.
     ///
     /// - Parameters:
@@ -543,9 +543,9 @@ public class ECPrivateKey: CustomStringConvertible {
     ///   - kind: The message digest kind to use
     ///   - sharedInfo: Information shared with the other party - possibly empty
     ///   - salt: The salt to use - possibly empty
-    ///   - cofactor: Use cofactor version - *false* is default
+    ///   - cofactor: Use cofactor version - `false` is default
     /// - Returns: A byte array which is the shared secret key
-    /// - Throws: An exception if *this* and *pubKey* do not belong to the same domain or *length* has wrong size
+    /// - Throws: An exception if `self` and `pubKey` do not belong to the same domain or `length` has wrong size
     public func hkdfKeyAgreement(pubKey: ECPublicKey, length: Int, kind: MessageDigest.Kind, sharedInfo: Bytes, salt: Bytes, cofactor: Bool = false) throws -> Bytes {
         let Z = try self.sharedSecret(pubKey: pubKey, cofactor: cofactor)
         return KDF.HKDF(kind, Z, length, sharedInfo, salt)

@@ -8,7 +8,7 @@
 import BigInt
 import Digest
 
-// Generate a deterministic K value for a signature - please refer [RFC-6979]
+// Generate a deterministic K value for a signature - please refer [RFC 6979]
 class DeterministicK {
     
     let kind: MessageDigest.Kind

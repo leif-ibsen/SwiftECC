@@ -5,12 +5,10 @@
 //  Created by Leif Ibsen on 18/02/2020.
 //
 
-///
 /// Elliptic curve exceptions
-///
 public enum ECException: Error, CustomStringConvertible {
     
-    /// Textual description of *self*
+    /// Textual description of `self`
     public var description: String {
         switch self {
         case .authentication:

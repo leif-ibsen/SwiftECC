@@ -41,13 +41,13 @@ public struct Point: CustomStringConvertible, Equatable {
     public let x: BInt
     /// The y coordinate
     public let y: BInt
-    /// Is *true* if *self* is the point at infinity, else *false*
+    /// Is `true` if `self` is the point at infinity, else `false`
     public let infinity: Bool
     
     
     // MARK: Computed Properties
     
-    /// Textual description of *self*
+    /// Textual description of `self`
     public var description: String {
         return self.infinity ? "Point(infinity)" : "Point(\(self.x), \(self.y))"
     }
@@ -60,7 +60,7 @@ public struct Point: CustomStringConvertible, Equatable {
     /// - Parameters:
     ///   - p1: First point
     ///   - p2: Second point
-    /// - Returns: *true* if p1 = p2, else *false*
+    /// - Returns: `true` if p1 = p2, else `false`
     public static func == (p1: Point, p2: Point) -> Bool {
         return p1.x == p2.x && p1.y == p2.y && p1.infinity == p2.infinity
     }

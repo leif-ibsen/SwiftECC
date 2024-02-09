@@ -22,7 +22,7 @@ print("p1 * 2  =", try domain.multiplyPoint(p1, BInt(2)))
 // Inspect the domain - please refer [SEC 1] appendix C.2
 print(domain.asn1Explicit())
 ```
-giving
+giving:
 ```swift
 p1 + p2 = Point(13, 6)
 p1 * 2  = Point(14, 6)
@@ -60,7 +60,7 @@ print("p1 * 2  =", try domain.multiplyPoint(p1, BInt(2)))
 // Inspect the domain - please refer [SEC 1] appendix C.2
 print(domain.asn1Explicit())
 ```
-giving
+giving:
 ```swift
 p1 + p2 = Point(1, 1)
 p1 * 2  = Point(11, 2)
