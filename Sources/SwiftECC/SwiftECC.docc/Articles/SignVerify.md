@@ -1,5 +1,7 @@
 # Sign and Verify
 
+Signing data and verifying signatures
+
 ## 
 
 Signing data and verifying signatures is performed using the ECDSA algorithm. It is possible to generate
@@ -12,7 +14,8 @@ The message digest used in the process is determined from the domain field size 
 * 256 < field size <= 384: SHA2-384
 * 384 < field size: SHA2-512
 
-### Example
+#### Example
+
 ```swift
 import SwiftECC
 
@@ -40,7 +43,9 @@ let sig = privKey.sign(msg: message)
 let ok = pubKey.verify(signature: sig, msg: message)
 print("Signature is", ok ? "good" : "wrong")
 ```
+
 giving (for example):
+
 ```swift
 Sequence (2):
   Sequence (2):
@@ -59,16 +64,18 @@ Sequence (4):
 Signature is good
 ```
 
-### BlueECC Compatibility
+#### BlueECC Compatibility
+
 Signatures created by SwiftECC in the EC256r1, EC384r1 and EC521r1 domains can be verified by IBM's BlueECC product
 using curve prime256v1, secp384r1 and secp521r1, respectively.
 
 Likewise, signatures created by BlueECC with one of the curves
 prime256v1, secp384r1 and secp521r1 can be verified by SwiftECC using domains EC256r1, EC384r1 and EC521r1, respectively.
 
-### CryptoKit Compatibility
-Signatures created by SwiftECC in the EC256r1, EC384r1 and EC521r1 domains can be verified by Apple CryptoKit
+#### CryptoKit Compatibility
+
+Signatures created by SwiftECC in the EC256r1, EC384r1 and EC521r1 domains can be verified by CryptoKit
 using curve P256, P384 and P521, respectively.
 
-Likewise, signatures created by Apple CryptoKit with one of the curves
+Likewise, signatures created by CryptoKit with one of the curves
 P256, P384 and P521 can be verified by SwiftECC using domains EC256r1, EC384r1 and EC521r1, respectively.

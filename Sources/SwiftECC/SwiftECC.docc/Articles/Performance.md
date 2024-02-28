@@ -1,5 +1,7 @@
 # Performance
 
+Execution times for certain SwiftECC operations
+
 ## 
 To assess the performance of SwiftECC, the signature generation and verification time and the keypair generation time
 was measured on an iMac 2021, Apple M1 chip. The results are shown in the table below - units are milliseconds. The columns mean:
@@ -9,7 +11,7 @@ was measured on an iMac 2021, Apple M1 chip. The results are shown in the table 
 * **Keypair Generation:** The time it takes to generate a public / private keypair
 
 | Curve           | Sign      | Verify   | Keypair Generation |
-|:----------------|----------:|---------:|-------------------:|
+|----------------:|----------:|---------:|-------------------:|
 | brainpoolP160r1 | 0.7 mSec  | 1.3 mSec | 2.9 mSec           |
 | brainpoolP160t1 | 0.7 mSec  | 1.4 mSec | 2.9 mSec           |
 | brainpoolP192r1 | 0.96 mSec | 1.8 mSec | 3.9 mSec           |

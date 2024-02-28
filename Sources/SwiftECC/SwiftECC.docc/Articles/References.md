@@ -1,8 +1,8 @@
 # References
 
+Algorithms from the following books and papers have been used in the implementation
+
 ## 
-Algorithms from the following books and papers have been used in the implementation.
-There are references in the source code where appropriate.
 
 * [FIPS 180-4] - FIPS PUB 180-4 - Secure Hash Standard (SHS), August 2015
 * [GCM] - The Galois/Counter Mode of Operation (GCM)

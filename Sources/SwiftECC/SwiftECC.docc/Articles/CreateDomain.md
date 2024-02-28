@@ -1,11 +1,13 @@
 # Create new Domains
 
-## 
-You can create your own domains as illustrated by the two examples below.
+You can create your own domains as illustrated by two examples
 
-### Example 1
+## 
+
+#### Example 1
 
 This is example 3.5 from [GUIDE]. It shows how to make your own prime characteristic domain.
+
 ```swift
 import SwiftECC
 import BigInt
@@ -22,7 +24,9 @@ print("p1 * 2  =", try domain.multiplyPoint(p1, BInt(2)))
 // Inspect the domain - please refer [SEC 1] appendix C.2
 print(domain.asn1Explicit())
 ```
+
 giving:
+
 ```swift
 p1 + p2 = Point(13, 6)
 p1 * 2  = Point(14, 6)
@@ -38,9 +42,11 @@ Sequence (6):
   Integer: 37
   Integer: 1
 ```
-### Example 2
+
+#### Example 2
 
 This is example 3.6 from [GUIDE]. It shows how to make your own characteristic 2 domain.
+
 ```swift
 import SwiftECC
 import BigInt
@@ -60,7 +66,9 @@ print("p1 * 2  =", try domain.multiplyPoint(p1, BInt(2)))
 // Inspect the domain - please refer [SEC 1] appendix C.2
 print(domain.asn1Explicit())
 ```
+
 giving:
+
 ```swift
 p1 + p2 = Point(1, 1)
 p1 * 2  = Point(11, 2)

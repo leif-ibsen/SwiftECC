@@ -5,7 +5,7 @@
 //  Created by Leif Ibsen on 18/02/2020.
 //
 
-/// Predefined elliptic curves
+/// The predefined elliptic curves
 public enum ECCurve: CaseIterable {
     /// brainpoolP160r1 curve
     case BP160r1

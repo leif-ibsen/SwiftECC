@@ -1,7 +1,8 @@
 # ``SwiftECC/Point``
 
+An elliptic curve point
+
 ## Overview
-Point instances contain elliptic curve points.
 
 For points in a prime characteristic domain, the x-coordinate and y-coordinate are non-negative integers.
 
@@ -25,6 +26,6 @@ where the coefficients (0 or 1) are the bits of the x and y values.
 
 - ``init(_:_:)``
 
-### Methods
+### Equality
 
 - ``==(_:_:)``

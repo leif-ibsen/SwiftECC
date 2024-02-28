@@ -8,9 +8,6 @@
 import ASN1
 import BigInt
 
-///
-/// An elliptic curve signature
-///
 public class ECSignature {
 
     // MARK: Initializers

@@ -11,7 +11,6 @@ import ASN1
 import BigInt
 import Digest
 
-/// An elliptic curve public key
 public class ECPublicKey: CustomStringConvertible {
 
     // Cache multiples of w to speed up signature verification

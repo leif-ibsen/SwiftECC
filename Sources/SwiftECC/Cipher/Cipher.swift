@@ -13,7 +13,7 @@ typealias Words = [Word]
 typealias Limb = UInt64
 typealias Limbs = [Limb]
 
-/// AES block ciphers
+/// The AES block ciphers
 public enum AESCipher: CaseIterable {
     /// AES 128 bit block cipher
     case AES128
@@ -23,7 +23,7 @@ public enum AESCipher: CaseIterable {
     case AES256
 }
 
-/// Block cipher modes
+/// The block cipher modes
 public enum BlockMode: CaseIterable {
     /// Cipher Block Chaining mode
     case CBC

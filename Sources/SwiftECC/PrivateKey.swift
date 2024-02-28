@@ -11,9 +11,6 @@ import ASN1
 import BigInt
 import Digest
 
-///
-/// An elliptic curve private key
-///
 public class ECPrivateKey: CustomStringConvertible {
     
     static let AES128CBC_OID = ASN1ObjectIdentifier("2.16.840.1.101.3.4.1.2")!

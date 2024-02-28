@@ -1,6 +1,8 @@
 # ``SwiftECC/ECPrivateKey``
 
-## Overview
+An elliptic curve private key
+
+## Overview 
 
 Use private keys to:
 

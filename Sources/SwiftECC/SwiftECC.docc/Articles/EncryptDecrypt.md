@@ -1,5 +1,7 @@
 # Encrypt and Decrypt
 
+ECIES encryption and decryption
+
 ## 
 
 Encryption and decryption is done using the ECIES algorithm based on the AES block cipher using one of
@@ -27,9 +29,10 @@ using AES-128 is shown below - units are Megabytes per second.
 | OFB        | 29 MByte/Sec | 29 MByte/Sec |
 
 Unless compatibility with IBM's BlueECC product is necessary, encryption / decryption using GCM block mode is deprecated.
-Use the encryptAESGCM / decryptAESGCM methods instead. Their performance is many times better.
+Use the ``SwiftECC/ECPublicKey/encryptAESGCM(msg:cipher:aad:)-7ow39`` / ``SwiftECC/ECPrivateKey/decryptAESGCM(msg:cipher:aad:)-7hhik`` methods instead. Their performance is many times better.
 
-### Example
+#### Example
+
 ```swift
 import SwiftECC
 
@@ -64,63 +67,62 @@ do {
   print("\(error)")
 }
 ```
+
 giving:
+
 ```swift
 The quick brown fox jumps over the lazy dog!
 ```
 
-### Key Derivation
+#### Key Derivation
+
 SwiftECC uses the X9.63 Key Derivation Function to derive block cipher keying materiel. Please refer [SEC 1] section 3.6.
 Six cases are considered:
 
-#### AES-128/GCM block mode
-KDF generates 32 bytes.
+* **AES-128/GCM block mode**
 
-AES encryption/decryption key = bytes 0 ..< 16
+    KDF generates 32 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 16  
+    Nonce = bytes 16 ..< 32  
 
-Nonce = bytes 16 ..< 32
+* **AES-192/GCM block mode**
 
-#### AES-192/GCM block mode
-KDF generates 40 bytes.
+    KDF generates 40 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 24  
+    Nonce = bytes 24 ..< 40  
 
-AES encryption/decryption key = bytes 0 ..< 24
+* **AES-256/GCM block mode**
 
-Nonce = bytes 24 ..< 40
+    KDF generates 48 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 32  
+    Nonce = bytes 32 ..< 48  
 
-#### AES-256/GCM block mode
-KDF generates 48 bytes.
+* **AES-128/Non-GCM block mode**
 
-AES encryption/decryption key = bytes 0 ..< 32
+    KDF generates 48 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 16  
+    HMAC key = bytes 16 ..< 48  
 
-Nonce = bytes 32 ..< 48
+* **AES-192/Non-GCM block mode**
 
-#### AES-128/Non-GCM block mode
-KDF generates 48 bytes.
+    KDF generates 56 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 24  
+    HMAC key = bytes 24 ..< 56  
 
-AES encryption/decryption key = bytes 0 ..< 16
+* **AES-256/Non-GCM block mode**
 
-HMAC key = bytes 16 ..< 48
+    KDF generates 64 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 32  
+    HMAC key = bytes 32 ..< 64  
 
-#### AES-192/Non-GCM block mode
-KDF generates 56 bytes.
-
-AES encryption/decryption key = bytes 0 ..< 24
-
-HMAC key = bytes 24 ..< 56
-
-#### AES-256/Non-GCM block mode
-KDF generates 64 bytes.
-
-AES encryption/decryption key = bytes 0 ..< 32
-
-HMAC key = bytes 32 ..< 64
-
-### 
-The AES key and HMAC key can be retrieved with the `ECPrivateKey` method `getKeyAndMac`.
+#### IV
 
 For block modes CBC, CFB, CTR, and OFB the initialization vector (IV) is 16 zero bytes.
 
-### BlueECC Compatibility
+The AES key and HMAC key can be retrieved with the `ECPrivateKey` method ``SwiftECC/ECPrivateKey/getKeyAndMac(msg:cipher:mode:)-8d85z``.
+
+#### BlueECC Compatibility
+
 Data encrypted by SwiftECC in the EC256r1 domain with AES128/GCM, in the EC384r1 domain with AES256/GCM
 and in the EC521r1 domain with AES256/GCM can be decrypted with IBM's BlueECC product using curve prime256v1,
 secp384r1, and secp521r1, respectively.

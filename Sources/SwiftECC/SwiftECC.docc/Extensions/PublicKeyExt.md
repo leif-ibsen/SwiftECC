@@ -1,5 +1,7 @@
 # ``SwiftECC/ECPublicKey``
 
+An elliptic curve public key
+
 ## Overview
 
 Use public keys to:

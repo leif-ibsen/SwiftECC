@@ -55,12 +55,12 @@ public struct Point: CustomStringConvertible, Equatable {
     
     // MARK: Instance Methods
     
-    /// Tests equality of Points
+    /// Equality of Points
     ///
     /// - Parameters:
     ///   - p1: First point
     ///   - p2: Second point
-    /// - Returns: `true` if p1 = p2, else `false`
+    /// - Returns: `true` if p1 and p2 are equal, `false` otherwise
     public static func == (p1: Point, p2: Point) -> Bool {
         return p1.x == p2.x && p1.y == p2.y && p1.infinity == p2.infinity
     }

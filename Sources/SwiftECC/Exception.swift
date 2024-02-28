@@ -5,7 +5,7 @@
 //  Created by Leif Ibsen on 18/02/2020.
 //
 
-/// Elliptic curve exceptions
+/// The elliptic curve exceptions
 public enum ECException: Error, CustomStringConvertible {
     
     /// Textual description of `self`

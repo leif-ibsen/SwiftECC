@@ -1,7 +1,8 @@
 # Elliptic Curve Arithmetic
 
+SwiftECC implements the common elliptic curve arithmetic operations
+
 ## 
-SwiftECC implements the common elliptic curve arithmetic operations:
 
 * Point doubling
 * Point addition
@@ -12,4 +13,5 @@ SwiftECC implements the common elliptic curve arithmetic operations:
 
 It is also possible to encode curve points in either compressed- or uncompressed format,
 as well as to do the reverse decoding.
+This is done using the `Domain` methods ``SwiftECC/Domain/encodePoint(_:_:)`` and ``SwiftECC/Domain/decodePoint(_:)``.
 

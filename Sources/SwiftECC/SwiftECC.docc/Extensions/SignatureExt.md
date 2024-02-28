@@ -1,5 +1,7 @@
 # ``SwiftECC/ECSignature``
 
+An elliptic curve signature
+
 ## Topics
 
 ### Properties

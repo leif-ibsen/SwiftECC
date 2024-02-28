@@ -68,12 +68,12 @@ public struct RP: CustomStringConvertible, Equatable {
     
     // MARK: Instance Methods
     
-    /// Tests equality of reduction polynomials
+    /// Equality of reduction polynomials
     ///
     /// - Parameters:
     ///   - rp1: First reduction polynomial
     ///   - rp2: Second reduction polynomial
-    /// - Returns: `true` if rp1 = rp2 else `false`
+    /// - Returns: `true` if rp1 and rp2 are equal, `false` otherwise
     public static func == (rp1: RP, rp2: RP) -> Bool {
         return rp1.m == rp2.m && rp1.k3 == rp2.k3 && rp1.k2 == rp2.k2 && rp1.k1 == rp2.k1
     }

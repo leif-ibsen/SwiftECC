@@ -1,10 +1,14 @@
 # AEAD Encrypt and Decrypt
 
-## 
-Authenticated Encryption with Associated Data (AEAD) is implemented with the ChaCha20 / Poly1305 algorithm and the AES / GCM algorithm.
-Both implementations use Apple's CryptoKit framework, that takes advantage of hardware support for the AES and GCM algorithms.
+Authenticated Encryption with Associated Data
 
-### Example
+## 
+
+Authenticated Encryption with Associated Data (AEAD) is implemented with the ChaCha20 / Poly1305 algorithm and the AES / GCM algorithm.
+Both implementations use the CryptoKit framework, that takes advantage of hardware support for the AES and GCM algorithms.
+
+#### Example
+
 ```swift
 import SwiftECC
 
@@ -26,11 +30,14 @@ do {
   print("Exception: \(error)")
 }
 ```
+
 giving:
+
 ```swift
 Hi, there!
 Hi, there!
 ```
+
 The encryption and decryption speed for domain EC256k1 (the bitcoin domain) measured on an iMac 2021,
 Apple M1 chip is shown below - units are Megabytes per second.
 
@@ -40,34 +47,31 @@ Apple M1 chip is shown below - units are Megabytes per second.
 | AES-128/GCM       | 2000 MByte/Sec | 1200 MByte/Sec |
 
 
-### Key Derivation
+#### Key Derivation
+
 SwiftECC uses the X9.63 Key Derivation Function to derive block cipher keying materiel. Please refer [SEC 1] section 3.6.  
 Four cases are considered:
 
-#### ChaCha20/Poly1305
-KDF generates 44 bytes.
+* **ChaCha20/Poly1305**
 
-Encryption/decryption key = bytes 0 ..< 32
+    KDF generates 44 bytes.  
+    Encryption/decryption key = bytes 0 ..< 32  
+    Nonce = bytes 32 ..< 44  
 
-Nonce = bytes 32 ..< 44
+* **AES-128/GCM**
 
-#### AES-128/GCM
-KDF generates 28 bytes.
+    KDF generates 28 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 16  
+    Nonce = bytes 16 ..< 28  
 
-AES encryption/decryption key = bytes 0 ..< 16
+* **AES-192/GCM**
 
-Nonce = bytes 16 ..< 28
+    KDF generates 36 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 24  
+    Nonce = bytes 24 ..< 36  
 
-#### AES-192/GCM
-KDF generates 36 bytes.
+* **AES-256/GCM**
 
-AES encryption/decryption key = bytes 0 ..< 24
-
-Nonce = bytes 24 ..< 36
-
-#### AES-256/GCM
-KDF generates 44 bytes.
-
-AES encryption/decryption key = bytes 0 ..< 32
-
-Nonce = bytes 32 ..< 44
+    KDF generates 44 bytes.  
+    AES encryption/decryption key = bytes 0 ..< 32  
+    Nonce = bytes 32 ..< 44  
