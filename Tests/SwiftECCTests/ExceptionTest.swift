@@ -49,19 +49,6 @@ class ExceptionTest: XCTestCase {
         }
     }
 
-    func testBase64() {
-        do {
-            let bytes: Bytes = [1, 2, 3]
-            var b64 = Base64.encode(bytes)
-            b64.append("a")
-            _ = try Base64.decode(b64)
-            XCTFail("Expected ECException.base64")
-        } catch ECException.base64 {
-        } catch {
-            XCTFail("Expected ECException.base64")
-        }
-    }
-
     func testDecodePoint() {
         do {
             let domain = Domain.instance(curve: .BP160r1)
@@ -132,8 +119,7 @@ class ExceptionTest: XCTestCase {
     }
 
     func testPemStructure() {
-        do {
-            let priv521r1 =
+        let priv521r1 =
 """
 -----BEGIN EC PRIVATE KEY-----
 MIHcAgEBBEIBmrX72oofcDCHf3IWmlM1Cb4MzK4rTubdEf8UmY08EuUAFQVbYc90k1yeGCQTTDr3
@@ -142,12 +128,7 @@ BJ1Ih0zTull/inAHWp3DWm3kL03lNWn5X+jHTnsRZB7I1VbY0ezuk1iVmABsPeSXKe69dMouEuTC
 jaIqUG0ZPxgrLNoic4S+euqwVc3o6QX4JbMVy5hqAPjAPZBqwpo41MuHCeZYxKt3FOZPwQ==
 -----END EC PRIVATE KEY-----
 """
-            _ = try Base64.pemDecode(priv521r1, "PRIVATE KEY")
-            XCTFail("Expected ECException.pemStructure")
-        } catch ECException.pemStructure {
-        } catch {
-            XCTFail("Expected ECException.pemStructure")
-        }
+        XCTAssertNil(Base64.pemDecode(priv521r1, "PRIVATE KEY"))
     }
 
     func testPrivateKeyParameter() {

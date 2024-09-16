@@ -1,6 +1,6 @@
 # ``SwiftECC``
 
-Elliptic curve cryptography
+Elliptic Curve Cryptography
 
 ## Overview
 
@@ -40,7 +40,7 @@ To use SwiftECC, in your project *Package.swift* file add a dependency like
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "5.3.0"),
+  .package(url: "https://github.com/leif-ibsen/SwiftECC", from: "5.4.0"),
 ]
 ```
 
@@ -48,9 +48,9 @@ SwiftECC itself depends on the ASN1, BigInt and Digest packages
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/leif-ibsen/ASN1", from: "2.5.0"),
-  .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.16.0"),
-  .package(url: "https://github.com/leif-ibsen/Digest", from: "1.4.0"),
+  .package(url: "https://github.com/leif-ibsen/ASN1", from: "2.6.0"),
+  .package(url: "https://github.com/leif-ibsen/BigInt", from: "1.19.0"),
+  .package(url: "https://github.com/leif-ibsen/Digest", from: "1.8.0"),
 ],
 ```
 
@@ -73,7 +73,6 @@ for iOS the version must be at least 13, and for watchOS the version must be at 
 
 - ``SwiftECC/Point``
 - ``SwiftECC/RP``
-- ``SwiftECC/Base64``
 
 ### Type Aliases
 
@@ -99,4 +98,3 @@ for iOS the version must be at least 13, and for watchOS the version must be at 
 - <doc:ECArithmetic>
 - <doc:Performance>
 - <doc:References>
-- <doc:Acknowledgement>

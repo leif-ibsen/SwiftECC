@@ -76,7 +76,10 @@ public class ECPublicKey: CustomStringConvertible {
     ///   - pem: The PEM encoding of the key
     /// - Throws: An exception if the PEM encoding is wrong
     public convenience init(pem: String) throws {
-        try self.init(der: Base64.pemDecode(pem, "PUBLIC KEY"))
+        guard let der = Base64.pemDecode(pem, "PUBLIC KEY") else {
+            throw ECException.pemStructure
+        }
+        try self.init(der: der)
     }
     
     /// Creates a public key from the corresponding private key

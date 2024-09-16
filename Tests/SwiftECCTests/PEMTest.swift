@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import SwiftECC
+import Digest
 
 class PEMTest: XCTestCase {
 

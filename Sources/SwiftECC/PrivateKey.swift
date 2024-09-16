@@ -107,9 +107,15 @@ public class ECPrivateKey: CustomStringConvertible {
     /// - Throws: An exception if the PEM encoding is wrong
     public convenience init(pem: String) throws {
         if pem.starts(with: "-----BEGIN PRIVATE KEY") {
-            try self.init(der: Base64.pemDecode(pem, "PRIVATE KEY"), pkcs8: true)
+            guard let der = Base64.pemDecode(pem, "PRIVATE KEY") else {
+                throw ECException.pemStructure
+            }
+            try self.init(der: der, pkcs8: true)
         } else {
-            try self.init(der: Base64.pemDecode(pem, "EC PRIVATE KEY"), pkcs8: false)
+            guard let der = Base64.pemDecode(pem, "EC PRIVATE KEY") else {
+                throw ECException.pemStructure
+            }
+            try self.init(der: der, pkcs8: false)
         }
     }
 
@@ -219,7 +225,10 @@ public class ECPrivateKey: CustomStringConvertible {
     ///   - password: The password
     /// - Throws: An exception if the PEM encoding is wrong
     public convenience init(pem: String, password: Bytes) throws {
-        try self.init(der: Base64.pemDecode(pem, "ENCRYPTED PRIVATE KEY"), password: password)
+        guard let der = Base64.pemDecode(pem, "ENCRYPTED PRIVATE KEY") else {
+            throw ECException.pemStructure
+        }
+        try self.init(der: der, password: password)
     }
 
     

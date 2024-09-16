@@ -8,11 +8,19 @@
 import XCTest
 @testable import SwiftECC
 import CryptoKit
+import Digest
 
 // Test compatibility with Swift CryptoKit
 class CryptoKitTest: XCTestCase {
 
     static let message = "The quick brown fox jumps over the lazy dog!".data(using: .utf8)!
+
+    // SwiftECC uses Base64 line size = 76
+    // CryptoKit uses Base64 line size = 64
+    // Convert from SwiftECC size to CryptoKit size
+    func from76to64(_ s: String) -> String {
+        return Base64.pemEncode(Base64.pemDecode(s, "PUBLIC KEY")!, "PUBLIC KEY", 64)
+    }
 
     // CryptoKit signs, SwiftECC verifies
     func doTest256A() throws {
@@ -31,7 +39,7 @@ class CryptoKitTest: XCTestCase {
         let (eccPubKey, eccPrivKey) = domain.makeKeyPair()
         let eccSignature = eccPrivKey.sign(msg: CryptoKitTest.message)
         let ckSignature = try P256.Signing.ECDSASignature(rawRepresentation: eccSignature.r + eccSignature.s)
-        let ckPubKey = try P256.Signing.PublicKey(pemRepresentation: eccPubKey.pem)
+        let ckPubKey = try P256.Signing.PublicKey(pemRepresentation: from76to64(eccPubKey.pem))
         XCTAssertTrue(ckPubKey.isValidSignature(ckSignature, for: CryptoKitTest.message))
     }
 
@@ -52,7 +60,7 @@ class CryptoKitTest: XCTestCase {
         let (eccPubKey, eccPrivKey) = domain.makeKeyPair()
         let signature = eccPrivKey.sign(msg: CryptoKitTest.message)
         let ckSignature = try P384.Signing.ECDSASignature(rawRepresentation: signature.r + signature.s)
-        let ckPubKey = try P384.Signing.PublicKey(pemRepresentation: eccPubKey.pem)
+        let ckPubKey = try P384.Signing.PublicKey(pemRepresentation: from76to64(eccPubKey.pem))
         XCTAssertTrue(ckPubKey.isValidSignature(ckSignature, for: CryptoKitTest.message))
     }
 
@@ -73,7 +81,7 @@ class CryptoKitTest: XCTestCase {
         let (eccPubKey, eccPrivKey) = domain.makeKeyPair()
         let eccSignature = eccPrivKey.sign(msg: CryptoKitTest.message)
         let ckSignature = try P521.Signing.ECDSASignature(rawRepresentation: eccSignature.r + eccSignature.s)
-        let ckPubKey = try P521.Signing.PublicKey(pemRepresentation: eccPubKey.pem)
+        let ckPubKey = try P521.Signing.PublicKey(pemRepresentation: from76to64(eccPubKey.pem))
         XCTAssertTrue(ckPubKey.isValidSignature(ckSignature, for: CryptoKitTest.message))
     }
 
@@ -87,7 +95,8 @@ class CryptoKitTest: XCTestCase {
         let eccPubKey2 = try ECPublicKey(pem: ckPubKey.pemRepresentation)
 
         // SwiftECC public key converted to CryptoKit format
-        let ckPubKey2 = try P256.KeyAgreement.PublicKey(pemRepresentation: eccPubKey.pem)
+        let pemRep = from76to64(eccPubKey.pem)
+        let ckPubKey2 = try P256.KeyAgreement.PublicKey(pemRepresentation: pemRep)
 
         // Secret computed with CryptoKit keys
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA256.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
@@ -114,7 +123,8 @@ class CryptoKitTest: XCTestCase {
         let eccPubKey2 = try ECPublicKey(pem: ckPubKey.pemRepresentation)
 
         // SwiftECC public key converted to CryptoKit format
-        let ckPubKey2 = try P384.KeyAgreement.PublicKey(pemRepresentation: eccPubKey.pem)
+        let pemRep = from76to64(eccPubKey.pem)
+        let ckPubKey2 = try P384.KeyAgreement.PublicKey(pemRepresentation: pemRep)
         
         // Secret computed with CryptoKit keys
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA384.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
@@ -141,7 +151,8 @@ class CryptoKitTest: XCTestCase {
         let eccPubKey2 = try ECPublicKey(pem: ckPubKey.pemRepresentation)
 
         // SwiftECC public key converted to CryptoKit format
-        let ckPubKey2 = try P521.KeyAgreement.PublicKey(pemRepresentation: eccPubKey.pem)
+        let pemRep = from76to64(eccPubKey.pem)
+        let ckPubKey2 = try P521.KeyAgreement.PublicKey(pemRepresentation: pemRep)
 
         // Secret computed with CryptoKit keys
         let secret1 = try ckPrivKey.sharedSecretFromKeyAgreement(with: ckPubKey2).x963DerivedSymmetricKey(using: SHA512.self, sharedInfo: info, outputByteCount: length).withUnsafeBytes({return Array($0)})
@@ -190,23 +201,24 @@ class CryptoKitTest: XCTestCase {
     func testConversion() throws {
         let d256 = Domain.instance(curve: .EC256r1)
         let (pub256, _) = d256.makeKeyPair()
-        let ckPubKey256 = try P256.KeyAgreement.PublicKey(pemRepresentation: pub256.pem)
+        let ckPubKey256 = try P256.KeyAgreement.PublicKey(pemRepresentation: from76to64(pub256.pem))
         let pub1 = try ECPublicKey(pem: ckPubKey256.pemRepresentation)
         XCTAssertEqual(pub256.domain, pub1.domain)
         XCTAssertEqual(pub256.w, pub1.w)
 
         let d384 = Domain.instance(curve: .EC384r1)
         let (pub384, _) = d384.makeKeyPair()
-        let ckPubKey384 = try P384.KeyAgreement.PublicKey(pemRepresentation: pub384.pem)
+        let ckPubKey384 = try P384.KeyAgreement.PublicKey(pemRepresentation: from76to64(pub384.pem))
         let pub2 = try ECPublicKey(pem: ckPubKey384.pemRepresentation)
         XCTAssertEqual(pub384.domain, pub2.domain)
         XCTAssertEqual(pub384.w, pub2.w)
 
         let d521 = Domain.instance(curve: .EC521r1)
         let (pub521, _) = d521.makeKeyPair()
-        let ckPubKey521 = try P521.KeyAgreement.PublicKey(pemRepresentation: pub521.pem)
+        let ckPubKey521 = try P521.KeyAgreement.PublicKey(pemRepresentation: from76to64(pub521.pem))
         let pub3 = try ECPublicKey(pem: ckPubKey521.pemRepresentation)
         XCTAssertEqual(pub521.domain, pub3.domain)
         XCTAssertEqual(pub521.w, pub3.w)
     }
+
 }

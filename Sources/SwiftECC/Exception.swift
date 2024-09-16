@@ -17,8 +17,6 @@ public enum ECException: Error, CustomStringConvertible {
             return "ASN1 has wrong structure"
         case .pemStructure:
             return "PEM structure is wrong"
-        case .base64:
-            return "Base64 decoding exception"
         case .encodePoint:
             return "Point encode exception"
         case .decodePoint:
@@ -47,9 +45,6 @@ public enum ECException: Error, CustomStringConvertible {
 
     /// Authentication failed
     case authentication
-    
-    /// Base64 decoding exception
-    case base64
 
     /// Invalid input to point decoding
     case decodePoint

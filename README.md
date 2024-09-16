@@ -3,7 +3,7 @@
 SwiftECC provides elliptic curve cryptography in Swift.
 This encompasses:
 
-* Creating, loading and storing public and private keys</li>
+* Creating, loading and storing public and private keys
 * Encryption and decryption using the ECIES algorithm based on the AES block cipher and six different block modes
 * AEAD (Authenticated Encryption with Associated Data) encryption and decryption using the ECIES algorithm with the ChaCha20/Poly1305 or the AES/GCM cipher
 * Signature signing and verifying using the ECDSA algorithm, including the option of deterministic signatures
